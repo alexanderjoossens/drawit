@@ -7,9 +7,7 @@ class Node {
 
 public class DoublePoint {
 	public DoublePoint(int x ,int y) {
-		double_x = x;
-		double_y = y;
-		// test
+
 		
 				
 	}
