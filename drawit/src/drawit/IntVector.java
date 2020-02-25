@@ -1,11 +1,11 @@
 ackage drawit;
 
-public class DoubleVector {
+public class IntVector {
 	
     private double x;
     private double y;
 
-    public DoubleVector(double x, double y) {
+    public IntVector(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -65,5 +65,4 @@ public class DoubleVector {
     return Collinearity
 
 }
-//test
 
