@@ -48,13 +48,13 @@ public class IntVector {
      * @post result == this.getX() * other.getX() + this.getY() * other.getY()
      */
 
-    public long dotProduct​(IntVector other) {
+    public long dotProduct(IntVector other) {
     	double dotProd = (this.x * other.getX()) + (this.y * other.getY());
     	return dotProd;
 
     }
 
-    public boolean isCollinearWith​(IntVector other)
+    public boolean isCollinearWith(IntVector other)
     /**
      * Returns whether this vector is collinear with the given vector.
      * 
