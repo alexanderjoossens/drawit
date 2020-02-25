@@ -55,6 +55,18 @@ public class IntPoint {
 		return isCounterClockWise(a,c,d) != isCounterClockWise(b,c,d) && isCounterClockWise(a,b,c) != isCounterClockWise(a,b,d);
 	}
 	
+	public IntPoint plus(IntVector other) {
+		int xCoord = this.x + other.getX();
+		int yCoord = this.y + other.getY();
+		IntPoint point = new IntPoint(xCoord, yCoord);
+		return point;
+	}
 	
+	public IntVector minus(IntPoint other) {
+		int xCoord = this.x - other.getX();
+		int yCoord = this.y - other.getY();
+		IntVector vector = new IntVector(xCoord, yCoord);
+		return vector;	
+	}
 
 }
