@@ -19,7 +19,7 @@ public class PointArrays {
 	public static IntPoint[] copy​(IntPoint[] points)
 	
 	
-	IntPoint[] newarray = new IntPoint[points.length()]
+	IntPoint[] newarray = new IntPoint[] // je moet nog 'points' meegeven maar weet de syntax niet
 			
 	
 			
