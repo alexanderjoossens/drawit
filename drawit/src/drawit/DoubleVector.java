@@ -2,8 +2,8 @@ package drawit;
 
 public class DoubleVector {
 	
-    double x;
-    double y;
+    private double x;
+    private double y;
 
     public DoubleVector(double x, double y) {
         this.x = x;
@@ -25,12 +25,12 @@ public class DoubleVector {
     }
 
     public double crossProduct(DoubleVector other) {
-    	double crossProd = (this.x * other.y) - (this.y * other.x);
+    	double crossProd = (this.x * other.getY()) - (this.y * other.getX());
     	return crossProd;
     }
 
     public double dotProduct(DoubleVector other) {
-    	double dotProd = (this.x * other.x) + (this.y * other.y);
+    	double dotProd = (this.x * other.getX()) + (this.y * other.getY());
     	return dotProd;
 
     }

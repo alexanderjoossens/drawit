@@ -2,8 +2,8 @@ package drawit;
 
 public class DoublePoint {
 	
-	double x;
-	double y;
+	private double x;
+	private double y;
 	
 	public DoublePoint(double x, double y) {
 		this.x = x;
