@@ -1,17 +1,26 @@
 package drawit;
 
 public class DoubleVector {
+	
     double x;
     double y;
 
-    public void DoubleVector(double x_value, double y_value) {
-        x = x_value;
-        y = y_value;
+    public DoubleVector(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-
+    
+    public double getX() {
+    	return this.x;
+    }
+    
+    public double getY() {
+    	return this.y;
+    }
+    
     public double asAngle() {
-
+    	
     }
 
     public double crossProduct(DoubleVector other) {

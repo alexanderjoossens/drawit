@@ -19,20 +19,25 @@ public class DoublePoint {
 	}
 	
 	public DoublePoint plus(DoubleVector other) {
-		this.x += other.getX();
-		this.y += other.getY();		  
+		double xCoord = this.x + other.getX();
+		double yCoord = this.y + other.getY();
+		DoublePoint point = new DoublePoint(xCoord, yCoord);
+		return point;
 	}
 	
 	public DoubleVector minus(DoublePoint other) {
-		this.x += other.getX();
-		this.y += other.getY();
+		double xCoord = this.x - other.getX();
+		double yCoord = this.y - other.getY();
+		DoubleVector vector = new DoubleVector(xCoord, yCoord);
+		return vector;
 		
 	}
 	
 	
-	public IntPoint round() {
-		
-		
-	}
+//	public IntPoint round() {
+// moet nog gemaakt worden
+//		
+//		
+//	}
 
 }
