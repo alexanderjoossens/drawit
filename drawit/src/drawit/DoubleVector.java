@@ -19,28 +19,28 @@ public class DoubleVector {
     	return this.y;
     }
     
-    public double asAngle() {
-    	
-    }
-
-    public double crossProduct(DoubleVector other) {
-
-    }
-
-    public double dotProduct(DoubleVector other) {
-
-    }
-
-    public double getSize() {
-
-    }
-
-    public DoubleVector plus(DoubleVector other) {
-
-    }
-
-    public DoubleVector scale(double d) {
-
-    }
+//    public double asAngle() {
+//    	
+//    }
+//
+//    public double crossProduct(DoubleVector other) {
+//
+//    }
+//
+//    public double dotProduct(DoubleVector other) {
+//
+//    }
+//
+//    public double getSize() {
+//
+//    }
+//
+//    public DoubleVector plus(DoubleVector other) {
+//
+//    }
+//
+//    public DoubleVector scale(double d) {
+//
+//    }
 }
 

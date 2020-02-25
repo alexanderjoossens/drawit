@@ -34,10 +34,13 @@ public class DoublePoint {
 	}
 	
 	
-//	public IntPoint round() {
-// moet nog gemaakt worden
-//		
-//		
-//	}
+	public IntPoint round() {
+		int xCoord = (int) Math.round(this.x);
+		int yCoord = (int) Math.round(this.y);
+		IntPoint point = new IntPoint(xCoord, yCoord);
+		return point;
+		
+		
+	}
 
 }
