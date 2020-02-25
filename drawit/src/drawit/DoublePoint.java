@@ -4,30 +4,34 @@ public class DoublePoint {
 	
 	double x;
 	double y;
-	public DoublePoint(double xValue, double yValue) {
-		x = xValue;
-		y = yValue;
-		
+	
+	public DoublePoint(double x, double y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 	public double getX() {
-		return x;
+		return this.x;
 	}
 	
 	public double getY() {
-		return y;
+		return this.y;
 	}
 	
 	public DoublePoint plus(DoubleVector other) {
-//	Wat moet deze functie doen? Staat niet in de html uitgelegd ;(
-		
+		this.x += other.getX();
+		this.y += other.getY();		  
 	}
 	
 	public DoubleVector minus(DoublePoint other) {
-//	Same hier
+		this.x += other.getX();
+		this.y += other.getY();
+		
 	}
 	
+	
 	public IntPoint round() {
+		
 		
 	}
 
