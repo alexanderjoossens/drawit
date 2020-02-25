@@ -65,5 +65,5 @@ public class DoubleVector {
     return Collinearity
 
 }
-
+//test
 
