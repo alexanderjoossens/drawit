@@ -29,8 +29,7 @@ public class DoublePoint {
 		double xCoord = this.x - other.getX();
 		double yCoord = this.y - other.getY();
 		DoubleVector vector = new DoubleVector(xCoord, yCoord);
-		return vector;
-		
+		return vector;	
 	}
 	
 	
