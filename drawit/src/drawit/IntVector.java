@@ -2,8 +2,8 @@ ackage drawit;
 
 public class IntVector {
 	
-    private double x;
-    private double y;
+    private int x;
+    private int y;
 
     public IntVector(double x, double y) {
         this.x = x;
