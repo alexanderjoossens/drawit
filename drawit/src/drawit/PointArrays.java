@@ -1,8 +1,8 @@
 package drawit;
-//TEST random zin om te kunne pushen
+
 public class PointArrays {
 
-	// moet ik dit deze intarray zelf aanmaken? want ik gebruik die nergens
+	// moet ik deze intarray zelf aanmaken? want ik gebruik die nergens
 	private IntPoint[] points;
 
 	public static IntPoint[] copy(IntPoint[] points) {
@@ -69,3 +69,26 @@ public class PointArrays {
 	 * @param value
 	 * @return
 	 */
+	
+	static string checkDefinesProperPolygon(IntPoint[] points) {
+		for (i=0; i<points.length;i++) {
+			for (j = 0; j<points.length; j++) {
+				if (points[i].getX() == points[j].getX() && points[i].getY() == points[j].getY() && i!=j) {
+					return "2 vertices coincide!";
+				}
+			}
+		}
+		if (points[0].isOnLineSegment(points[1], points[points.length])) {
+			return "There is a vertex on an edge!";
+		}
+		if (points[points.length].isOnLineSegment(points[points.length-1], points[0])) {
+			return "There is a vertex on an edge!";
+		}
+		for (i=1; i<points.length-1;i++) {
+			if (points[i].isOnLineSegment(points[i-1], points[i+1])) {
+				return "There is a vertex on an edge!";
+			}
+		}
+		
+		
+	}
