@@ -1,9 +1,8 @@
 package drawit;
 
 public class PointArrays {
-	
-	
-	// moet ik dit deze intarray zelf aanmaken? want ik gebruik die nergens	
+
+	// moet ik dit deze intarray zelf aanmaken? want ik gebruik die nergens
 	private IntPoint[] points;
 
 	public static IntPoint[] copy(IntPoint[] points) {
@@ -70,9 +69,5 @@ public class PointArrays {
 	 * @param value
 	 * @return
 	 */
-
-	public static String checkDefinesProperPolygon(IntPoint[] points) {
-
-	}
 
 }
