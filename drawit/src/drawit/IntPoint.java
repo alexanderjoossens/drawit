@@ -45,7 +45,7 @@ public class IntPoint {
 		
 	}
 	
-	static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
+	public boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
 //		double rico1 = (b.getY() - a.getY()) / (b.getX() - a.getX());
 //		double rico2 = (d.getY() - c.getY()) / (d.getX() - c.getX());
 //
