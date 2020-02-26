@@ -69,5 +69,3 @@ public class PointArrays {
 	 * @param value
 	 * @return
 	 */
-
-}
