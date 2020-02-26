@@ -1,5 +1,5 @@
 package drawit;
-
+//TEST random zin om te kunne pushen
 public class PointArrays {
 
 	// moet ik dit deze intarray zelf aanmaken? want ik gebruik die nergens
