@@ -6,7 +6,10 @@ class drawitTest {
 
 	@Test
 	void test() {
-		IntVector getX(test)  == test
+		double x = 2;
+		double y = 3;
+		DoublePoint point1 = new DoublePoint(x, y);
+		assert point1.getX() == x;
 	}
 
 }

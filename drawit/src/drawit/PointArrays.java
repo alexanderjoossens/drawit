@@ -90,5 +90,10 @@ public class PointArrays {
 			}
 		}
 		
+		for (i = 0; i<points.length; i++) {
+			for ( = 0; j<points.length;i++) {
+				if lineSegmentsIntersect(points[i], points[i+1], points[j], points[j+1])
+			}
+		}
 		
 	}
