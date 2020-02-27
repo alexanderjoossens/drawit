@@ -27,7 +27,7 @@ public class DoubleVector {
      */
     
     public double asAngle() {
-    	return Math.atan(this.y/this.x);
+    	return Math.atan2(this.y, this.x);
     	
     }
     /**

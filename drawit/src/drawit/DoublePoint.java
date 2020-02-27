@@ -33,6 +33,11 @@ public class DoublePoint {
 	}
 	
 	
+	/**
+	 * Returns an IntPoint object whose coordinates are obtained by rounding the coordinates of this point to the nearest integer.
+	 * @return
+	 */
+	
 	public IntPoint round() {
 		int xCoord = (int) Math.round(this.x);
 		int yCoord = (int) Math.round(this.y);
