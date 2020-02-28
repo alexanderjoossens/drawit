@@ -1,4 +1,4 @@
-ackage drawit;
+package drawit;
 
 public class IntVector {
 	
