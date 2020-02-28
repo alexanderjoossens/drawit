@@ -30,7 +30,7 @@ public class IntPoint {
 		return point;
 	}
 
-	static boolean isOnLineSegment(IntPoint a, IntPoint b) {
+	boolean isOnLineSegment(IntPoint a, IntPoint b) {
 		double rico = (b.getY() - a.getY()) / (b.getX() - a.getX());
 		double function = rico * (b.getX() - this.x) + this.y;
 		if (function == b.getY()) {
@@ -45,7 +45,7 @@ public class IntPoint {
 		
 	}
 	
-	public boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
+	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
 //		double rico1 = (b.getY() - a.getY()) / (b.getX() - a.getX());
 //		double rico2 = (d.getY() - c.getY()) / (d.getX() - c.getX());
 //

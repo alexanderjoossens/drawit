@@ -1,6 +1,6 @@
 package drawit;
 
-import seconddrawit.IntPoint;
+import drawit.IntPoint;
 
 public class PointArrays {
 	// moet ik deze intarray zelf aanmaken? want ik gebruik die nergens

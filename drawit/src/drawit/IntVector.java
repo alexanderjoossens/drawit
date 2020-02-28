@@ -28,7 +28,7 @@ public class IntVector {
     
     public DoubleVector asDoubleVector() {
     	DoubleVector vector = new DoubleVector(this.getX(),this.getY());
-    	return vevtor;
+    	return vector;
     	
     }
     /**
@@ -52,10 +52,9 @@ public class IntVector {
     public long dotProduct(IntVector other) {
     	long dotProd = (this.x * other.getX()) + (this.y * other.getY());
     	return dotProd;
-
     }
 
-    public boolean isCollinearWith(IntVector other)
+    public boolean isCollinearWith(IntVector other) {
     /**
      * Returns whether this vector is collinear with the given vector.
      * 
@@ -64,6 +63,7 @@ public class IntVector {
     
     	boolean Collinearity = (this.crossProduct(other) == 0);
     	return Collinearity;
+    }
 
 }
 
