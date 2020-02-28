@@ -27,7 +27,8 @@ public class IntVector {
      */
     
     public DoubleVector asDoubleVector() {
-    	return Math.atan(this.y/this.x);
+    	DoubleVector vector = new DoubleVector(this.getX(),this.getY());
+    	return vevtor;
     	
     }
     /**
@@ -49,7 +50,7 @@ public class IntVector {
      */
 
     public long dotProduct(IntVector other) {
-    	double dotProd = (this.x * other.getX()) + (this.y * other.getY());
+    	long dotProd = (this.x * other.getX()) + (this.y * other.getY());
     	return dotProd;
 
     }
@@ -61,8 +62,8 @@ public class IntVector {
      * @post result == (this.crossProduct(other) == 0)
      */
     
-    Collinearity = (this.crossProduct(other) == 0)
-    return Collinearity
+    	boolean Collinearity = (this.crossProduct(other) == 0);
+    	return Collinearity;
 
 }
 

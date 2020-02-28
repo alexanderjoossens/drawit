@@ -30,7 +30,7 @@ public class IntPoint {
 		return point;
 	}
 
-	boolean isOnLineSegment(IntPoint a, IntPoint b) {
+	static boolean isOnLineSegment(IntPoint a, IntPoint b) {
 		double rico = (b.getY() - a.getY()) / (b.getX() - a.getX());
 		double function = rico * (b.getX() - this.x) + this.y;
 		if (function == b.getY()) {

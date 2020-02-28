@@ -1,9 +1,10 @@
 package drawit;
 
-public class PointArrays {
+import seconddrawit.IntPoint;
 
+public class PointArrays {
 	// moet ik deze intarray zelf aanmaken? want ik gebruik die nergens
-	private IntPoint[] points;
+	//private IntPoint[] points;
 
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];
@@ -18,7 +19,7 @@ public class PointArrays {
 
 	public static IntPoint[] insert(IntPoint[] points, int index, IntPoint point) {
 		IntPoint[] newArray = new IntPoint[points.length+1];
-		int pointsIndex = 0
+		int pointsIndex = 0;
 		for (int i = 0; i < points.length+1; i++ ) {
 			if (i == index) {
 				newArray[i] = point;
@@ -70,10 +71,10 @@ public class PointArrays {
 	 * @return
 	 */
 	
-	static string checkDefinesProperPolygon(IntPoint[] points) {
-		for (i=0; i<points.length;i++) {
-			for (j = 0; j<points.length; j++) {
-				if (points[i].getX() == points[j].getX() && points[i].getY() == points[j].getY() && i!=j) {
+	static String checkDefinesProperPolygon(IntPoint[] points) {
+		for (int i=0; i<points.length;i++) {
+			for (int j = 0; j<points.length; j++) {
+				if (points[i].equals(points[j]) && i!=j) {
 					return "2 vertices coincide!";
 				}
 			}
@@ -84,16 +85,33 @@ public class PointArrays {
 		if (points[points.length].isOnLineSegment(points[points.length-1], points[0])) {
 			return "There is a vertex on an edge!";
 		}
-		for (i=1; i<points.length-1;i++) {
+		for (int i=1; i<points.length-1;i++) {
 			if (points[i].isOnLineSegment(points[i-1], points[i+1])) {
 				return "There is a vertex on an edge!";
 			}
 		}
 		
-		for (i = 0; i<points.length; i++) {
-			for ( = 0; j<points.length;i++) {
-				if lineSegmentsIntersect(points[i], points[i+1], points[j], points[j+1])
+		for (int i = 0; i<points.length; i++) {
+			for (int j = 0; j<points.length-1;i++) {
+				if (IntPoint.lineSegmentsIntersect(points[i], points[i+1], points[j], points[j+1]) && i!=j) {
+					return "Lines intersect!";
+				}
 			}
 		}
-		
+		for (int i= 0; i<points.length-1;i++) {
+			if (IntPoint.lineSegmentsIntersect(points[i], points[i+1], points[0], points[points.length])) {
+				return "Lines intersect!";
+			}
+		}
+					
+		return null;
 	}
+		
+	public static void main(String[] arguments) {
+		int x = 5;
+		int y = 5;
+		assert x==y:"x is wrong";
+		System.out.println("test"+x);
+	}
+
+}
