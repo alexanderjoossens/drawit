@@ -3,8 +3,6 @@ package drawit;
 import drawit.IntPoint;
 
 public class PointArrays {
-	// moet ik deze intarray zelf aanmaken? want ik gebruik die nergens
-	//private IntPoint[] points;
 
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];
