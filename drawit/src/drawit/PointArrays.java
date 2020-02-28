@@ -77,10 +77,10 @@ public class PointArrays {
 				}
 			}
 		}
-		if (points[0].isOnLineSegment(points[1], points[points.length])) {
+		if (points[0].isOnLineSegment(points[1], points[points.length-1])) {
 			return "There is a vertex on an edge!";
 		}
-		if (points[points.length].isOnLineSegment(points[points.length-1], points[0])) {
+		if (points[points.length-1].isOnLineSegment(points[points.length-2], points[0])) {
 			return "There is a vertex on an edge!";
 		}
 		for (int i=1; i<points.length-1;i++) {
@@ -97,19 +97,12 @@ public class PointArrays {
 			}
 		}
 		for (int i= 0; i<points.length-1;i++) {
-			if (IntPoint.lineSegmentsIntersect(points[i], points[i+1], points[0], points[points.length])) {
+			if (IntPoint.lineSegmentsIntersect(points[i], points[i+1], points[0], points[points.length-1])) {
 				return "Lines intersect!";
 			}
 		}
 					
 		return null;
-	}
-		
-	public static void main(String[] arguments) {
-		int x = 5;
-		int y = 5;
-		assert x==y:"x is wrong";
-		System.out.println("test"+x);
 	}
 
 }

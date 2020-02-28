@@ -8,10 +8,10 @@ class PointArraysTest {
 
 	@Test
 	void test() {
-		IntPoint point1 = new IntPoint(1,2);
-		IntPoint point2 = new IntPoint(2,4);
-		IntPoint point3 = new IntPoint(3,2);
-		IntPoint point4 = new IntPoint(4,5);
+		IntPoint point1 = new IntPoint(1,1);
+		IntPoint point2 = new IntPoint(3,2);
+		IntPoint point3 = new IntPoint(2,3);
+		IntPoint point4 = new IntPoint(1,3);
 		
 		IntPoint[] pointArray= new IntPoint[4];
 		
@@ -24,6 +24,8 @@ class PointArraysTest {
 		
 		assert pointArray[0].getX() == 1;
 		assert pointArray2[0].getX() == 1;
+		System.out.println(PointArrays.checkDefinesProperPolygon(pointArray));
+		assert PointArrays.checkDefinesProperPolygon(pointArray) == null;
 		
 		
 		
