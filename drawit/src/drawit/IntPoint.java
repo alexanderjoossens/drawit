@@ -3,6 +3,7 @@ package drawit;
 public class IntPoint {
 	private int x;
 	private int y;
+	//delete dit
 
 	public IntPoint(int x, int y) {
 		this.x = x;
@@ -46,12 +47,6 @@ public class IntPoint {
 	}
 	
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
-//		double rico1 = (b.getY() - a.getY()) / (b.getX() - a.getX());
-//		double rico2 = (d.getY() - c.getY()) / (d.getX() - c.getX());
-//
-//		double xIntersection = (b.getY() - d.getY() + rico2 * d.getX() - rico1 * b.getX()) / (rico2 - rico1);
-//		double yIntersection = rico2 * (xIntersection - d.getX()) + d.getY();
-		
 		return isCounterClockWise(a,c,d) != isCounterClockWise(b,c,d) && isCounterClockWise(a,b,c) != isCounterClockWise(a,b,d);
 	}
 	
