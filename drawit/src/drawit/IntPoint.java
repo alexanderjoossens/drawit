@@ -66,5 +66,12 @@ public class IntPoint {
 		IntVector vector = new IntVector(xCoord, yCoord);
 		return vector;	
 	}
+	
+	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
+		
+		
+		return true;
+	}
+
 
 }
