@@ -1,5 +1,10 @@
 package drawit;
 
+/**
+ * blabla?
+ * @author Alexander and Stefan
+ *
+ */
 public class DoublePoint {
 	
 	private double x;
@@ -11,7 +16,7 @@ public class DoublePoint {
 	}
 	
 	/**
-	 * Returns the x-value of the given point.
+	 * Returns this point's X coordinate.
 	 * @return
 	 */
 	public double getX() {
@@ -19,7 +24,7 @@ public class DoublePoint {
 	}
 	
 	/**
-	 * Returns the y-value of the given point.
+	 * Returns this point's Y coordinate.
 	 * @return
 	 */
 	public double getY() {

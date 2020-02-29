@@ -2,10 +2,16 @@ package drawit;
 
 import drawit.IntPoint;
 
+/**
+ * Declares a number of methods useful for working with arrays of IntPoint objects.
+ * @author Alexander and Stefan
+ *
+ */
 public class PointArrays {
 	/**
 	 * Returns a new array with the same contents as the given array.
 	 * 
+	 * @post
 	 */
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];
@@ -22,6 +28,7 @@ public class PointArrays {
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the given point inserted at the given index.
 	 * 
+	 * @post
 	 */
 	public static IntPoint[] insert(IntPoint[] points, int index, IntPoint point) {
 		IntPoint[] newArray = new IntPoint[points.length + 1];
@@ -42,6 +49,7 @@ public class PointArrays {
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the element at the given index removed.
 	 * 
+	 * @post
 	 */
 	public static IntPoint[] remove(IntPoint[] points, int index) {
 		IntPoint[] newArray = new IntPoint[points.length - 1];
@@ -61,6 +69,7 @@ public class PointArrays {
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the element at the given index replaced by the given point.
 	 * 
+	 * @post
 	 */
 	public static IntPoint[] update(IntPoint[] points, int index, IntPoint value) {
 		IntPoint[] newArray = new IntPoint[points.length];
@@ -78,6 +87,7 @@ public class PointArrays {
 	 * Returns null if the given array of points defines a proper polygon;
 	 * otherwise, returns a string describing why it does not.
 	 * 
+	 * @post
 	 */
 	static String checkDefinesProperPolygon(IntPoint[] points) {
 		for (int i = 0; i < points.length; i++) {

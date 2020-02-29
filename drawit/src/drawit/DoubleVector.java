@@ -1,5 +1,10 @@
 package drawit;
 
+/**
+ * blabla??
+ * @author Alexander and Stefan
+ *
+ */
 public class DoubleVector {
 	
     double x;
@@ -10,10 +15,18 @@ public class DoubleVector {
         this.y = y;
     }
 
+    /**
+     * Returns the X value of the given vector.
+     * @return
+     */
     public double getX() {
     	return this.x;
     }
     
+    /**
+     * Returns the Y value of the given vector.
+     * @return
+     */
     public double getY() {
     	return this.y;
     }
