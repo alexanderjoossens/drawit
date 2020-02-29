@@ -25,6 +25,11 @@ class DoublePointTest {
 		point5 = point1.minus(point3);
 		assert point5.getX() == -3.5 && point5.getY() == 1.5;
 		
+		DoublePoint point6 = new DoublePoint(-999999999, 0);
+		IntPoint point7 = point6.round();
+		assert point7.getX() == -999999999 && point7.getY() == 0;
+				
+		
 	}
 
 }
