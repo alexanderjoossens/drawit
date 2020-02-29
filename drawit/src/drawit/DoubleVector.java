@@ -19,13 +19,14 @@ public class DoubleVector {
     }
     
     /**
-     * Returns the angle from positive X to this vector, in radians. The angle from positive X to positive Y is Math.PI / 2; the angle from positive X to negative Y is -Math.PI / 2.
+     * Returns the angle from positive X to this vector, in radians.
+     * The angle from positive X to positive Y is Math.PI / 2; the angle from positive X to negative Y is -Math.PI / 2.
+     * 
      * @return
      * 
      * @post The result ...
      * 
      */
-    
     public double asAngle() {
     	return Math.atan2(this.y, this.x);
     	
@@ -43,29 +44,43 @@ public class DoubleVector {
     
     /**
      * Returns the dot product of this vector and the given vector.
+     * 
      * @param other
      * @return
      * @post result == this.getX() * other.getX() + this.getY() * other.getY()
      */
-
     public double dotProduct(DoubleVector other) {
     	double dotProd = (this.x * other.x) + (this.y * other.y);
     	return dotProd;
 
     }
-
+    /**
+     * Returns the size (=norm) of the given vector.
+     * 
+     * @return
+     */
     public double getSize() {
     	double size = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     	return size;
     }
-
+    
+    /**
+     * Returns the vector that you become after adding the given vector to the other given vector.
+     * 
+     * @param other
+     * @return
+     */
     public DoubleVector plus(DoubleVector other) {
     	double xCoord = other.x;
     	double yCoord = other.y;
     	DoubleVector vector = new DoubleVector(xCoord+this.x, yCoord+this.y);
     	return vector;
     }
-
+    /**
+     * Returns a DoubleVector object whose coordinates are obtained by multiplying this vector's coordinates by the given scale factor.
+     * @param 
+     * @return
+     */
     public DoubleVector scale(double d) {
     	DoubleVector vector = new DoubleVector(this.x*d, this.y*d);
     	return vector;

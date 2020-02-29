@@ -11,7 +11,7 @@ public class DoublePoint {
 	}
 	
 	/**
-	 * Returns the x-value of the given DoublePoint.
+	 * Returns the x-value of the given point.
 	 * @return
 	 */
 	public double getX() {
@@ -19,7 +19,7 @@ public class DoublePoint {
 	}
 	
 	/**
-	 * Returns the y-value of the given DoublePoint.
+	 * Returns the y-value of the given point.
 	 * @return
 	 */
 	public double getY() {
@@ -27,7 +27,7 @@ public class DoublePoint {
 	}
 	
 	/**
-	 * Returns the point that you become after adding the given DoubleVector to the given DoublePoint (=sum).
+	 * Returns the point that you become after adding the given vector to the given point (=sum).
 	 * @param other
 	 * @return
 	 */
@@ -39,7 +39,7 @@ public class DoublePoint {
 	}
 	
 	/**
-	 * Returns the point that you become after distracting the given DoubleVector from the given DoublePoint (=sum).
+	 * Returns the point that you become after distracting the given vector from the given point (=difference).
 	 * @param other
 	 * @return
 	 */
