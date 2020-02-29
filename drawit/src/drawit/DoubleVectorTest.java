@@ -8,17 +8,25 @@ class DoubleVectorTest {
 
 	@Test
 	void test() {
-		DoubleVector point1 = new DoubleVector(2.1, 2.1);
-		assert point1.getX() == 2.1 && point1.getY() == 2.1;
-		assert point1.asAngle() == Math.PI/4;
+		DoubleVector vector1 = new DoubleVector(2.5, 2.5);
+		assert vector1.getX() == 2.5 && vector1.getY() == 2.5;
+		assert vector1.asAngle() == Math.PI/4;
 		
-		DoubleVector point2 = new DoubleVector(2, 3);
-		double x = point1.crossProduct(point2);
-		//System.out.println(p);
-		assert x == 2.1000000000000005; //wat doen we hiermee?
+		DoubleVector vector2 = new DoubleVector(2, 3);
+		double product = vector1.crossProduct(vector2);
+		assert product == 2.5;
 		
-		x = point1.dotProduct(point2);
-		assert x == 10.5;
+		product = vector1.dotProduct(vector2);
+		assert product == 12.5;
+		
+		double size = vector1.getSize();
+		assert size == Math.sqrt(2.5*2.5*2);
+		
+		DoubleVector vector3 = new DoubleVector(0,0);
+		vector3 = vector1.plus(vector2);
+		assert vector3.getX() == 4.5 && vector3.getY() == 5.5;
+		
+		
 		
 		
 	}
