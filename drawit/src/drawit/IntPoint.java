@@ -51,7 +51,7 @@ public class IntPoint {
 		DoublePoint point = new DoublePoint(this.x, this.y);
 		return point;
 	}
-
+	
 	/**
 	 * Returns true if this point is on open line segment bc.
 	 * @param a
@@ -80,14 +80,7 @@ public class IntPoint {
 		
 	}
 	
-	/**
-	 * Returns true iff the open line segment ab intersects the open line segment cd.
-	 * @param a
-	 * @param b
-	 * @param c
-	 * @param d
-	 * @return
-	 */
+	//hierbij hoeft geen documentatie! staat op toledo
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
 		if (a.equals(d) || b.equals(c)) {
 			return false;

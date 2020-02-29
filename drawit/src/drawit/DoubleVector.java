@@ -1,10 +1,5 @@
 package drawit;
 
-/**
- * blabla??
- * @author Alexander and Stefan
- *
- */
 public class DoubleVector {
 	
     double x;

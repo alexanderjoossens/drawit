@@ -1,10 +1,5 @@
 package drawit;
 
-/**
- * blabla?
- * @author Alexander and Stefan
- *
- */
 public class DoublePoint {
 	
 	private double x;

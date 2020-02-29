@@ -16,6 +16,7 @@ public class RoundedPolygon {
 		
 	}
 	
+	//dit is genoeg documentatie zie toledo
 	/**
 	 * Returns true iff the given point is contained by the (non-rounded) polygon
 	 * defined by this rounded polygon's vertices. This method does not take into
@@ -50,10 +51,10 @@ public class RoundedPolygon {
 		}
 		return true;
 	}
-
+	
+	// dit is genoeg documentatie staat op toledo
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing this rounded polygon.
-	 * @return
 	 */
 	public String getDrawingCommands() {
 		return "lala";

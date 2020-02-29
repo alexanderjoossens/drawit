@@ -31,12 +31,9 @@ public class IntVector {
     	return this.y;
     }
     
+    //dit is genoeg documentatie staat op toledo
     /**
      * Returns a DoubleVector object that represents the same vector represented by this IntVector object.
-     * @return
-     * 
-     * @post The result ...
-     * 
      */
     public DoubleVector asDoubleVector() {
     	DoubleVector vector = new DoubleVector(this.getX(),this.getY());
