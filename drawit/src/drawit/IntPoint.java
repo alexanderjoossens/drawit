@@ -32,9 +32,9 @@ public class IntPoint {
 	}
 
 	boolean isOnLineSegment(IntPoint a, IntPoint b) {
-		double rico = (b.getY() - a.getY()) / (b.getX() - a.getX());
-		double function = rico * (b.getX() - this.x) + this.y;
-		if (function == b.getY()) {
+		double rico = ((double) (b.getY() - a.getY())) / ((double) (b.getX() - a.getX()));
+		double function = rico * (this.x -b.getX()) + b.getY();
+		if (function == this.getY()) {
 			return true;
 		} else {
 			return false;
@@ -47,6 +47,9 @@ public class IntPoint {
 	}
 	
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
+		if (a.equals(d) || b.equals(c)) {
+			return false;
+		}
 		return isCounterClockWise(a,c,d) != isCounterClockWise(b,c,d) && isCounterClockWise(a,b,c) != isCounterClockWise(a,b,d);
 	}
 	

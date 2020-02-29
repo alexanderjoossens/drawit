@@ -89,10 +89,10 @@ public class PointArrays {
 			}
 		}
 		
-		for (int i = 0; i<points.length; i++) {
+		for (int i = 0; i<points.length-1; i++) {
 			for (int j = 0; j<points.length-1;i++) {
 				if (IntPoint.lineSegmentsIntersect(points[i], points[i+1], points[j], points[j+1]) && i!=j) {
-					return "Lines intersect!";
+					return ("Lines intersect!"+i+j);
 				}
 			}
 		}
