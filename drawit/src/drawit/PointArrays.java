@@ -3,7 +3,10 @@ package drawit;
 import drawit.IntPoint;
 
 public class PointArrays {
-
+	/**
+	 * Returns a new array with the same contents as the given array.
+	 * 
+	 */
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];
 
@@ -15,6 +18,11 @@ public class PointArrays {
 
 	}
 
+	/**
+	 * Returns a new array whose elements are the elements of the given array with
+	 * the given point inserted at the given index.
+	 * 
+	 */
 	public static IntPoint[] insert(IntPoint[] points, int index, IntPoint point) {
 		IntPoint[] newArray = new IntPoint[points.length + 1];
 		int pointsIndex = 0;
@@ -30,6 +38,11 @@ public class PointArrays {
 
 	}
 
+	/**
+	 * Returns a new array whose elements are the elements of the given array with
+	 * the element at the given index removed.
+	 * 
+	 */
 	public static IntPoint[] remove(IntPoint[] points, int index) {
 		IntPoint[] newArray = new IntPoint[points.length - 1];
 		int pointsIndex = 0;
@@ -44,6 +57,11 @@ public class PointArrays {
 
 	}
 
+	/**
+	 * Returns a new array whose elements are the elements of the given array with
+	 * the element at the given index replaced by the given point.
+	 * 
+	 */
 	public static IntPoint[] update(IntPoint[] points, int index, IntPoint value) {
 		IntPoint[] newArray = new IntPoint[points.length];
 		for (int i = 0; i < points.length; i++) {
@@ -60,12 +78,7 @@ public class PointArrays {
 	 * Returns null if the given array of points defines a proper polygon;
 	 * otherwise, returns a string describing why it does not.
 	 * 
-	 * @param points
-	 * @param index
-	 * @param value
-	 * @return
 	 */
-
 	static String checkDefinesProperPolygon(IntPoint[] points) {
 		for (int i = 0; i < points.length; i++) {
 			for (int j = 0; j < points.length; j++) {
