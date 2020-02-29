@@ -15,6 +15,7 @@ class IntPointTest {
 		assert point1.getX() == 1;
 		System.out.println(IntPoint.lineSegmentsIntersect(point1,point2, point2,point3));
 		assert point3.isOnLineSegment(point2, point4) == false;
+		//test
 		
 		
 		
