@@ -57,10 +57,10 @@ public class RoundedPolygon {
 
 		}
 
-		if ((intersectAmount & 2) == 0) {
+		if ((intersectAmount % 2) == 0) {
 			return false;
 		}
-		
+
 		return true;
 	}
 

@@ -68,13 +68,26 @@ public class IntPoint {
 	 * @return
 	 */
 	boolean isOnLineSegment(IntPoint a, IntPoint b) {
+		if (a.getX() == b.getX()) {
+			if (((a.getY() <= this.getY() && this.getY() <= b.getY())
+					|| (b.getY() <= this.getY() && this.getY() <= a.getY())) && this.getX() == a.getX()) {
+				return true;
+			}
+			return false;
+		}
 		double rico = ((double) (b.getY() - a.getY())) / ((double) (b.getX() - a.getX()));
 		double function = rico * (this.x - b.getX()) + b.getY();
 		if (function == this.getY()) {
-			return true;
-		} else {
-			return false;
-		}
+			if ((a.getY() <= this.getY() && this.getY() <= b.getY())
+					|| (b.getY() <= this.getY() && this.getY() <= a.getY())) {
+				if ((a.getX() <= this.getX() && this.getX() <= b.getX())
+						|| (b.getX() <= this.getX() && this.getX() <= a.getX())) {
+					return true;
+				}
+			}
+			
+		} 
+		return false;
 	}
 
 	/**
