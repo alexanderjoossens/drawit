@@ -142,8 +142,7 @@ public class IntPoint {
 	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
 		if (a.getX() == b.getX()) {
 			if (((a.getY() < this.getY() && this.getY() < b.getY())
-					|| (b.getY() < this.getY() && this.getY() < a.getY())) && this.getX() < a.getX()
-					&& this.getY() != a.getY() && this.getY() != b.getY()) {
+					|| (b.getY() < this.getY() && this.getY() < a.getY())) && this.getX() < a.getX()) {
 				return true;
 			}
 			return false;
