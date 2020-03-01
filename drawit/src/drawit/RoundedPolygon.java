@@ -9,14 +9,14 @@ package drawit;
  * 
  */
 public class RoundedPolygon {
-	int radius;
-	IntPoint[] points;
+	private int radius;
+	private IntPoint[] points;
 
 	public RoundedPolygon() {
-		
+
 	}
-	
-	//dit is genoeg documentatie zie toledo
+
+	// dit is genoeg documentatie zie toledo
 	/**
 	 * Returns true iff the given point is contained by the (non-rounded) polygon
 	 * defined by this rounded polygon's vertices. This method does not take into
@@ -30,38 +30,52 @@ public class RoundedPolygon {
 	public boolean contains(IntPoint point) {
 		for (int i = 0; i < this.points.length; i++) {
 			if (this.points[i].equals(point)) {
-				return false;
+				return true;
 			}
 		}
 		if (point.isOnLineSegment(this.points[0], this.points[this.points.length - 1])) {
-			return false;
+			return true;
 		}
 		for (int i = 0; i < points.length - 1; i++) {
 			if (point.isOnLineSegment(this.points[i], this.points[i + 1])) {
-				return false;
+				return true;
 			}
 		}
 		int intersectAmount = 0;
-		
+
 		for (int i = 0; i < this.points.length; i++) {
 			if (!(this.points[i].getX() > point.getX() && this.points[i].getY() == point.getY())) {
-				return true;
-		
+				intersectAmount++;
 			}
 		}
+
+		for (int i = 0; i < this.points.length - 1; i++) {
+			boolean intersectsExitPath = point.exitPathIntersect(this.points[i], this.points[i + 1]);
+			if (intersectsExitPath) {
+				intersectAmount++;
+			}
+
+		}
+
+		if ((intersectAmount & 2) == 0) {
+			return false;
+		}
+		
 		return true;
 	}
-	
+
 	// dit is genoeg documentatie staat op toledo
 	/**
-	 * Returns a textual representation of a set of drawing commands for drawing this rounded polygon.
+	 * Returns a textual representation of a set of drawing commands for drawing
+	 * this rounded polygon.
 	 */
 	public String getDrawingCommands() {
 		return "lala";
 	}
-	
+
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
+	 * 
 	 * @return
 	 */
 	public int getRadius() {
@@ -70,6 +84,7 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
+	 * 
 	 * @return
 	 */
 	public IntPoint[] getVertices() {
@@ -78,6 +93,7 @@ public class RoundedPolygon {
 
 	/**
 	 * blablabla
+	 * 
 	 * @param index
 	 * @param point
 	 */
@@ -88,6 +104,7 @@ public class RoundedPolygon {
 
 	/**
 	 * blablabla
+	 * 
 	 * @param index
 	 */
 	public void remove(int index) {
@@ -95,24 +112,28 @@ public class RoundedPolygon {
 		this.points = PointArrays.remove(vertices, index);
 	}
 
-/**
- * Sets this rounded polygon's corner radius to the given value.
- * @param radius
- */
+	/**
+	 * Sets this rounded polygon's corner radius to the given value.
+	 * 
+	 * @param radius
+	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
 
 	/**
-	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
+	 * Sets the vertices of this rounded polygon to be equal to the elements of the
+	 * given array.
+	 * 
 	 * @param newVertices
 	 */
-public void setVertices(IntPoint[] newVertices) {
-	this.points = newVertices;
+	public void setVertices(IntPoint[] newVertices) {
+		this.points = newVertices;
 	}
 
 	/**
 	 * blablabla
+	 * 
 	 * @param index
 	 * @param point
 	 */
@@ -121,4 +142,3 @@ public void setVertices(IntPoint[] newVertices) {
 		this.points = PointArrays.update(vertices, index, point);
 	}
 }
-

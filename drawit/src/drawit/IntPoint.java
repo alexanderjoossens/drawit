@@ -1,8 +1,10 @@
 package drawit;
 
 /**
- * An immutable abstraction for a point in the two-dimensional plane with int coordinates.
- *@author Alexander and Stefan
+ * An immutable abstraction for a point in the two-dimensional plane with int
+ * coordinates.
+ * 
+ * @author Alexander and Stefan
  *
  */
 public class IntPoint {
@@ -16,6 +18,7 @@ public class IntPoint {
 
 	/**
 	 * Returns this point's X coordinate.
+	 * 
 	 * @return
 	 */
 	public int getX() {
@@ -24,6 +27,7 @@ public class IntPoint {
 
 	/**
 	 * Returns this point's Y coordinate.
+	 * 
 	 * @return
 	 */
 	public int getY() {
@@ -31,7 +35,9 @@ public class IntPoint {
 	}
 
 	/**
-	 * Returns true if this point has the same coordinates as the given point; returns false otherwise.
+	 * Returns true if this point has the same coordinates as the given point;
+	 * returns false otherwise.
+	 * 
 	 * @param other
 	 * @return
 	 */
@@ -44,52 +50,58 @@ public class IntPoint {
 	}
 
 	/**
-	 * Returns a DoublePoint object that represents the same 2D point represented by this IntPoint object.
+	 * Returns a DoublePoint object that represents the same 2D point represented by
+	 * this IntPoint object.
+	 * 
 	 * @return
 	 */
 	DoublePoint asDoublePoint() {
 		DoublePoint point = new DoublePoint(this.x, this.y);
 		return point;
 	}
-	
+
 	/**
 	 * Returns true if this point is on open line segment bc.
+	 * 
 	 * @param a
 	 * @param b
 	 * @return
 	 */
 	boolean isOnLineSegment(IntPoint a, IntPoint b) {
 		double rico = ((double) (b.getY() - a.getY())) / ((double) (b.getX() - a.getX()));
-		double function = rico * (this.x -b.getX()) + b.getY();
+		double function = rico * (this.x - b.getX()) + b.getY();
 		if (function == this.getY()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Stefan kunt gij hier iets van documentatie schrijven?
+	 * 
 	 * @param a
 	 * @param b
 	 * @param c
 	 * @return
 	 */
 	static boolean isCounterClockWise(IntPoint a, IntPoint b, IntPoint c) {
-		return (c.getY()-a.getY()) * (b.getX()-a.getX()) > (b.getY()-a.getY()) * (c.getX()-a.getX());
-		
+		return (c.getY() - a.getY()) * (b.getX() - a.getX()) > (b.getY() - a.getY()) * (c.getX() - a.getX());
+
 	}
-	
-	//hierbij hoeft geen documentatie! staat op toledo
+
+	// hierbij hoeft geen documentatie! staat op toledo
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
 		if (a.equals(d) || b.equals(c)) {
 			return false;
 		}
-		return isCounterClockWise(a,c,d) != isCounterClockWise(b,c,d) && isCounterClockWise(a,b,c) != isCounterClockWise(a,b,d);
+		return isCounterClockWise(a, c, d) != isCounterClockWise(b, c, d)
+				&& isCounterClockWise(a, b, c) != isCounterClockWise(a, b, d);
 	}
-	
+
 	/**
 	 * Returns an IntVector object representing the displacement from other to this.
+	 * 
 	 * @param other
 	 * @return
 	 */
@@ -97,11 +109,13 @@ public class IntPoint {
 		int xCoord = this.x - other.getX();
 		int yCoord = this.y - other.getY();
 		IntVector vector = new IntVector(xCoord, yCoord);
-		return vector;	
+		return vector;
 	}
-	
+
 	/**
-	 * Returns an IntPoint object representing the point obtained by displacing this point by the given vector.
+	 * Returns an IntPoint object representing the point obtained by displacing this
+	 * point by the given vector.
+	 * 
 	 * @param other
 	 * @return
 	 */
@@ -111,10 +125,15 @@ public class IntPoint {
 		IntPoint point = new IntPoint(xCoord, yCoord);
 		return point;
 	}
-	
-	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
-		return true;
-	}
 
+	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
+		double rico = ((double) (b.getY() - a.getY())) / ((double) (b.getX() - a.getX()));
+		double function = ((double) (this.getY() - b.getY()) / rico) + b.getX();
+		if ((a.getX() < function && function < b.getX()) || (b.getX() < function && function < a.getX())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }
