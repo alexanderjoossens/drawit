@@ -5,7 +5,7 @@ import drawit.IntPoint;
 /**
  * Declares a number of methods useful for working with arrays of IntPoint objects.
  * @author Alexander and Stefan
- *
+ * @immutable
  */
 public class PointArrays {
 	/**
