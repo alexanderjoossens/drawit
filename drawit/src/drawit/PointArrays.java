@@ -5,6 +5,10 @@ import drawit.IntPoint;
 /**
  * Declares a number of methods useful for working with arrays of IntPoint objects.
  * @author Alexander and Stefan
+<<<<<<< HEAD
+=======
+ * @immutable
+>>>>>>> branch 'master' of https://github.com/stefanlommaert/drawit.git
  */
 public class PointArrays {
 	/**
