@@ -5,20 +5,20 @@ import drawit.IntPoint;
 /**
  * Declares a number of methods useful for working with arrays of IntPoint objects.
  * @author Alexander and Stefan
- *
  */
 public class PointArrays {
 	/**
 	 * Returns a new array with the same contents as the given array.
+	 * @post the content of the new array equals the given points.
+	 * 	| newArray == points ??
+	 * @invar | newArray.length() == points.length()
 	 * 
-	 * @post
 	 */
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];
 
 		for (int i = 0; i < points.length; i++) {
 			newArray[i] = points[i];
-
 		}
 		return newArray;
 
@@ -27,8 +27,8 @@ public class PointArrays {
 	/**
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the given point inserted at the given index.
-	 * 
-	 * @post
+	 * @post The length of the newArray is 1 longer than the given points
+	 * | points.length()+1 == newArray.length()
 	 */
 	public static IntPoint[] insert(IntPoint[] points, int index, IntPoint point) {
 		IntPoint[] newArray = new IntPoint[points.length + 1];
@@ -48,8 +48,8 @@ public class PointArrays {
 	/**
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the element at the given index removed.
-	 * 
-	 * @post
+	 * @post The length of the newArray is 1 shorter than the given points
+	 * | points.length()-1 == newArray.length()
 	 */
 	public static IntPoint[] remove(IntPoint[] points, int index) {
 		IntPoint[] newArray = new IntPoint[points.length - 1];
@@ -68,8 +68,8 @@ public class PointArrays {
 	/**
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the element at the given index replaced by the given point.
-	 * 
 	 * @post
+	 * | newArray[i] == value
 	 */
 	public static IntPoint[] update(IntPoint[] points, int index, IntPoint value) {
 		IntPoint[] newArray = new IntPoint[points.length];
@@ -88,6 +88,7 @@ public class PointArrays {
 	 * otherwise, returns a string describing why it does not.
 	 * 
 	 * @post
+	 * 
 	 */
 	static String checkDefinesProperPolygon(IntPoint[] points) {
 		for (int i = 0; i < points.length; i++) {
@@ -112,7 +113,7 @@ public class PointArrays {
 		for (int i = 0; i < points.length - 1; i++) {
 			for (int j = 0; j < points.length - 1; j++) {
 				if (IntPoint.lineSegmentsIntersect(points[i], points[i + 1], points[j], points[j + 1]) && i != j) {
-					return ("Lines intersect!");
+					return "Lines intersect!";
 				}
 			}
 		}
@@ -121,8 +122,6 @@ public class PointArrays {
 				return "Lines intersect!";
 			}
 		}
-
 		return null;
 	}
-
 }

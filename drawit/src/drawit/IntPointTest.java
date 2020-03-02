@@ -12,7 +12,7 @@ class IntPointTest {
 		assert point1.getX() == -1 && point1.getY() == -1;
 
 		DoublePoint point0 = point1.asDoublePoint();
-		assert point0.getX() == -1 && point0.getY() == -1;
+		assert point0.getX() == -1.0 && point0.getY() == -1.0;
 
 		IntPoint point2 = new IntPoint(-1, -1);
 		assert point2.equals(point1);

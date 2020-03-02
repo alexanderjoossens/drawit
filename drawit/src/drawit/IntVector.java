@@ -7,6 +7,11 @@ package drawit;
  */
 public class IntVector {
 	
+	/**
+	 * @mutates this
+	 * @post | getX() == x
+	 * @post | getY() == y
+	 */
     private int x;
     private int y;
 
@@ -17,7 +22,6 @@ public class IntVector {
 
     /**
      * Returns the X value of the given vector.
-     * @return
      */
     public int getX() {
     	return this.x;
@@ -25,13 +29,12 @@ public class IntVector {
     
     /**
      * Returns the Y value of the given vector.
-     * @return
      */
     public int getY() {
     	return this.y;
     }
     
-    //dit is genoeg documentatie staat op toledo
+    //dit is genoeg documentatie staat op toledo (enkel formal?)
     /**
      * Returns a DoubleVector object that represents the same vector represented by this IntVector object.
      */
@@ -43,9 +46,7 @@ public class IntVector {
     
     /**
      * Returns the cross product of this vector and the given vector.
-     * 
      * @post result == (long)getX() * other.getY() - (long)getY() * other.getX()
-     * 
      */
     public long crossProduct(IntVector other) {
     	long crossProd = (this.x * other.getY()) - (this.y * other.getX());
@@ -54,8 +55,6 @@ public class IntVector {
     
     /**
      * Returns the dot product of this vector and the given vector.
-     * @param other
-     * @return
      * @post result == this.getX() * other.getX() + this.getY() * other.getY()
      */
     public long dotProduct(IntVector other) {
@@ -65,14 +64,12 @@ public class IntVector {
 
     /**
      * Returns whether this vector is collinear with the given vector.
-     * 
      * @post result == (this.crossProduct(other) == 0)
+     * 	| result == (crossProduct(other) == 0)
      */
     public boolean isCollinearWith(IntVector other) {
-    	
     	boolean Collinearity = (this.crossProduct(other) == 0);
     	return Collinearity;
     }
-
 }
 

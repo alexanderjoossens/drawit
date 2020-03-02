@@ -11,6 +11,11 @@ public class IntPoint {
 	private final int x;
 	private final int y;
 
+	/**
+	 * @mutates this
+	 * @post | getX() == x
+	 * @post | getY() == y
+	 */
 	public IntPoint(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -18,7 +23,6 @@ public class IntPoint {
 
 	/**
 	 * Returns this point's X coordinate.
-	 * 
 	 */
 	public int getX() {
 		return this.x;
@@ -26,7 +30,6 @@ public class IntPoint {
 
 	/**
 	 * Returns this point's Y coordinate.
-	 * 
 	 */
 	public int getY() {
 		return this.y;
@@ -35,9 +38,8 @@ public class IntPoint {
 	/**
 	 * Returns true if this point has the same coordinates as the given point;
 	 * returns false otherwise.
-	 * 
 	 */
-	boolean equals(IntPoint other) {
+	public boolean equals(IntPoint other) {
 		if (this.x == other.getX() && this.y == other.getY()) {
 			return true;
 		} else {
@@ -48,21 +50,18 @@ public class IntPoint {
 	/**
 	 * Returns a DoublePoint object that represents the same 2D point represented by
 	 * this IntPoint object.
-	 * 
+	 * @post a new object of type DoublePoint was made.
+	 * 		| point == DoublePoint
 	 */
-	DoublePoint asDoublePoint() {
+	public DoublePoint asDoublePoint() {
 		DoublePoint point = new DoublePoint(this.x, this.y);
 		return point;
 	}
 
 	/**
-	 * Returns true if this point is on open line segment bc.
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * Returns true if this point is on line segment ab.
 	 */
-	boolean isOnLineSegment(IntPoint a, IntPoint b) {
+	public boolean isOnLineSegment(IntPoint a, IntPoint b) {
 		if (a.getX() == b.getX()) {
 			if (((a.getY() <= this.getY() && this.getY() <= b.getY())
 					|| (b.getY() <= this.getY() && this.getY() <= a.getY())) && this.getX() == a.getX()) {
@@ -80,7 +79,6 @@ public class IntPoint {
 					return true;
 				}
 			}
-
 		}
 		return false;
 	}
@@ -88,9 +86,8 @@ public class IntPoint {
 	/**
 	 * Checks whether the given points follow in a counterclockwise order if we
 	 * connect the points together.
-	 * 
 	 */
-	static boolean isCounterClockWise(IntPoint a, IntPoint b, IntPoint c) {
+	private static boolean isCounterClockWise(IntPoint a, IntPoint b, IntPoint c) {
 		return (c.getY() - a.getY()) * (b.getX() - a.getX()) > (b.getY() - a.getY()) * (c.getX() - a.getX());
 
 	}
@@ -109,7 +106,13 @@ public class IntPoint {
 
 	/**
 	 * Returns an IntVector object representing the displacement from other to this.
-	 * 
+	 * @pre other does not equal null.
+	 * 	| other != null
+	 * @post the resulting vector is the difference of the given 2 vectors.
+	 * 	| vector.getX() == this.getX() - other.getX()
+	 * 	| vector.getY() == this.y - other.getY()
+	 * @throw IllegalArgumentException if other equals null.
+	 * 	| !(other = null)
 	 */
 	public IntVector minus(IntPoint other) {
 		int xCoord = this.x - other.getX();
@@ -121,7 +124,13 @@ public class IntPoint {
 	/**
 	 * Returns an IntPoint object representing the point obtained by displacing this
 	 * point by the given vector.
-	 * 
+	 *  @pre other does not equal null.
+	 * 	| other != null
+	 * @post the resulting vector is the sum of the given 2 vectors.
+	 * 	| vector.getX() == this.getX() + other.getX()
+	 * 	| vector.getY() == this.y + other.getY()
+	 * @throw IllegalArgumentException if other equals null.
+	 * 	| !(other = null)
 	 */
 	public IntPoint plus(IntVector other) {
 		int xCoord = this.x + other.getX();
@@ -129,12 +138,14 @@ public class IntPoint {
 		IntPoint point = new IntPoint(xCoord, yCoord);
 		return point;
 	}
-
 	
 	/**
 	 * Returns true if the exitpath of this point intersects with the open linesegment defined by connecting point a and b.
 	 * The exitpath is defined by the line from the given point in the positive X direction.
 	 * Returns false otherwise.
+	 * @pre IntPoint a and IntPoint b do not equal null.
+	 * 	| a != null && b != null
+	 * @throw ??
 	 */
 	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
 		if (a.getX() == b.getX()) {
