@@ -13,10 +13,9 @@ public class RoundedPolygon {
 	private IntPoint[] points;
 
 	public RoundedPolygon() {
-
 	}
 
-	// dit is genoeg documentatie zie toledo
+	// dit is genoeg documentatie zie toledo (enkel formal?)
 	/**
 	 * Returns true iff the given point is contained by the (non-rounded) polygon
 	 * defined by this rounded polygon's vertices. This method does not take into
@@ -25,7 +24,8 @@ public class RoundedPolygon {
 	 * 
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
-	 * 
+	 * @pre	
+	 * 	| point.getRadius
 	 */
 	public boolean contains(IntPoint point) {
 		for (int i = 0; i < this.points.length; i++) {
@@ -64,7 +64,7 @@ public class RoundedPolygon {
 		return true;
 	}
 
-	// dit is genoeg documentatie staat op toledo
+	// dit is genoeg documentatie staat op toledo ??
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
@@ -75,8 +75,8 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
-	 * 
-	 * @return
+	 * @post the result equals the given radius
+	 *	| result == getRadius
 	 */
 	public int getRadius() {
 		return this.radius;
@@ -85,7 +85,6 @@ public class RoundedPolygon {
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * 
-	 * @return
 	 */
 	public IntPoint[] getVertices() {
 		return this.points;

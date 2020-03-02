@@ -14,6 +14,7 @@ public class PointArrays {
 	 * @invar | newArray.length() == points.length()
 	 * 
 	 */
+	
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];
 
@@ -21,7 +22,6 @@ public class PointArrays {
 			newArray[i] = points[i];
 		}
 		return newArray;
-
 	}
 
 	/**
