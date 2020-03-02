@@ -17,7 +17,7 @@ public class RoundedPolygon {
 
 	// dit is genoeg documentatie zie toledo (enkel formal?)
 	/**
-	 * Returns true iff the given point is contained by the (non-rounded) polygon
+	 * Returns true if the given point is contained by the (non-rounded) polygon
 	 * defined by this rounded polygon's vertices. This method does not take into
 	 * account this rounded polygon's corner radius; it assumes a corner radius of
 	 * zero.
@@ -64,15 +64,43 @@ public class RoundedPolygon {
 		return true;
 	}
 
-	// dit is genoeg documentatie staat op toledo ??
+	// dit is genoeg documentatie staat op toledo(formal??)
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
 	 */
 	public String getDrawingCommands() {
-		return "lala";
+		if (this.getVertices().length < 3) {
+			return "";
+		}
+		
+		if (this.IntVector.isCollinearWith(other)) {
+			return "";
+		}
+		
+		if (this.radius == 0) {
+			return "";
+		}
+		
+		//nie naar kijken
+		Int[] hoekpunten = Array(hoekpunten);
+		return (hoekpunten[i])
+		
+	
+		
+		
+		return "";
+	}
+	
+	//moet ik deze methods zelf implementeren of kan ik die importen van ergens?
+	private void line(double X1, double Y1, double X2, double Y2) {
+		
 	}
 
+	private void arc(double X, double Y, double R,double S, double E) {
+		
+	}
+	
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
 	 * 
@@ -85,7 +113,8 @@ public class RoundedPolygon {
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * 
-	 * @post The result equals the points | result == points
+	 * @post The result equals the points
+	 * | result == points
 	 */
 	public IntPoint[] getVertices() {
 		return this.points;
