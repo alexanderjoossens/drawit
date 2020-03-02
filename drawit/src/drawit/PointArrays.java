@@ -15,7 +15,7 @@ public class PointArrays {
 	 * Returns a new array with the same contents as the given array.
 	 * @post the content of the new array equals the given points.
 	 * 	| newArray == points ??
-	 * @invar | newArray.length() == points.length()
+	 * @invar | newArray.length == points.length
 	 * 
 	 */
 	
@@ -32,7 +32,7 @@ public class PointArrays {
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the given point inserted at the given index.
 	 * @post The length of the newArray is 1 longer than the given points
-	 * | points.length()+1 == newArray.length()
+	 * | points.length+1 == newArray.length
 	 */
 	public static IntPoint[] insert(IntPoint[] points, int index, IntPoint point) {
 		IntPoint[] newArray = new IntPoint[points.length + 1];

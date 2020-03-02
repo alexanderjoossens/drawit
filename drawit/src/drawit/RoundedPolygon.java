@@ -24,8 +24,8 @@ public class RoundedPolygon {
 	 * 
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
-	 * @pre	
-	 * 	| point.getRadius
+	 * 
+	 * @pre | point.getRadius
 	 */
 	public boolean contains(IntPoint point) {
 		for (int i = 0; i < this.points.length; i++) {
@@ -75,8 +75,8 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
-	 * @post the result equals the given radius
-	 *	| result == getRadius
+	 * 
+	 * @post the result equals the given radius | result == getRadius
 	 */
 	public int getRadius() {
 		return this.radius;
@@ -85,16 +85,21 @@ public class RoundedPolygon {
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * 
+	 * @post The result equals the points | result == points
 	 */
 	public IntPoint[] getVertices() {
 		return this.points;
 	}
 
 	/**
-	 * blablabla
+	 * This method adds the given point to the points field of this object.
 	 * 
-	 * @param index
-	 * @param point
+	 * @mutates
+	 * @post The length of the points is 1 longer than the length of the old points
+	 *       | old(points.length) == points.length -1
+	 * @post The vertex at the given index of points, equals point. | points[index]
+	 *       == point
+	 * 
 	 */
 	public void insert(int index, IntPoint point) {
 		IntPoint[] vertices = this.getVertices();
@@ -102,9 +107,13 @@ public class RoundedPolygon {
 	}
 
 	/**
-	 * blablabla
+	 * This method removes the given point to the points field of this object.
 	 * 
-	 * @param index
+	 * @mutates
+	 * @post The length of the points is 1 shorter than the length of the old points
+	 *       | old(points.length) == points.length + 1
+	 * @post The vertex at the given index of points, equals point. | points[index]
+	 *       == old(points[index+1]
 	 */
 	public void remove(int index) {
 		IntPoint[] vertices = this.getVertices();
@@ -112,9 +121,8 @@ public class RoundedPolygon {
 	}
 
 	/**
-	 * Sets this rounded polygon's corner radius to the given value.
+	 * @mutates Sets this rounded polygon's corner radius to the given value.
 	 * 
-	 * @param radius
 	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
@@ -124,17 +132,15 @@ public class RoundedPolygon {
 	 * Sets the vertices of this rounded polygon to be equal to the elements of the
 	 * given array.
 	 * 
-	 * @param newVertices
+	 * @mutates
 	 */
 	public void setVertices(IntPoint[] newVertices) {
 		this.points = newVertices;
 	}
 
-	/**
-	 * blablabla
-	 * 
-	 * @param index
-	 * @param point
+	/** This method replaces the vertex at the given index of points, with point.
+	 * @post The vertex at the given index equals point.
+	 * | points[index] == point
 	 */
 	public void update(int index, IntPoint point) {
 		IntPoint[] vertices = this.getVertices();
