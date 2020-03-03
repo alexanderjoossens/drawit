@@ -53,12 +53,12 @@ class RoundedPolygonTest {
 		pointArray[1] = point13;
 		pointArray[2] = point14;
 		pointArray[3] = point15;
-		poly1.setRadius(10);
-		poly1.setVertices(pointArray2);
+		poly2.setRadius(10);
+		poly2.setVertices(pointArray2);
 		
 		assert poly2.getDrawingCommands() == "";
 		
-		
+		//test
 	}
 
 }
