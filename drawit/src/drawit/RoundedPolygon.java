@@ -62,7 +62,7 @@ public class RoundedPolygon {
 		return true;
 	}
 
-	// dit is genoeg documentatie staat op toledo(not formal)
+	// dit is genoeg documentatie staat op toledo(not formal).
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
