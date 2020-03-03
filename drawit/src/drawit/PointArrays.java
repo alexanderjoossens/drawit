@@ -110,7 +110,7 @@ public class PointArrays {
 			}
 		}
 		
-		
+//	Deze code is foutief! Opdracht was zo louche gedefinieerd dat ik het fout had geinterpreteeerd ;(	
 //		if (points[0].isOnLineSegment(points[1], points[points.length - 1])) {
 //			return "There is a vertex on an edge!";
 //		}

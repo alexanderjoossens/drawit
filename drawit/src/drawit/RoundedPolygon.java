@@ -92,19 +92,12 @@ public class RoundedPolygon {
 		return "";
 	}
 	
-	//moet ik deze methods zelf implementeren of kan ik die importen van ergens?
-	private void line(double X1, double Y1, double X2, double Y2) {
-		
-	}
 
-	private void arc(double X, double Y, double R,double S, double E) {
-		
-	}
 	
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
 	 * 
-	 * @post the result equals the given radius | result == getRadius
+	 * @post the result equals the given radius | result == getRadius()
 	 */
 	public int getRadius() {
 		return this.radius;
