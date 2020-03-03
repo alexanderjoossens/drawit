@@ -112,8 +112,6 @@ public class IntPoint {
 	 * @post the resulting vector is the difference of the given 2 vectors.
 	 * 	| vector.getX() == this.getX() - other.getX()
 	 * 	| vector.getY() == this.y - other.getY()
-	 * @throw IllegalArgumentException if other equals null.
-	 * 	| !(other = null)
 	 */
 	public IntVector minus(IntPoint other) {
 		
@@ -166,5 +164,4 @@ public class IntPoint {
 			return false;
 		}
 	}
-
 }

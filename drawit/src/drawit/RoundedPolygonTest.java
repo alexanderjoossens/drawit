@@ -41,6 +41,24 @@ class RoundedPolygonTest {
 		assert poly1.contains(point10) == true;
 		assert poly1.contains(point11) == true;
 
+		//Tests for getDrawingCommands
+		RoundedPolygon poly2 = new RoundedPolygon();
+		IntPoint point12 = new IntPoint(0, 0);
+		IntPoint point13 = new IntPoint(10, 0);
+		IntPoint point14 = new IntPoint(0, 10);
+		IntPoint point15 = new IntPoint(10, 10);
+		IntPoint[] pointArray2 = new IntPoint[4];
+
+		pointArray[0] = point12;
+		pointArray[1] = point13;
+		pointArray[2] = point14;
+		pointArray[3] = point15;
+		poly1.setRadius(10);
+		poly1.setVertices(pointArray2);
+		
+		assert poly2.getDrawingCommands() == "";
+		
+		
 	}
 
 }
