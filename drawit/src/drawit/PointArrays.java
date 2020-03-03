@@ -92,7 +92,7 @@ public class PointArrays {
 	 * Returns null if the given array of points defines a proper polygon;
 	 * otherwise, returns a string describing why it does not.
 	 * 
-	 * @post
+	 * @post even om te kunnen pushen
 	 * 
 	 */
 	static String checkDefinesProperPolygon(IntPoint[] points) {
