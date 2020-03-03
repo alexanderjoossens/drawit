@@ -58,7 +58,7 @@ class RoundedPolygonTest {
 		
 		assert poly2.getDrawingCommands() == "";
 		
-		
+		//test
 	}
 
 }
