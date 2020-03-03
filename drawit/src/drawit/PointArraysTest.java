@@ -19,7 +19,10 @@ class PointArraysTest {
 		IntPoint point9 = new IntPoint(2, 0);
 		IntPoint point10 = new IntPoint(2, 0);
 		IntPoint point11 = new IntPoint(1, 1);
+		IntPoint point12 = new IntPoint(2, 1);
+		IntPoint point13 = new IntPoint(1, 0);
 
+		
 		IntPoint[] pointArray = new IntPoint[4];
 
 		pointArray[0] = point1;
@@ -42,6 +45,15 @@ class PointArraysTest {
 		pointArray7[3] = point10;
 
 		IntPoint[] pointArray8 = PointArrays.update(pointArray7, 3, point11);
+		
+		IntPoint[] pointArray9 = new IntPoint[5];
+
+		pointArray9[0] = point6;
+		pointArray9[1] = point8;
+		pointArray9[2] = point12;
+		pointArray9[3] = point11;
+		pointArray9[4] = point13;
+
 
 		// copy_Test
 		IntPoint[] pointArray2 = PointArrays.copy(pointArray);
@@ -75,7 +87,10 @@ class PointArraysTest {
 		assert PointArrays.checkDefinesProperPolygon(pointArray6) == null;
 		assert PointArrays.checkDefinesProperPolygon(pointArray3) == "Lines intersect!";
 		assert PointArrays.checkDefinesProperPolygon(pointArray7) == "2 vertices coincide!";
-		assert PointArrays.checkDefinesProperPolygon(pointArray8) == "There is a vertex on an edge!";
+		assert PointArrays.checkDefinesProperPolygon(pointArray8) == null;
+		assert PointArrays.checkDefinesProperPolygon(pointArray9) == "There is a vertex on an edge!";
+
+		
 		
 	}
 
