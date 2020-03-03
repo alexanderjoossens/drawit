@@ -98,17 +98,30 @@ public class PointArrays {
 				}
 			}
 		}
-		if (points[0].isOnLineSegment(points[1], points[points.length - 1])) {
-			return "There is a vertex on an edge!";
-		}
-		if (points[points.length - 1].isOnLineSegment(points[points.length - 2], points[0])) {
-			return "There is a vertex on an edge!";
-		}
-		for (int i = 1; i < points.length - 1; i++) {
-			if (points[i].isOnLineSegment(points[i - 1], points[i + 1])) {
-				return "There is a vertex on an edge!";
+		
+		for (int i = 0; i< points.length;i++) {
+			for (int j = 0; j<points.length; j++) {
+				for (int k = j; k<points.length; k++) {
+					if ((points[i].isOnLineSegment(points[j], points[k]) || points[i].isOnLineSegment(points[0], points[points.length-1]) ) && (i!=j+1 && i!=k-1)) {
+						return "There is a vertex on an edge!";
+						
+					}
+				}
 			}
 		}
+		
+		
+//		if (points[0].isOnLineSegment(points[1], points[points.length - 1])) {
+//			return "There is a vertex on an edge!";
+//		}
+//		if (points[points.length - 1].isOnLineSegment(points[points.length - 2], points[0])) {
+//			return "There is a vertex on an edge!";
+//		}
+//		for (int i = 1; i < points.length - 1; i++) {
+//			if (points[i].isOnLineSegment(points[i - 1], points[i + 1])) {
+//				return "There is a vertex on an edge!";
+//			}
+//		}
 
 		for (int i = 0; i < points.length - 1; i++) {
 			for (int j = 0; j < points.length - 1; j++) {
