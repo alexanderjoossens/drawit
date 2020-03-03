@@ -84,7 +84,7 @@ public class RoundedPolygon {
 		
 		//nie naar kijken
 		Int[] hoekpunten = Array(hoekpunten);
-		return (hoekpunten[i])
+		return (hoekpunten[i]);
 		
 	
 		

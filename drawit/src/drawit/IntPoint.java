@@ -23,6 +23,7 @@ public class IntPoint {
 
 	/**
 	 * Returns this point's X coordinate.
+	 * @return | this.x
 	 */
 	public int getX() {
 		return this.x;
@@ -115,6 +116,7 @@ public class IntPoint {
 	 * 	| !(other = null)
 	 */
 	public IntVector minus(IntPoint other) {
+		
 		int xCoord = this.x - other.getX();
 		int yCoord = this.y - other.getY();
 		IntVector vector = new IntVector(xCoord, yCoord);
