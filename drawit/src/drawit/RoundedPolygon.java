@@ -74,6 +74,22 @@ public class RoundedPolygon {
 			return "";
 		}
 		
+		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
+			return null;
+		}
+		
+		for (IntPoint point: this.points ) {
+			
+			{
+			
+
+		
+		
+		
+		
+		
+		}
+		
 		if (this.IntVector.isCollinearWith(other)) {
 			return "";
 		}
