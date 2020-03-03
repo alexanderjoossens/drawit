@@ -15,7 +15,7 @@ public class RoundedPolygon {
 	public RoundedPolygon() {
 	}
 
-	// dit is genoeg documentatie zie toledo (enkel formal?)
+	// dit is genoeg documentatie zie toledo (not formal?)
 	/**
 	 * Returns true if the given point is contained by the (non-rounded) polygon
 	 * defined by this rounded polygon's vertices. This method does not take into
@@ -24,8 +24,6 @@ public class RoundedPolygon {
 	 * 
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
-	 * 
-	 * @pre | point.getRadius
 	 */
 	public boolean contains(IntPoint point) {
 		for (int i = 0; i < this.points.length; i++) {
@@ -41,6 +39,7 @@ public class RoundedPolygon {
 				return true;
 			}
 		}
+		
 		int intersectAmount = 0;
 
 		for (int i = 0; i < this.points.length; i++) {
@@ -54,7 +53,6 @@ public class RoundedPolygon {
 			if (intersectsExitPath) {
 				intersectAmount++;
 			}
-
 		}
 
 		if ((intersectAmount % 2) == 0) {
@@ -64,18 +62,34 @@ public class RoundedPolygon {
 		return true;
 	}
 
-	// dit is genoeg documentatie staat op toledo(formal??)
+	// dit is genoeg documentatie staat op toledo(not formal)
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
 	 */
 	public String getDrawingCommands() {
-		if (this.getVertices().length < 3) {
+//		if (this.getVertices().length < 3) {
+//			return "";
+//		}
+		
+		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
 			return "";
 		}
 		
-		if (this.IntVector.isCollinearWith(other)) {
-			return "";
+		for (IntPoint point: this.points ) {
+			
+			{
+			
+
+		
+		System.out.print("test");
+		
+		
+		
+		}
+		
+		//if (this.IntVector.isCollinearWith(other)) {
+			//return "";
 		}
 		
 		if (this.radius == 0) {
@@ -83,8 +97,8 @@ public class RoundedPolygon {
 		}
 		
 		//nie naar kijken
-		Int[] hoekpunten = Array(hoekpunten);
-		return (hoekpunten[i]);
+		//Int[] hoekpunten = Array(hoekpunten);
+		//return (hoekpunten[i]);
 		
 	
 		
