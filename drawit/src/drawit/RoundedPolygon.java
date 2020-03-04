@@ -182,4 +182,21 @@ public class RoundedPolygon {
 		IntPoint[] vertices = this.getVertices();
 		this.points = PointArrays.update(vertices, index, point);
 	}
+	
+	
+	/** This method returns the normalized vector.
+	 * 
+	 */
+	public DoubleVector normalize(IntVector vector) {
+		double powerComponents = (double) vector.getX()*vector.getX() + (double) vector.getY()*vector.getY();
+		double normalizeScale = Math.sqrt(powerComponents);
+		
+		DoubleVector normalizedVector = (vector.asDoubleVector()).scale(normalizeScale);
+		return normalizedVector;
+		
+		
+		
+		
+	}
+	
 }
