@@ -189,7 +189,7 @@ public class RoundedPolygon {
 	 */
 	public DoubleVector normalize(IntVector vector) {
 		double powerComponents = (double) vector.getX()*vector.getX() + (double) vector.getY()*vector.getY();
-		double normalizeScale = Math.sqrt(powerComponents);
+		double normalizeScale = 1/Math.sqrt(powerComponents);
 		
 		DoubleVector normalizedVector = (vector.asDoubleVector()).scale(normalizeScale);
 		return normalizedVector;
