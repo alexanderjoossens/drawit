@@ -39,7 +39,7 @@ public class RoundedPolygon {
 				return true;
 			}
 		}
-		
+
 		int intersectAmount = 0;
 
 		for (int i = 0; i < this.points.length; i++) {
@@ -71,43 +71,34 @@ public class RoundedPolygon {
 //		if (this.getVertices().length < 3) {
 //			return "";
 //		}
-		
+
 		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
 			return "";
 		}
-		
-		for (IntPoint point: this.points ) {
-			
-			{
-			
 
-		
-		System.out.print("test");
-		
-		
-		
+		for (IntPoint point : this.points) {
+
+			{
+
+				System.out.print("test");
+
+			}
+
+			// if (this.IntVector.isCollinearWith(other)) {
+			// return "";
 		}
-		
-		//if (this.IntVector.isCollinearWith(other)) {
-			//return "";
-		}
-		
+
 		if (this.radius == 0) {
 			return "";
 		}
-		
-		//nie naar kijken
-		//Int[] hoekpunten = Array(hoekpunten);
-		//return (hoekpunten[i]);
-		
-	
-		
-		
+
+		// nie naar kijken
+		// Int[] hoekpunten = Array(hoekpunten);
+		// return (hoekpunten[i]);
+
 		return "";
 	}
-	
 
-	
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
 	 * 
@@ -120,8 +111,7 @@ public class RoundedPolygon {
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * 
-	 * @post The result equals the points
-	 * | result == points
+	 * @post The result equals the points | result == points
 	 */
 	public IntPoint[] getVertices() {
 		return this.points;
@@ -174,29 +164,81 @@ public class RoundedPolygon {
 		this.points = newVertices;
 	}
 
-	/** This method replaces the vertex at the given index of points, with point.
-	 * @post The vertex at the given index equals point.
-	 * | points[index] == point
+	/**
+	 * This method replaces the vertex at the given index of points, with point.
+	 * 
+	 * @post The vertex at the given index equals point. | points[index] == point
 	 */
 	public void update(int index, IntPoint point) {
 		IntPoint[] vertices = this.getVertices();
 		this.points = PointArrays.update(vertices, index, point);
 	}
-	
-	
-	/** This method returns the normalized vector.
+
+	/**
+	 * This method returns the normalized vector.
 	 * 
 	 */
-	public DoubleVector normalize(IntVector vector) {
-		double powerComponents = (double) vector.getX()*vector.getX() + (double) vector.getY()*vector.getY();
-		double normalizeScale = 1/Math.sqrt(powerComponents);
-		
-		DoubleVector normalizedVector = (vector.asDoubleVector()).scale(normalizeScale);
+	public DoubleVector normalize(DoubleVector vector) {
+		double powerComponents = vector.getX() * vector.getX() + vector.getY() * vector.getY();
+		double normalizeScale = 1 / Math.sqrt(powerComponents);
+
+		DoubleVector normalizedVector = vector.scale(normalizeScale);
 		return normalizedVector;
-		
-		
-		
-		
+
 	}
-	
+
+	public String getDrawingCommands2() {
+        if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
+            return "";
+        }
+
+        for (int i = 0; i < this.points.length; i++) {
+            if (i == 0) {
+                if (points[i].isOnLineSegment(points[points.length - 1], points[i + 1])) {
+                    return "still have to implement, no radius, are collinear";
+                }
+            }
+            if (points[i].isOnLineSegment(points[i - 1], points[i + 1])) {
+                return "still have to implement, no radius, are collinear";
+            }
+        }
+
+        for (int i = 0; i < this.points.length; i++) {
+        	DoubleVector BAC = points[i-1].minus(points[i]).asDoubleVector().scale(1/2);
+        	DoubleVector BCC = points[i+1].minus(points[i]).asDoubleVector().scale(1/2);
+            DoubleVector BAU = normalize(points[i-1].minus(points[i]).asDoubleVector());
+            DoubleVector BCU = normalize(points[i+1].minus(points[i]).asDoubleVector());
+            DoubleVector BSU = normalize(BAU.plus(BCU));
+            double BAUcuttoff = BAU.dotProduct(BSU);
+            double unitRadius = Math.abs(BSU.crossProduct(BAU));
+            double lengthScale;
+            if (BAU.getSize() <= BCU.getSize()) {
+                lengthScale = BAC.getSize() / (BAUcuttoff);
+            }
+            else {
+                lengthScale = BCC.getSize() / (BAUcuttoff);
+            }
+
+            double radiusScale = ((double) this.radius) / unitRadius;
+            double scale;
+            if (radiusScale <= lengthScale) {
+            	scale = radiusScale;
+            }
+            else {
+            	scale = lengthScale;
+            }
+            
+            double theRadius = scale*unitRadius;
+            double theLineLength = BAUcuttoff * scale;
+            DoubleVector radiusVector = BSU.scale(theRadius);
+            DoublePoint radiusCenter = points[i].asDoublePoint().plus(radiusVector);
+            
+            
+
+
+        }
+        return "dag alexander";
+
+    }
+
 }
