@@ -3,6 +3,7 @@ package drawit;
 /**
  * An instance of this class represents a displacement in the two-dimensional plane.
  * @author Alexander and Stefan
+ * @immutable
  *
  */
 public class IntVector {
