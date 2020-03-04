@@ -240,7 +240,7 @@ public class RoundedPolygon {
 
 
         }
-        return "dag alexander";
+        return "dag stefan";
 
     }
 
