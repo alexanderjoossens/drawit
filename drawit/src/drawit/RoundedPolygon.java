@@ -191,6 +191,8 @@ public class RoundedPolygon {
         if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
             return "";
         }
+        
+        IntPoint[] lineSegmentPoints = new IntPoint[0]; 
 
         for (int i = 0; i < this.points.length; i++) {
             if (i == 0) {
@@ -232,6 +234,7 @@ public class RoundedPolygon {
             double theLineLength = BAUcuttoff * scale;
             DoubleVector radiusVector = BSU.scale(theRadius);
             DoublePoint radiusCenter = points[i].asDoublePoint().plus(radiusVector);
+            
             
             
 

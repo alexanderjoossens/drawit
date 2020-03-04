@@ -64,7 +64,6 @@ class PointArraysTest {
 
 		// insert_Test
 		IntPoint[] pointArray3 = PointArrays.insert(pointArray, 2, point5);
-
 		assert pointArray3.length == 5;
 		assert pointArray3[2] == point5;
 		assert pointArray3[3] == point3;
