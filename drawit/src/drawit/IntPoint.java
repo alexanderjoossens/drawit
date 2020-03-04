@@ -93,9 +93,8 @@ public class IntPoint {
 
 	}
 
-	/** ??
-	 * 
-	 * 
+	/** No formal
+	 * Returns true iff the open line segment ab intersects the open line segment cd.
 	 */
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
 		if (a.equals(d) || b.equals(c)) {
