@@ -231,7 +231,6 @@ public class RoundedPolygon {
 				}
 
 				double theRadius = scale * unitRadius;
-				System.out.println(theRadius);
 				double theLineLength = BAUcuttoff * scale;
 				DoubleVector radiusVector = BSU.scale(theRadius);
 				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
@@ -242,11 +241,11 @@ public class RoundedPolygon {
 				Double startAngle = startAngleVector.asAngle();
 				Double endAngle = endAngleVector.asAngle();
 				Double angleExtent = startAngle - endAngle;
-				if (angleExtent>(Math.PI)) {
-					angleExtent -= ((Math.PI)*2);
+				if (angleExtent > (Math.PI)) {
+					angleExtent -= ((Math.PI) * 2);
 				}
 				if (angleExtent < -(Math.PI)) {
-					angleExtent += ((Math.PI)*2);
+					angleExtent += ((Math.PI) * 2);
 
 				}
 				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
@@ -256,7 +255,7 @@ public class RoundedPolygon {
 			}
 
 		}
-		System.out.println(text);
+//		System.out.println(text);
 		return text;
 	}
 

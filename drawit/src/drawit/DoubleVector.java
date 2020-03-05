@@ -27,12 +27,12 @@ public class DoubleVector {
 	}
 
 	public double crossProduct(DoubleVector other) {
-		double crossProd = (this.x * other.y) - (this.y * other.x);
+		double crossProd = (this.x * other.getY()) - (this.y * other.getX());
 		return crossProd;
 	}
 
 	public double dotProduct(DoubleVector other) {
-		double dotProd = (this.x * other.x) + (this.y * other.y);
+		double dotProd = (this.x * other.getX()) + (this.y * other.getY());
 		return dotProd;
 
 	}
@@ -43,8 +43,8 @@ public class DoubleVector {
 	}
 
 	public DoubleVector plus(DoubleVector other) {
-		double xCoord = other.x;
-		double yCoord = other.y;
+		double xCoord = other.getX();
+		double yCoord = other.getY();
 		DoubleVector vector = new DoubleVector(xCoord + this.x, yCoord + this.y);
 		return vector;
 	}
