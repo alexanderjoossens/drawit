@@ -188,60 +188,56 @@ public class RoundedPolygon {
 	}
 
 	public String getDrawingCommands2() {
-        if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
-            return "";
-        }
-        
-        IntPoint[] lineSegmentPoints = new IntPoint[0]; 
+		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
+			return "";
+		}
+		String text = "";
 
-        for (int i = 0; i < this.points.length; i++) {
-            if (i == 0) {
-                if (points[i].isOnLineSegment(points[points.length - 1], points[i + 1])) {
-                    return "still have to implement, no radius, are collinear";
-                }
-            }
-            if (points[i].isOnLineSegment(points[i - 1], points[i + 1])) {
-                return "still have to implement, no radius, are collinear";
-            }
-        }
+		for (int i = 0; i < this.points.length; i++) {
+			if (i == 0) {
+				if (points[i].isOnLineSegment(points[points.length - 1], points[i + 1])) {
+					return "still have to implement, no radius, are collinear";
+				}
+			}
+			if (points[i].isOnLineSegment(points[i - 1], points[i + 1])) {
+				return "still have to implement, no radius, are collinear";
+			}
+		}
 
-        for (int i = 0; i < this.points.length; i++) {
-        	DoubleVector BAC = points[i-1].minus(points[i]).asDoubleVector().scale(1/2);
-        	DoubleVector BCC = points[i+1].minus(points[i]).asDoubleVector().scale(1/2);
-            DoubleVector BAU = normalize(points[i-1].minus(points[i]).asDoubleVector());
-            DoubleVector BCU = normalize(points[i+1].minus(points[i]).asDoubleVector());
-            DoubleVector BSU = normalize(BAU.plus(BCU));
-            double BAUcuttoff = BAU.dotProduct(BSU);
-            double unitRadius = Math.abs(BSU.crossProduct(BAU));
-            double lengthScale;
-            if (BAU.getSize() <= BCU.getSize()) {
-                lengthScale = BAC.getSize() / (BAUcuttoff);
-            }
-            else {
-                lengthScale = BCC.getSize() / (BAUcuttoff);
-            }
+		for (int i = 0; i < this.points.length; i++) {
+			DoubleVector BAC = points[i - 1].minus(points[i]).asDoubleVector().scale(1 / 2);
+			DoubleVector BCC = points[i + 1].minus(points[i]).asDoubleVector().scale(1 / 2);
+			DoubleVector BAU = normalize(points[i - 1].minus(points[i]).asDoubleVector());
+			DoubleVector BCU = normalize(points[i + 1].minus(points[i]).asDoubleVector());
+			DoubleVector BSU = normalize(BAU.plus(BCU));
+			double BAUcuttoff = BAU.dotProduct(BSU);
+			double unitRadius = Math.abs(BSU.crossProduct(BAU));
+			double lengthScale;
+			if (BAU.getSize() <= BCU.getSize()) {
+				lengthScale = BAC.getSize() / (BAUcuttoff);
+			} else {
+				lengthScale = BCC.getSize() / (BAUcuttoff);
+			}
 
-            double radiusScale = ((double) this.radius) / unitRadius;
-            double scale;
-            if (radiusScale <= lengthScale) {
-            	scale = radiusScale;
-            }
-            else {
-            	scale = lengthScale;
-            }
-            
-            double theRadius = scale*unitRadius;
-            double theLineLength = BAUcuttoff * scale;
-            DoubleVector radiusVector = BSU.scale(theRadius);
-            DoublePoint radiusCenter = points[i].asDoublePoint().plus(radiusVector);
-            
-            
-            
+			double radiusScale = ((double) this.radius) / unitRadius;
+			double scale;
+			if (radiusScale <= lengthScale) {
+				scale = radiusScale;
+			} else {
+				scale = lengthScale;
+			}
 
+			double theRadius = scale * unitRadius;
+			double theLineLength = BAUcuttoff * scale;
+			DoubleVector radiusVector = BSU.scale(theRadius);
+			DoublePoint radiusCenter = points[i].asDoublePoint().plus(radiusVector);
+			DoublePoint endPoint = (points[i].asDoublePoint()).plus(BAU.scale(theLineLength));
+			text += String.format("\nline %s %s %s %s", BAC.getX(), BAC.getY(), endPoint.getX(), endPoint.getY());
+			text += String.format("\narc parameters %s %s %s %s %s ", radiusCenter.getX(), radiusCenter.getY(), theRadius);
 
-        }
-        return "dag alexander";
+		}
+		return text;
 
-    }
+	}
 
 }
