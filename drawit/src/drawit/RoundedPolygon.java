@@ -222,8 +222,7 @@ public class RoundedPolygon {
 				text += String.format("\nline %s %s %s %s", BCC.getX(), BCC.getY(), newPoints[i].getX(),
 						newPoints[i].getY());
 
-			}
-			else {
+			} else {
 				DoubleVector BAU = normalize(BA);
 				DoubleVector BCU = normalize(BC);
 				DoubleVector BSU = normalize(BAU.plus(BCU));
@@ -235,7 +234,7 @@ public class RoundedPolygon {
 				} else {
 					lengthScale = BC.scale(1 / 2).getSize() / (BAUcuttoff);
 				}
-	
+
 				double radiusScale = ((double) this.radius) / unitRadius;
 				double scale;
 				if (radiusScale <= lengthScale) {
@@ -243,7 +242,7 @@ public class RoundedPolygon {
 				} else {
 					scale = lengthScale;
 				}
-	
+
 				double theRadius = scale * unitRadius;
 				double theLineLength = BAUcuttoff * scale;
 				DoubleVector radiusVector = BSU.scale(theRadius);
@@ -259,7 +258,7 @@ public class RoundedPolygon {
 				text += String.format("\nline %s %s %s %s", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
 				text += String.format("\narc parameters %s %s %s %s %s ", radiusCenter.getX(), radiusCenter.getY(),
 						theRadius, startAngle, angleExtent);
-				}
+			}
 
 		}
 		return text;
