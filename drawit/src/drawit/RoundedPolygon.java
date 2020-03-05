@@ -11,8 +11,9 @@ package drawit;
 public class RoundedPolygon {
 	
 	/**
-	 * @throw 
-	 */
+	 @throws IllegalArgumentException if the radius is smaller than 0
+     *    | !(0 <= radius)
+     */
 	private int radius;
 	private IntPoint[] points;
 
@@ -71,37 +72,37 @@ public class RoundedPolygon {
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
 	 */
-	public String getDrawingCommands() {
-//		if (this.getVertices().length < 3) {
+//	public String getDrawingCommands() {
+////		if (this.getVertices().length < 3) {
+////			return "";
+////		}
+//
+//		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
 //			return "";
 //		}
-
-		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
-			return "";
-		}
-
-		for (IntPoint point : this.points) {
-
-			{
-
-				System.out.print("test");
-
-			}
-
-			// if (this.IntVector.isCollinearWith(other)) {
-			// return "";
-		}
-
-		if (this.radius == 0) {
-			return "";
-		}
-
-		// nie naar kijken
-		// Int[] hoekpunten = Array(hoekpunten);
-		// return (hoekpunten[i]);
-
-		return "";
-	}
+//
+//		for (IntPoint point : this.points) {
+//
+//			{
+//
+//				System.out.print("test");
+//
+//			}
+//
+//			// if (this.IntVector.isCollinearWith(other)) {
+//			// return "";
+//		}
+//
+//		if (this.radius == 0) {
+//			return "";
+//		}
+//
+//		// nie naar kijken
+//		// Int[] hoekpunten = Array(hoekpunten);
+//		// return (hoekpunten[i]);
+//
+//		return "";
+//	}
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
@@ -191,7 +192,7 @@ public class RoundedPolygon {
 
 	}
 
-	public String getDrawingCommands2() {
+	public String getDrawingCommands() {
         if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
             return "";
         }

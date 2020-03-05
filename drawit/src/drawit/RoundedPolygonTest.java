@@ -57,8 +57,6 @@ class RoundedPolygonTest {
 		poly2.setVertices(pointArray2);
 		
 		assert poly2.getDrawingCommands() == "";
-		
-		//test
 	}
 
 }
