@@ -93,9 +93,8 @@ public class IntPoint {
 
 	}
 
-	/** ??
-	 * 
-	 * 
+	/** No formal
+	 * Returns true if the open line segment ab intersects the open line segment cd.
 	 */
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
 		if (a.equals(d) || b.equals(c)) {
@@ -129,8 +128,6 @@ public class IntPoint {
 	 * @post the resulting vector is the sum of the given 2 vectors.
 	 * 	| vector.getX() == this.getX() + other.getX()
 	 * 	| vector.getY() == this.y + other.getY()
-	 * @throw IllegalArgumentException if other equals null.
-	 * 	| !(other = null)
 	 */
 	public IntPoint plus(IntVector other) {
 		int xCoord = this.x + other.getX();

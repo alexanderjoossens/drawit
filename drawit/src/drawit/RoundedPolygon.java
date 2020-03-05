@@ -233,11 +233,11 @@ public class RoundedPolygon {
 			DoublePoint radiusCenter = points[i].asDoublePoint().plus(radiusVector);
 			DoublePoint endPoint = (points[i].asDoublePoint()).plus(BAU.scale(theLineLength));
 			text += String.format("\nline %s %s %s %s", BAC.getX(), BAC.getY(), endPoint.getX(), endPoint.getY());
-			text += String.format("\narc parameters %s %s %s %s %s ", radiusCenter.getX(), radiusCenter.getY(), theRadius);
+			text += String.format("\narc parameters %s %s %s %s %s ", radiusCenter.getX(), radiusCenter.getY(),
+					theRadius);
 
 		}
 		return text;
-
 	}
 
 }

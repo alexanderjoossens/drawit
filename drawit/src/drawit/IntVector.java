@@ -4,7 +4,6 @@ package drawit;
  * An instance of this class represents a displacement in the two-dimensional plane.
  * @author Alexander and Stefan
  * @immutable
- *
  */
 public class IntVector {
 	
@@ -35,7 +34,7 @@ public class IntVector {
     	return this.y;
     }
     
-    //dit is genoeg documentatie staat op toledo (enkel formal?)
+    //(enkel formal)
     /**
      * Returns a DoubleVector object that represents the same vector represented by this IntVector object.
      */
