@@ -192,34 +192,21 @@ public class RoundedPolygon {
 			return "";
 		}
 		IntPoint[] originalPoints = this.getVertices();
-		IntPoint[] newPointsTemp = PointArrays.insert(originalPoints, 0, originalPoints[0]);
-		IntPoint[] newPoints = PointArrays.insert(newPointsTemp, newPointsTemp.length - 1,
-				newPointsTemp[newPointsTemp.length - 1]);
+		IntPoint[] newPointsTemp = PointArrays.insert(originalPoints, 0, originalPoints[originalPoints.length - 1]);
+		IntPoint[] newPoints = PointArrays.insert(newPointsTemp, newPointsTemp.length - 1, originalPoints[0]);
 
 		String text = "";
-
-//		for (int i = 0; i < this.points.length; i++) {
-////			if (i == 0) {
-////				if (points[i].isOnLineSegment(points[points.length - 1], points[i + 1])) {
-////					return "still have to implement, no radius, are collinear";
-////				}
-////			}
-//			if (points[i].isOnLineSegment(points[i - 1], points[i + 1])) {
-//				return "still have to implement, no radius, are collinear";
-//			}
-//		}
 
 		for (int i = 1; i < newPoints.length - 1; i++) {
 			DoubleVector BA = newPoints[i - 1].minus(newPoints[i]).asDoubleVector();
 			DoubleVector BC = newPoints[i + 1].minus(newPoints[i]).asDoubleVector();
-
-			DoublePoint BAC = newPoints[i].asDoublePoint().plus(BA.scale(1 / 2));
-			DoublePoint BCC = newPoints[i].asDoublePoint().plus(BC.scale(1 / 2));
+			DoublePoint BAC = newPoints[i].asDoublePoint().plus(BA.scale(0.5));
+			DoublePoint BCC = newPoints[i].asDoublePoint().plus(BC.scale(0.5));
 
 			if (newPoints[i].isOnLineSegment(newPoints[i - 1], newPoints[i + 1])) {
-				text += String.format("\nline %s %s %s %s", BAC.getX(), BAC.getY(), newPoints[i].getX(),
+				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), newPoints[i].getX(),
 						newPoints[i].getY());
-				text += String.format("\nline %s %s %s %s", BCC.getX(), BCC.getY(), newPoints[i].getX(),
+				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), newPoints[i].getX(),
 						newPoints[i].getY());
 
 			} else {
@@ -230,9 +217,9 @@ public class RoundedPolygon {
 				double unitRadius = Math.abs(BSU.crossProduct(BAU));
 				double lengthScale;
 				if (BAU.getSize() <= BCU.getSize()) {
-					lengthScale = BA.scale(1 / 2).getSize() / (BAUcuttoff);
+					lengthScale = BA.scale(0.5).getSize() / (BAUcuttoff);
 				} else {
-					lengthScale = BC.scale(1 / 2).getSize() / (BAUcuttoff);
+					lengthScale = BC.scale(0.5).getSize() / (BAUcuttoff);
 				}
 
 				double radiusScale = ((double) this.radius) / unitRadius;
@@ -244,6 +231,7 @@ public class RoundedPolygon {
 				}
 
 				double theRadius = scale * unitRadius;
+				System.out.println(theRadius);
 				double theLineLength = BAUcuttoff * scale;
 				DoubleVector radiusVector = BSU.scale(theRadius);
 				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
@@ -254,13 +242,21 @@ public class RoundedPolygon {
 				Double startAngle = startAngleVector.asAngle();
 				Double endAngle = endAngleVector.asAngle();
 				Double angleExtent = startAngle - endAngle;
-				text += String.format("\nline %s %s %s %s", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
-				text += String.format("\nline %s %s %s %s", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
-				text += String.format("\narc parameters %s %s %s %s %s ", radiusCenter.getX(), radiusCenter.getY(),
-						theRadius, startAngle, angleExtent);
+				if (angleExtent>(Math.PI)) {
+					angleExtent -= ((Math.PI)*2);
+				}
+				if (angleExtent < -(Math.PI)) {
+					angleExtent += ((Math.PI)*2);
+
+				}
+				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
+				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
+				text += String.format("arc %s %s %s %s %s\n", radiusCenter.getX(), radiusCenter.getY(), theRadius,
+						startAngle, Math.abs(angleExtent));
 			}
 
 		}
+		System.out.println(text);
 		return text;
 	}
 
