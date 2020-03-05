@@ -63,41 +63,41 @@ public class RoundedPolygon {
 	}
 
 	// dit is genoeg documentatie staat op toledo(not formal).
-	/**
-	 * Returns a textual representation of a set of drawing commands for drawing
-	 * this rounded polygon.
-	 */
-	public String getDrawingCommands() {
-//		if (this.getVertices().length < 3) {
+//	/**
+//	 * Returns a textual representation of a set of drawing commands for drawing
+//	 * this rounded polygon.
+//	 */
+//	public String getDrawingCommands() {
+////		if (this.getVertices().length < 3) {
+////			return "";
+////		}
+//
+//		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
 //			return "";
 //		}
-
-		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
-			return "";
-		}
-
-		for (IntPoint point : this.points) {
-
-			{
-
-				System.out.print("test");
-
-			}
-
-			// if (this.IntVector.isCollinearWith(other)) {
-			// return "";
-		}
-
-		if (this.radius == 0) {
-			return "";
-		}
-
-		// nie naar kijken
-		// Int[] hoekpunten = Array(hoekpunten);
-		// return (hoekpunten[i]);
-
-		return "";
-	}
+//
+//		for (IntPoint point : this.points) {
+//
+//			{
+//
+//				System.out.print("test");
+//
+//			}
+//
+//			// if (this.IntVector.isCollinearWith(other)) {
+//			// return "";
+//		}
+//
+//		if (this.radius == 0) {
+//			return "";
+//		}
+//
+//		// nie naar kijken
+//		// Int[] hoekpunten = Array(hoekpunten);
+//		// return (hoekpunten[i]);
+//
+//		return "";
+//	}
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
@@ -187,7 +187,7 @@ public class RoundedPolygon {
 
 	}
 
-	public String getDrawingCommands2() {
+	public String getDrawingCommands() {
 		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
 			return "";
 		}
@@ -198,16 +198,16 @@ public class RoundedPolygon {
 
 		String text = "";
 
-		for (int i = 0; i < this.points.length; i++) {
-//			if (i == 0) {
-//				if (points[i].isOnLineSegment(points[points.length - 1], points[i + 1])) {
-//					return "still have to implement, no radius, are collinear";
-//				}
+//		for (int i = 0; i < this.points.length; i++) {
+////			if (i == 0) {
+////				if (points[i].isOnLineSegment(points[points.length - 1], points[i + 1])) {
+////					return "still have to implement, no radius, are collinear";
+////				}
+////			}
+//			if (points[i].isOnLineSegment(points[i - 1], points[i + 1])) {
+//				return "still have to implement, no radius, are collinear";
 //			}
-			if (points[i].isOnLineSegment(points[i - 1], points[i + 1])) {
-				return "still have to implement, no radius, are collinear";
-			}
-		}
+//		}
 
 		for (int i = 1; i < newPoints.length - 1; i++) {
 			DoubleVector BA = newPoints[i - 1].minus(newPoints[i]).asDoubleVector();
@@ -224,42 +224,42 @@ public class RoundedPolygon {
 
 			}
 			else {
-			DoubleVector BAU = normalize(BA);
-			DoubleVector BCU = normalize(BC);
-			DoubleVector BSU = normalize(BAU.plus(BCU));
-			double BAUcuttoff = BAU.dotProduct(BSU);
-			double unitRadius = Math.abs(BSU.crossProduct(BAU));
-			double lengthScale;
-			if (BAU.getSize() <= BCU.getSize()) {
-				lengthScale = BA.scale(1 / 2).getSize() / (BAUcuttoff);
-			} else {
-				lengthScale = BC.scale(1 / 2).getSize() / (BAUcuttoff);
-			}
-
-			double radiusScale = ((double) this.radius) / unitRadius;
-			double scale;
-			if (radiusScale <= lengthScale) {
-				scale = radiusScale;
-			} else {
-				scale = lengthScale;
-			}
-
-			double theRadius = scale * unitRadius;
-			double theLineLength = BAUcuttoff * scale;
-			DoubleVector radiusVector = BSU.scale(theRadius);
-			DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
-			DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
-			DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
-			DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
-			DoubleVector endAngleVector = endPoint2.minus(radiusCenter);
-			Double startAngle = startAngleVector.asAngle();
-			Double endAngle = endAngleVector.asAngle();
-			Double angleExtent = startAngle - endAngle;
-			text += String.format("\nline %s %s %s %s", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
-			text += String.format("\nline %s %s %s %s", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
-			text += String.format("\narc parameters %s %s %s %s %s ", radiusCenter.getX(), radiusCenter.getY(),
-					theRadius, startAngle, angleExtent);
-			}
+				DoubleVector BAU = normalize(BA);
+				DoubleVector BCU = normalize(BC);
+				DoubleVector BSU = normalize(BAU.plus(BCU));
+				double BAUcuttoff = BAU.dotProduct(BSU);
+				double unitRadius = Math.abs(BSU.crossProduct(BAU));
+				double lengthScale;
+				if (BAU.getSize() <= BCU.getSize()) {
+					lengthScale = BA.scale(1 / 2).getSize() / (BAUcuttoff);
+				} else {
+					lengthScale = BC.scale(1 / 2).getSize() / (BAUcuttoff);
+				}
+	
+				double radiusScale = ((double) this.radius) / unitRadius;
+				double scale;
+				if (radiusScale <= lengthScale) {
+					scale = radiusScale;
+				} else {
+					scale = lengthScale;
+				}
+	
+				double theRadius = scale * unitRadius;
+				double theLineLength = BAUcuttoff * scale;
+				DoubleVector radiusVector = BSU.scale(theRadius);
+				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
+				DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
+				DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
+				DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
+				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);
+				Double startAngle = startAngleVector.asAngle();
+				Double endAngle = endAngleVector.asAngle();
+				Double angleExtent = startAngle - endAngle;
+				text += String.format("\nline %s %s %s %s", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
+				text += String.format("\nline %s %s %s %s", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
+				text += String.format("\narc parameters %s %s %s %s %s ", radiusCenter.getX(), radiusCenter.getY(),
+						theRadius, startAngle, angleExtent);
+				}
 
 		}
 		return text;
