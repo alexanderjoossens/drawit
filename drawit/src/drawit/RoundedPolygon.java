@@ -198,7 +198,7 @@ public class RoundedPolygon {
 		}
 		IntPoint[] originalPoints = this.getVertices();
 		IntPoint[] newPointsTemp = PointArrays.insert(originalPoints, 0, originalPoints[originalPoints.length - 1]);
-		IntPoint[] newPoints = PointArrays.insert(newPointsTemp, newPointsTemp.length - 1, originalPoints[0]);
+		IntPoint[] newPoints = PointArrays.insert(newPointsTemp, newPointsTemp.length, originalPoints[0]);
 
 		String text = "";
 
@@ -237,10 +237,10 @@ public class RoundedPolygon {
 
 				double theRadius = scale * unitRadius;
 				double theLineLength = BAUcuttoff * scale;
-				DoubleVector radiusVector = BSU.scale(theRadius);
-				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
 				DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
 				DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
+				DoubleVector radiusVector = BCU.scale(theRadius);
+				DoublePoint radiusCenter = endPoint1.plus(radiusVector);
 				DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
 				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);
 				Double startAngle = startAngleVector.asAngle();
