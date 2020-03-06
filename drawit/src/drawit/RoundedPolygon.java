@@ -11,8 +11,8 @@ package drawit;
 public class RoundedPolygon {
 
 	/**
-	 * @throws IllegalArgumentException if the radius is smaller than 0 | !(0 <=
-	 *                                  radius)
+	 * @throws IllegalArgumentException if the radius is smaller than 0
+	 * | !(0 <= radius)
 	 */
 	private int radius;
 	private IntPoint[] points;
@@ -72,37 +72,81 @@ public class RoundedPolygon {
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
 	 */
-//	public String getDrawingCommands() {
-////		if (this.getVertices().length < 3) {
-////			return "";
-////		}
-//
-//		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
-//			return "";
-//		}
-//
-//		for (IntPoint point : this.points) {
-//
-//			{
-//
-//				System.out.print("test");
-//
-//			}
-//
-//			// if (this.IntVector.isCollinearWith(other)) {
-//			// return "";
-//		}
-//
-//		if (this.radius == 0) {
-//			return "";
-//		}
-//
-//		// nie naar kijken
-//		// Int[] hoekpunten = Array(hoekpunten);
-//		// return (hoekpunten[i]);
-//
-//		return "";
-//	}
+	public String getDrawingCommands() {
+		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
+			return "";
+		}
+		IntPoint[] originalPoints = this.getVertices();
+		IntPoint[] newPointsTemp = PointArrays.insert(originalPoints, 0, originalPoints[originalPoints.length - 1]);
+		IntPoint[] newPoints = PointArrays.insert(newPointsTemp, newPointsTemp.length, originalPoints[0]);
+
+		String text = "";
+
+		for (int i = 1; i < newPoints.length - 1; i++) {
+			DoubleVector BA = newPoints[i - 1].minus(newPoints[i]).asDoubleVector();
+			DoubleVector BC = newPoints[i + 1].minus(newPoints[i]).asDoubleVector();
+			DoublePoint BAC = newPoints[i].asDoublePoint().plus(BA.scale(0.5));
+			DoublePoint BCC = newPoints[i].asDoublePoint().plus(BC.scale(0.5));
+
+			if (newPoints[i].isOnLineSegment(newPoints[i - 1], newPoints[i + 1])) {
+				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), newPoints[i].getX(),
+						newPoints[i].getY());
+				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), newPoints[i].getX(),
+						newPoints[i].getY());
+
+			} else {
+				DoubleVector BAU = normalize(BA);
+				DoubleVector BCU = normalize(BC);
+				DoubleVector BSU = normalize(BAU.plus(BCU));
+				double BAUcuttoff = BAU.dotProduct(BSU);
+				double unitRadius = Math.abs(BSU.crossProduct(BAU));
+				double lengthScale;
+				if (BAU.getSize() <= BCU.getSize()) {
+					lengthScale = BA.scale(0.5).getSize() / (BAUcuttoff);
+				} else {
+					lengthScale = BC.scale(0.5).getSize() / (BAUcuttoff);
+				}
+
+				double radiusScale = ((double) this.radius) / unitRadius;
+				double scale;
+				if (radiusScale <= lengthScale) {
+					scale = radiusScale;
+				} else {
+					scale = lengthScale;
+				}
+
+				
+				double theRadius = scale * unitRadius;
+				DoubleVector radiusVector = BSU.scale(scale);
+				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
+				double theLineLength = radiusVector.dotProduct(BAU);
+				DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
+				DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
+				DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
+				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);				
+
+
+				Double startAngle = startAngleVector.asAngle();
+				Double endAngle = endAngleVector.asAngle();
+				Double angleExtent = startAngle - endAngle;
+				if (angleExtent > (Math.PI)) {
+					angleExtent -= ((Math.PI) * 2);
+				}
+				if (angleExtent < -(Math.PI)) {
+					angleExtent += ((Math.PI) * 2);
+
+				}
+				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
+				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
+				text += String.format("arc %s %s %s %s %s\n", radiusCenter.getX(), radiusCenter.getY(), theRadius,
+						startAngle, (-angleExtent));
+			}
+
+		}
+//		System.out.println(text);
+		return text;
+	}
+
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
@@ -192,79 +236,5 @@ public class RoundedPolygon {
 
 	}
 
-	public String getDrawingCommands() {
-		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
-			return "";
-		}
-		IntPoint[] originalPoints = this.getVertices();
-		IntPoint[] newPointsTemp = PointArrays.insert(originalPoints, 0, originalPoints[originalPoints.length - 1]);
-		IntPoint[] newPoints = PointArrays.insert(newPointsTemp, newPointsTemp.length, originalPoints[0]);
-
-		String text = "";
-
-		for (int i = 1; i < newPoints.length - 1; i++) {
-			DoubleVector BA = newPoints[i - 1].minus(newPoints[i]).asDoubleVector();
-			DoubleVector BC = newPoints[i + 1].minus(newPoints[i]).asDoubleVector();
-			DoublePoint BAC = newPoints[i].asDoublePoint().plus(BA.scale(0.5));
-			DoublePoint BCC = newPoints[i].asDoublePoint().plus(BC.scale(0.5));
-
-			if (newPoints[i].isOnLineSegment(newPoints[i - 1], newPoints[i + 1])) {
-				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), newPoints[i].getX(),
-						newPoints[i].getY());
-				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), newPoints[i].getX(),
-						newPoints[i].getY());
-
-			} else {
-				DoubleVector BAU = normalize(BA);
-				DoubleVector BCU = normalize(BC);
-				DoubleVector BSU = normalize(BAU.plus(BCU));
-				double BAUcuttoff = BAU.dotProduct(BSU);
-				double unitRadius = Math.abs(BSU.crossProduct(BAU));
-				double lengthScale;
-				if (BAU.getSize() <= BCU.getSize()) {
-					lengthScale = BA.scale(0.5).getSize() / (BAUcuttoff);
-				} else {
-					lengthScale = BC.scale(0.5).getSize() / (BAUcuttoff);
-				}
-
-				double radiusScale = ((double) this.radius) / unitRadius;
-				double scale;
-				if (radiusScale <= lengthScale) {
-					scale = radiusScale;
-				} else {
-					scale = lengthScale;
-				}
-
-				
-				double theRadius = scale * unitRadius;
-				DoubleVector radiusVector = BSU.scale(scale);
-				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
-				double theLineLength = radiusVector.dotProduct(BAU);
-				DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
-				DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
-				DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
-				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);				
-
-
-				Double startAngle = startAngleVector.asAngle();
-				Double endAngle = endAngleVector.asAngle();
-				Double angleExtent = startAngle - endAngle;
-				if (angleExtent > (Math.PI)) {
-					angleExtent -= ((Math.PI) * 2);
-				}
-				if (angleExtent < -(Math.PI)) {
-					angleExtent += ((Math.PI) * 2);
-
-				}
-				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
-				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
-				text += String.format("arc %s %s %s %s %s\n", radiusCenter.getX(), radiusCenter.getY(), theRadius,
-						startAngle, (-angleExtent));
-			}
-
-		}
-//		System.out.println(text);
-		return text;
-	}
 
 }
