@@ -45,7 +45,7 @@ public class DoubleVector {
 	public DoubleVector plus(DoubleVector other) {
 		double xCoord = other.getX();
 		double yCoord = other.getY();
-		DoubleVector vector = new DoubleVector(xCoord + this.x, yCoord + this.y);
+		DoubleVector vector = new DoubleVector(xCoord + this.getX(), yCoord + this.getY());
 		return vector;
 	}
 

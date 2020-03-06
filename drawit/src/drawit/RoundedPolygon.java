@@ -9,11 +9,11 @@ package drawit;
  * 
  */
 public class RoundedPolygon {
-	
+
 	/**
-	 @throws IllegalArgumentException if the radius is smaller than 0
-     *    | !(0 <= radius)
-     */
+	 * @throws IllegalArgumentException if the radius is smaller than 0 | !(0 <=
+	 *                                  radius)
+	 */
 	private int radius;
 	private IntPoint[] points;
 
@@ -235,14 +235,29 @@ public class RoundedPolygon {
 					scale = lengthScale;
 				}
 
+				
 				double theRadius = scale * unitRadius;
-				double theLineLength = BAUcuttoff * scale;
+				DoubleVector radiusVector = BSU.scale(scale);
+				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
+				double theLineLength = radiusVector.dotProduct(BAU);
 				DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
 				DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
-				DoubleVector radiusVector = BCU.scale(theRadius);
-				DoublePoint radiusCenter = endPoint1.plus(radiusVector);
 				DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
-				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);
+				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);				
+//				double theRadius = scale * unitRadius;
+//				double theLineLength = BAUcuttoff * scale;
+//				DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
+//				DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
+//				DoubleVector radiusVector = BSU.scale(scale);
+//				DoublePoint radiusCenter = endPoint1.plus(radiusVector);
+//				DoubleVector BRC= radiusCenter.minus(newPoints[i].asDoublePoint());
+//				DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
+//				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);
+//				System.out.println(scale);
+//
+//				System.out.println(BRC.getSize()*BRC.getSize());
+//				System.out.println(theLineLength*theLineLength+theRadius*theRadius);
+
 				Double startAngle = startAngleVector.asAngle();
 				Double endAngle = endAngleVector.asAngle();
 				Double angleExtent = startAngle - endAngle;
@@ -256,7 +271,7 @@ public class RoundedPolygon {
 				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
 				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
 				text += String.format("arc %s %s %s %s %s\n", radiusCenter.getX(), radiusCenter.getY(), theRadius,
-						startAngle, Math.abs(angleExtent));
+						startAngle, (-angleExtent));
 			}
 
 		}
