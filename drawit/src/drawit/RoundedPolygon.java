@@ -204,9 +204,10 @@ public class RoundedPolygon {
 	}
 
 	/**
+	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
+	 * @throws IllegalArgumentException if the given vertices equal null
+	 * 		| newVertices != null
 	 * @mutates
-	 * Sets the vertices of this rounded polygon to be equal to the elements of the
-	 * given array.
 	 */
 	public void setVertices(IntPoint[] newVertices) {
 		this.points = newVertices;
@@ -214,8 +215,15 @@ public class RoundedPolygon {
 
 	/**
 	 * This method replaces the vertex at the given index of points, with point.
-	 * 
-	 * @post The vertex at the given index equals point. | points[index] == point
+	 * @throws IllegalArgumentException if the given index equals null.
+	 * 		| index != null 
+	 * @throws IllegalArgumentException if the given index is not in the range of the points.
+	 * | index < 0 || this.points.length < index
+	 * @throws IllegalArgumentException if the given point equals null
+	 * 		| point != null
+	 * @post The vertex at the given index equals point.
+	 * | points[index] == point
+	 * @mutates
 	 */
 	public void update(int index, IntPoint point) {
 		IntPoint[] vertices = this.getVertices();
