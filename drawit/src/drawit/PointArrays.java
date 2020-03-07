@@ -7,17 +7,21 @@ import drawit.IntPoint;
  * objects.
  * 
  * @author Alexander and Stefan
+ * @pre 
  */
 public class PointArrays {
 	/**
 	 * Returns a new array with the same contents as the given array.
 	 * 
-	 * @post the content of the new array equals the given points. | newArray ==
-	 *       points ??
-	 * @invar | newArray.length == points.length
-	 * 
+	 * @param points
+	 * 		The points are the content of the given array.
+	 * @pre Argument {@code points is not {@code null}.
+     *    | points != null
+	 * @post the content of the new array equals the given points.
+	 * 	| newArray == points ??
+	 * @post the length of the new array is equal to the length of the points.
+	 * 		| newArray.length == points.length
 	 */
-
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];
 

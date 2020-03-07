@@ -17,11 +17,6 @@ public class IntVector {
      *    | x != null
      * @pre Argument {@code y} is not {@code null}.
      *    | y != null
-	 * @mutates | this
-	 * @post the new X value of the vector is equal to the given X value.
-	 * 		| getX() == x
-	 * @post the new Y value of the vector is equal to the given Y value.
-	 * 		| getY() == y
 	 */
     private int x;
     private int y;

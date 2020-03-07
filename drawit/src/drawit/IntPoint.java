@@ -9,6 +9,17 @@ package drawit;
  * @immutable
  */
 public class IntPoint {
+	
+	/**
+	 * @param x
+	 * The X coordinate of the point.
+	 * @param y
+	 * The Y coordinate of the point
+	 * @pre Argument {@code x} is not {@code null}.
+     *    | x != null
+     * @pre Argument {@code y} is not {@code null}.
+     *    | y != null
+	 */
 	private final int x;
 	private final int y;
 
