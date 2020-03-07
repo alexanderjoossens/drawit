@@ -196,18 +196,17 @@ public class RoundedPolygon {
 	}
 
 	/**
-	 * @mutates Sets this rounded polygon's corner radius to the given value.
-	 * 
+	 * @mutates
+	 * Sets this rounded polygon's corner radius to the given value.
 	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
 
 	/**
+	 * @mutates
 	 * Sets the vertices of this rounded polygon to be equal to the elements of the
 	 * given array.
-	 * 
-	 * @mutates
 	 */
 	public void setVertices(IntPoint[] newVertices) {
 		this.points = newVertices;
@@ -225,7 +224,6 @@ public class RoundedPolygon {
 
 	/**
 	 * This method returns the normalized vector.
-	 * 
 	 */
 	public DoubleVector normalize(DoubleVector vector) {
 		double powerComponents = vector.getX() * vector.getX() + vector.getY() * vector.getY();
