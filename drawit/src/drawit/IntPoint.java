@@ -17,6 +17,10 @@ public class IntPoint {
 	 * The X coordinate of the point.
 	 * @param y
 	 * The Y coordinate of the point
+	 * @pre Argument {@code x} is not {@code null}.
+     *    | x != null
+     * @pre Argument {@code y} is not {@code null}.
+     *    | y != null
 	 * @mutates | this
 	 * @post the new X coordinate of the point is equal to the given X coordinate.
 	 * 		| getX() == x
@@ -31,6 +35,7 @@ public class IntPoint {
 	/**
 	 * Returns this point's X coordinate.
 	 * @return | this.x
+	 * @immutable
 	 */
 	public int getX() {
 		return this.x;
@@ -39,6 +44,7 @@ public class IntPoint {
 	/**
 	 * Returns this point's Y coordinate.
 	 * @return | this.y
+	 * @immutable
 	 */
 	public int getY() {
 		return this.y;
