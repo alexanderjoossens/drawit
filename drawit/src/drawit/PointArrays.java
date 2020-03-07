@@ -15,10 +15,10 @@ public class PointArrays {
 	 * 
 	 * @param points
 	 * 		The points are the content of the given array.
-	 * @pre Argument {@code points is not {@code null}.
+	 * @pre Argument {@code points} is not {@code null}.
      *    | points != null
 	 * @post the content of the new array equals the given points.
-	 * 	| newArray == points ??
+	 * 	| this.equals(newArray) == true
 	 * @post the length of the new array is equal to the length of the points.
 	 * 		| newArray.length == points.length
 	 */
@@ -34,8 +34,19 @@ public class PointArrays {
 	/**
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the given point inserted at the given index.
-	 * 
-	 * @post The length of the newArray is 1 longer than the given points |
+	 * @param points
+	 * 		The content of the given array.
+	 * @param index
+	 * 		The position (index) where the point will be inserted.
+	 * @param point
+	 * 		The point that will be inserted.
+	 * @pre Argument {@code points} is not {@code null}.
+     *    | points != null
+     * @pre Argument {@code index} is not {@code null}.
+     *    | index != null
+	 * @pre Argument {@code point} is not {@code null}.
+     *    | point != null
+	 * @post The length of the newArray is 1 more than the given points |
 	 *       points.length+1 == newArray.length
 	 */
 	public static IntPoint[] insert(IntPoint[] points, int index, IntPoint point) {
@@ -56,8 +67,15 @@ public class PointArrays {
 	/**
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the element at the given index removed.
-	 * 
-	 * @post The length of the newArray is 1 shorter than the given points |
+	 * @param pointss
+	 * 		The content of the given array.
+	 * @param index
+	 * 		The position (index) of the point that will be removed.
+	 * @pre Argument {@code points} is not {@code null}.
+     *    | points != null
+     * @pre Argument {@code index} is not {@code null}.
+     *    | index != null
+	 * @post The length of the newArray is 1 less than the given points |
 	 *       points.length()-1 == newArray.length()
 	 */
 	public static IntPoint[] remove(IntPoint[] points, int index) {
@@ -77,8 +95,20 @@ public class PointArrays {
 	/**
 	 * Returns a new array whose elements are the elements of the given array with
 	 * the element at the given index replaced by the given point.
-	 * 
-	 * @post | newArray[i] == value
+	 * @param points
+	 * 		The content of the given array.
+	 * @param index
+	 * 		The position (index) of the point that will be replaced.
+	 * @param value
+	 * 		The value of the new point.
+	 * @pre Argument {@code points} is not {@code null}.
+     *    | points != null
+	 * @pre Argument {@code index} is not {@code null}.
+     *    | index != null
+	 * @pre Argument {@code value} is not {@code null}.
+     *    | value != null
+	 * @post the value of the new array at position i equals the given value.
+	 * 		| newArray[i] == value
 	 */
 	public static IntPoint[] update(IntPoint[] points, int index, IntPoint value) {
 		IntPoint[] newArray = new IntPoint[points.length];
@@ -97,7 +127,10 @@ public class PointArrays {
 	 *
 	 * Returns null if the given array of points defines a proper polygon;
 	 * otherwise, returns a string describing why it does not.
+	 * @param points
 	 * 
+	 * @pre Argument {@code points} is not {@code null}.
+     *    | points != null
 	 * @post even om te kunnen pushen
 	 * 
 	 */
