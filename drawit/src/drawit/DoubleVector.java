@@ -1,8 +1,5 @@
 package drawit;
 
-/**
- * @immutable
- */
 public class DoubleVector {
 
 	private final double x;
