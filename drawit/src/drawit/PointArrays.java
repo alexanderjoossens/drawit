@@ -7,7 +7,7 @@ import drawit.IntPoint;
  * objects.
  * 
  * @author Alexander and Stefan
- * @pre 
+ * @pre immutable
  */
 public class PointArrays {
 	/**

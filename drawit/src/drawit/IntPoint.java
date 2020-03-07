@@ -138,6 +138,7 @@ public class IntPoint {
      *    | b != null
      * @pre Argument {@code c} is not {@code null}.
      *    | c != null
+     * @post | result == ((c.getY() - a.getY()) * (b.getX() - a.getX()) > (b.getY() - a.getY()) * (c.getX() - a.getX()))
 	 */
 	private static boolean isCounterClockWise(IntPoint a, IntPoint b, IntPoint c) {
 		return (c.getY() - a.getY()) * (b.getX() - a.getX()) > (b.getY() - a.getY()) * (c.getX() - a.getX());
@@ -160,7 +161,7 @@ public class IntPoint {
 	 * @pre other does not equal null.
 	 * 	| other != null
 	 * @post the resulting vector is the difference of the given 2 vectors.
-	 * 	| vector.getX() == this.getX() - other.getX()
+	 * 	| vector.getX() == this.x - other.getX()
 	 * 	| vector.getY() == this.y - other.getY()
 	 */
 	public IntVector minus(IntPoint other) {
@@ -177,9 +178,10 @@ public class IntPoint {
 	 *  @pre other does not equal null.
 	 * 	| other != null
 	 * @inspects other
-	 * @post the resulting vector is the sum of the given 2 vectors.
-	 * 	| vector.getX() == this.getX() + other.getX()
-	 * 	| vector.getY() == this.y + other.getY()
+	 * @post the resulting point is the point obtained by displacing this
+	 * point by the given vector.
+	 * 	| point.getX() == this.x + other.getX()
+	 * 	| point.getY() == this.y + other.getY()
 	 */
 	public IntPoint plus(IntVector other) {
 		int xCoord = this.x + other.getX();

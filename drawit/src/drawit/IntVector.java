@@ -18,8 +18,8 @@ public class IntVector {
      * @pre Argument {@code y} is not {@code null}.
      *    | y != null
 	 */
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     /**
 	 * @param x
@@ -45,6 +45,7 @@ public class IntVector {
      * Returns the X value of the given vector.
      * @return | this.x
      * @immutable
+     * @post | result == this.x
      */
     public int getX() {
     	return this.x;
@@ -53,6 +54,7 @@ public class IntVector {
     /**
      * Returns the Y value of the given vector.
      * @return | this.y
+     * @post | result == this.y
      * @immutable
      */
     public int getY() {

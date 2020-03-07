@@ -69,10 +69,16 @@ public class RoundedPolygon {
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
+	 * @throws IllegalArgumentException if the vertices don't define a proper polygon.
+	 * | !(PointArrays.checkDefinesProperPolygon(this.points)==null)
+	 * 
+	 * @post Because of Pythagoras rule, the length of radiusVector squared = radius squared + theLineLength squared.
+	 * | (radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) <= 0.01 
+	 * | && radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) >= -0.01)
 	 */
 	public String getDrawingCommands() {
 		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
-			return "";
+			throw new IllegalArgumentException(PointArrays.checkDefinesProperPolygon(this.points));
 		}
 		IntPoint[] originalPoints = this.getVertices();
 		IntPoint[] newPointsTemp = PointArrays.insert(originalPoints, 0, originalPoints[originalPoints.length - 1]);
@@ -169,7 +175,8 @@ public class RoundedPolygon {
 	 * @mutates
 	 * @post The length of the points is 1 longer than the length of the old points
 	 *       | old(points.length) == points.length -1
-	 * @post The vertex at the given index of points, equals point. | points[index] == point
+	 * @post The vertex at the given index of points, equals point. 
+	 * | points[index] == point
 	 */
 	public void insert(int index, IntPoint point) {
 		IntPoint[] vertices = this.getVertices();
