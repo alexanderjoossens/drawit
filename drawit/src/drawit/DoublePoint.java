@@ -39,5 +39,5 @@ public class DoublePoint {
 		return point;
 
 	}
-
+	
 }

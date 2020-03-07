@@ -1,10 +1,11 @@
-package drawit;//test
+package drawit;
 
 /**
  * An immutable abstraction for a point in the two-dimensional plane with int
  * coordinates.
  * 
  * @author Alexander and Stefan
+ * @pre This object's coordinates are integers.
  * @immutable
  */
 public class IntPoint {
@@ -12,9 +13,15 @@ public class IntPoint {
 	private final int y;
 
 	/**
-	 * @mutates this
-	 * @post | getX() == x
-	 * @post | getY() == y
+	 * @param x
+	 * The X coordinate of the point.
+	 * @param y
+	 * The Y coordinate of the point
+	 * @mutates | this
+	 * @post the new X coordinate of the point is equal to the given X coordinate.
+	 * 		| getX() == x
+	 * @post the new Y coordinate of the point is equal to the given Y coordinate.
+	 * 		| getY() == y
 	 */
 	public IntPoint(int x, int y) {
 		this.x = x;
@@ -31,6 +38,7 @@ public class IntPoint {
 
 	/**
 	 * Returns this point's Y coordinate.
+	 * @return | this.y
 	 */
 	public int getY() {
 		return this.y;
@@ -39,13 +47,17 @@ public class IntPoint {
 	/**
 	 * Returns true if this point has the same coordinates as the given point;
 	 * returns false otherwise.
+	 * @param other
+	 * 		The other IntPoint.
+	 * @pre Argument {@code other} is not {@code null}.
+     *    | other != null
+	 * @inspects other
+	 * @return True if and only if this point has the same coordinates as the given point.
+	 * 		result == ( (this.x == other.getX()) && (this.y == other.getY()) )
 	 */
 	public boolean equals(IntPoint other) {
-		if (this.x == other.getX() && this.y == other.getY()) {
-			return true;
-		} else {
-			return false;
-		}
+		boolean result = ( (this.x == other.getX()) && (this.y == other.getY()) );
+		return result;
 	}
 
 	/**
@@ -60,7 +72,16 @@ public class IntPoint {
 	}
 
 	/**
-	 * Returns true iff this point is on open line segment bc. An open line segment does not include its endpoints.
+	 * Returns true if this point is on open line segment bc. An open line segment does not include its endpoints.
+	 * @param b
+	 * 		The IntPoint b.
+	 * @param c
+	 * 		The IntPoint c.
+	 * @pre Argument {@code b} is not {@code null}.
+     *    | b != null
+     * @pre Argument {@code c} is not {@code null}.
+     *    | c != null
+	 * @return True if and only if this point is on the open line segment bc.
 	 */
 	public boolean isOnLineSegment(IntPoint b, IntPoint c) {
 		if (b.getX() == c.getX()) {
@@ -87,13 +108,25 @@ public class IntPoint {
 	/**
 	 * Checks whether the given points follow in a counterclockwise order if we
 	 * connect the points together.
+	 * @param a
+	 * 		The IntPoint a.
+	 * @param b
+	 * 		The IntPoint b.
+	 * @param c
+	 * 		The IntPoint c.
+	 * @pre Argument {@code a} is not {@code null}.
+     *    | a != null
+     * @pre Argument {@code b} is not {@code null}.
+     *    | b != null
+     * @pre Argument {@code c} is not {@code null}.
+     *    | c != null
 	 */
 	private static boolean isCounterClockWise(IntPoint a, IntPoint b, IntPoint c) {
 		return (c.getY() - a.getY()) * (b.getX() - a.getX()) > (b.getY() - a.getY()) * (c.getX() - a.getX());
 
 	}
 
-	/** No formal
+	/**
 	 * Returns true if the open line segment ab intersects the open line segment cd.
 	 */
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
@@ -125,6 +158,7 @@ public class IntPoint {
 	 * point by the given vector.
 	 *  @pre other does not equal null.
 	 * 	| other != null
+	 * @inspects other
 	 * @post the resulting vector is the sum of the given 2 vectors.
 	 * 	| vector.getX() == this.getX() + other.getX()
 	 * 	| vector.getY() == this.y + other.getY()
@@ -142,7 +176,7 @@ public class IntPoint {
 	 * Returns false otherwise.
 	 * @pre IntPoint a and IntPoint b do not equal null.
 	 * 	| a != null && b != null
-	 * @throw ??
+	 * @return True if and only if the exitpath of this point intersects with the open linesegment defined by connecting point a and b.
 	 */
 	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
 		if (a.getX() == b.getX()) {

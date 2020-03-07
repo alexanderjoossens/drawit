@@ -88,7 +88,9 @@ public class PointArrays {
 		return newArray;
 	}
 
+	//You need not document which exact string is returned by PointArrays.checkDefinesProperPolygon; your documentation only needs to specify when the return value is null and when it is not null.
 	/**
+	 *
 	 * Returns null if the given array of points defines a proper polygon;
 	 * otherwise, returns a string describing why it does not.
 	 * 

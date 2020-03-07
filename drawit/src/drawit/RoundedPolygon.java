@@ -20,7 +20,7 @@ public class RoundedPolygon {
 	public RoundedPolygon() {
 	}
 
-	// dit is genoeg documentatie zie toledo (not formal?)
+	// dit is genoeg documentatie zie toledo (no formal)
 	/**
 	 * Returns true if the given point is contained by the (non-rounded) polygon
 	 * defined by this rounded polygon's vertices. This method does not take into
@@ -67,7 +67,7 @@ public class RoundedPolygon {
 		return true;
 	}
 
-	// dit is genoeg documentatie staat op toledo(not formal).
+	// dit is genoeg documentatie staat op toledo(no formal).
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.

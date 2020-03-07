@@ -3,14 +3,21 @@ package drawit;
 /**
  * An instance of this class represents a displacement in the two-dimensional plane.
  * @author Alexander and Stefan
+ * @pre This vector's values are integers.
  * @immutable
  */
 public class IntVector {
 	
 	/**
-	 * @mutates this
-	 * @post | getX() == x
-	 * @post | getY() == y
+	 * @param x
+	 * The X value of the vector
+	 * @param y
+	 * The Y value of the vector
+	 * @mutates | this
+	 * @post the new X value of the vector is equal to the given X value.
+	 * 		| getX() == x
+	 * @post the new Y value of the vector is equal to the given Y value.
+	 * 		| getY() == y
 	 */
     private int x;
     private int y;
@@ -22,6 +29,7 @@ public class IntVector {
 
     /**
      * Returns the X value of the given vector.
+     * @return | this.x
      */
     public int getX() {
     	return this.x;
@@ -29,12 +37,13 @@ public class IntVector {
     
     /**
      * Returns the Y value of the given vector.
+     * @return | this.y
      */
     public int getY() {
     	return this.y;
     }
     
-    //(enkel formal)
+    //(no formal)
     /**
      * Returns a DoubleVector object that represents the same vector represented by this IntVector object.
      */

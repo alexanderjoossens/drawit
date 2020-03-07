@@ -50,4 +50,5 @@ public class DoubleVector {
 		DoubleVector vector = new DoubleVector(this.x * d, this.y * d);
 		return vector;
 	}
+	
 }
