@@ -13,13 +13,19 @@ class IntPointTest {
 		
 		DoublePoint point0 = point1.asDoublePoint();
 		assert point0.getX() == -1.0 && point0.getY() == -1.0;
-
 		IntPoint point2 = new IntPoint(-1, -1);
 		assert point2.equals(point1);
-
+		
+		// isOnLineSegment_Test
 		IntPoint point3 = new IntPoint(3, 3);
 		IntPoint point4 = new IntPoint(2, 2);
+		IntPoint point13 = new IntPoint(0, 3);
+		IntPoint point14 = new IntPoint(0, 0);
+
+
 		assert point4.isOnLineSegment(point1, point3);
+		assert !point13.isOnLineSegment(point13, point14);
+
 
 		IntPoint point5 = new IntPoint(1, 2);
 		IntPoint point6 = new IntPoint(2, 1);
