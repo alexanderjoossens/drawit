@@ -122,17 +122,13 @@ public class PointArrays {
 		return newArray;
 	}
 
-	//You need not document which exact string is returned by PointArrays.checkDefinesProperPolygon; your documentation only needs to specify when the return value is null and when it is not null.
 	/**
-	 *
 	 * Returns null if the given array of points defines a proper polygon;
 	 * otherwise, returns a string describing why it does not.
 	 * @param points
-	 * 
+	 * 		The points to check if they make up a polygon.
 	 * @pre Argument {@code points} is not {@code null}.
      *    | points != null
-	 * @post even om te kunnen pushen
-	 * 
 	 */
 	static String checkDefinesProperPolygon(IntPoint[] points) {
 		for (int i = 0; i < points.length; i++) {

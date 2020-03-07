@@ -20,7 +20,6 @@ public class RoundedPolygon {
 	public RoundedPolygon() {
 	}
 
-	// dit is genoeg documentatie zie toledo (no formal)
 	/**
 	 * Returns true if the given point is contained by the (non-rounded) polygon
 	 * defined by this rounded polygon's vertices. This method does not take into
@@ -67,7 +66,6 @@ public class RoundedPolygon {
 		return true;
 	}
 
-	// dit is genoeg documentatie staat op toledo(no formal).
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
@@ -150,8 +148,8 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
-	 * 
-	 * @post the result equals the given radius | result == getRadius()
+	 * @post the result equals the given radius 
+	 * 		| result == getRadius()
 	 */
 	public int getRadius() {
 		return this.radius;
@@ -159,8 +157,8 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
-	 * 
-	 * @post The result equals the points | result == points
+	 * @post The result equals the points 
+	 * 		| result == points
 	 */
 	public IntPoint[] getVertices() {
 		return this.points;
@@ -168,13 +166,10 @@ public class RoundedPolygon {
 
 	/**
 	 * This method adds the given point to the points field of this object.
-	 * 
 	 * @mutates
 	 * @post The length of the points is 1 longer than the length of the old points
 	 *       | old(points.length) == points.length -1
-	 * @post The vertex at the given index of points, equals point. | points[index]
-	 *       == point
-	 * 
+	 * @post The vertex at the given index of points, equals point. | points[index] == point
 	 */
 	public void insert(int index, IntPoint point) {
 		IntPoint[] vertices = this.getVertices();
@@ -183,12 +178,17 @@ public class RoundedPolygon {
 
 	/**
 	 * This method removes the given point to the points field of this object.
-	 * 
+	 * @param index
+	 * 		The index of the point to be removed.
 	 * @mutates
 	 * @post The length of the points is 1 shorter than the length of the old points
 	 *       | old(points.length) == points.length + 1
-	 * @post The vertex at the given index of points, equals point. | points[index]
-	 *       == old(points[index+1]
+	 * @post The vertex at the given index of points, equals point. 
+	 * 		| points[index] == old(points[index+1]
+	 * @throws IllegalArgumentException if the index is null.
+	 * 		| index == null
+	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon.
+	 * 		| 0 > index || index > this.points.length
 	 */
 	public void remove(int index) {
 		IntPoint[] vertices = this.getVertices();
@@ -196,7 +196,15 @@ public class RoundedPolygon {
 	}
 
 	/**
+	 * @param radius
+	 * 		The new radius.
 	 * @mutates
+	 * @post the new radius equals the given radius.
+	 * 		| this.radius == radius
+	 * @throws IllegalArgumentException if the radius is null.
+	 * 		| radius == null
+	 * @throws IllegalArgumentException if the radius is smaller than 0.
+	 * 		| 0 > radius
 	 * Sets this rounded polygon's corner radius to the given value.
 	 */
 	public void setRadius(int radius) {
@@ -205,8 +213,12 @@ public class RoundedPolygon {
 
 	/**
 	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
+	 * @param newVertices
+	 * 		The new vertices.
+	 * @pre Argument {@code newVertices} is not {@code null}.
+     *    | newVertices != null
 	 * @throws IllegalArgumentException if the given vertices equal null
-	 * 		| newVertices != null
+ * 		| PointArrays.checkDefinesProperPolygon(newVertices) == null
 	 * @mutates
 	 */
 	public void setVertices(IntPoint[] newVertices) {
@@ -215,6 +227,14 @@ public class RoundedPolygon {
 
 	/**
 	 * This method replaces the vertex at the given index of points, with point.
+	 * @param point
+	 * 		The new point that you want to update the old point with.
+	 * @param index
+	 * 		The index of the point to be updated.
+	 * @pre Argument {@code point} is not {@code null}.
+     *    | point != null
+	 * @pre Argument {@code index} is not {@code null}.
+     *    | index != null
 	 * @throws IllegalArgumentException if the given index equals null.
 	 * 		| index != null 
 	 * @throws IllegalArgumentException if the given index is not in the range of the points.
@@ -232,15 +252,17 @@ public class RoundedPolygon {
 
 	/**
 	 * This method returns the normalized vector.
+	 * @param vector
+	 * 		The vector to be normalized.
+	 * @throws IllegalArgumentException if the given point equals null
+	 * 		| point == null
 	 */
 	public DoubleVector normalize(DoubleVector vector) {
 		double powerComponents = vector.getX() * vector.getX() + vector.getY() * vector.getY();
 		double normalizeScale = 1 / Math.sqrt(powerComponents);
-
 		DoubleVector normalizedVector = vector.scale(normalizeScale);
 		return normalizedVector;
 
 	}
-
 
 }
