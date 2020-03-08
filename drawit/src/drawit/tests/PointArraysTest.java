@@ -90,6 +90,7 @@ public class PointArraysTest {
 		assert PointArrays.checkDefinesProperPolygon(pointArray3) == "Lines intersect!";
 		assert PointArrays.checkDefinesProperPolygon(pointArray7) == "2 vertices coincide!";
 		assert PointArrays.checkDefinesProperPolygon(pointArray8) == null;
+		System.out.println(PointArrays.checkDefinesProperPolygon(pointArray9));
 		assert PointArrays.checkDefinesProperPolygon(pointArray9) == "There is a vertex on an edge!";
 
 		

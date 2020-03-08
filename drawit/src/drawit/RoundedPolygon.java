@@ -18,8 +18,8 @@ public class RoundedPolygon {
 	private IntPoint[] points;
 
 	public RoundedPolygon() {
-		radius = 0;
-		points = null;
+		this.radius = 0;
+		this.points = null;
 	}
 
 	/**
