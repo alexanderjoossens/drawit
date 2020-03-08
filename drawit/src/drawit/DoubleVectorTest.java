@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class DoubleVectorTest {
+public class DoubleVectorTest {
 
 	@Test
 	void test() {
