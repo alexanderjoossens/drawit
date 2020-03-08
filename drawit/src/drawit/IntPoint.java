@@ -32,7 +32,7 @@ public class IntPoint {
      *    | x != null
      * @pre Argument {@code y} is not {@code null}.
      *    | y != null
-	 * @mutates | this
+	 * @inspects | this
 	 * @post the new X coordinate of the point is equal to the given X coordinate.
 	 * 		| getX() == x
 	 * @post the new Y coordinate of the point is equal to the given Y coordinate.
@@ -49,7 +49,7 @@ public class IntPoint {
 	 * @creates result
 	 * @post The result is not {@code null}
      *    | result != null
-     * @inspects this
+     * @inspects | this
 	 */
 	public int getX() {
 		return this.x;
@@ -61,7 +61,7 @@ public class IntPoint {
 	 * @creates result
 	 * @post The result is not {@code null}
      *    | result != null
-     * @inspects this
+     * @inspects | this
 	 */
 	public int getY() {
 		return this.y;
@@ -74,7 +74,7 @@ public class IntPoint {
 	 * 		The other IntPoint.
 	 * @pre Argument {@code other} is not {@code null}.
      *    | other != null
-	 * @inspects other
+	 * @inspects | other
 	 * @return True if and only if this point has the same coordinates as the given point.
 	 * 		result == ( (this.x == other.getX()) && (this.y == other.getY()) )
 	 * @creates result
@@ -82,7 +82,7 @@ public class IntPoint {
      *    | result != null
 	 */
 	public boolean equals(IntPoint other) {
-		boolean result = ( (this.x == other.getX()) && (this.y == other.getY()) );
+		boolean result = ( (this.getX() == other.getX()) && (this.getY() == other.getY()) );
 		return result;
 	}
 
@@ -91,6 +91,7 @@ public class IntPoint {
 	 * this IntPoint object.
 	 * @post a new object of type DoublePoint was made.
 	 * 		| point == DoublePoint
+	 * @inspects | this
 	 */
 	public DoublePoint asDoublePoint() {
 		DoublePoint point = new DoublePoint(this.x, this.y);
@@ -175,8 +176,8 @@ public class IntPoint {
 	 */
 	public IntVector minus(IntPoint other) {
 		
-		int xCoord = this.x - other.getX();
-		int yCoord = this.y - other.getY();
+		int xCoord = this.getX() - other.getX();
+		int yCoord = this.getY() - other.getY();
 		IntVector vector = new IntVector(xCoord, yCoord);
 		return vector;
 	}
@@ -184,17 +185,20 @@ public class IntPoint {
 	/**
 	 * Returns an IntPoint object representing the point obtained by displacing this
 	 * point by the given vector.
-	 *  @pre other does not equal null.
+	 * @pre other does not equal null.
 	 * 	| other != null
-	 * @inspects other
+	 * @inspects | other
 	 * @post the resulting point is the point obtained by displacing this
 	 * point by the given vector.
 	 * 	| point.getX() == this.x + other.getX()
 	 * 	| point.getY() == this.y + other.getY()
+	 * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public IntPoint plus(IntVector other) {
-		int xCoord = this.x + other.getX();
-		int yCoord = this.y + other.getY();
+		int xCoord = this.getX() + other.getX();
+		int yCoord = this.getY() + other.getY();
 		IntPoint point = new IntPoint(xCoord, yCoord);
 		return point;
 	}
@@ -206,6 +210,9 @@ public class IntPoint {
 	 * @pre IntPoint a and IntPoint b do not equal null.
 	 * 	| a != null && b != null
 	 * @return True if and only if the exitpath of this point intersects with the open linesegment defined by connecting point a and b.
+	 * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
 		if (a.getX() == b.getX()) {
