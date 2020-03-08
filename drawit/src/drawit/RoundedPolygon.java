@@ -38,6 +38,7 @@ public class RoundedPolygon {
 		
 		if (point == null) {
 			throw new IllegalArgumentException("The point equals null");
+		}
 			
 		for (int i = 0; i < this.points.length; i++) {
 			if (this.points[i].equals(point)) {
