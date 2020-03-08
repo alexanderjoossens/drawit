@@ -72,13 +72,15 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the vertices don't define a proper polygon.
 	 * | !(PointArrays.checkDefinesProperPolygon(this.points)==null)
 	 * 
-	 * @post Because of Pythagoras rule, the length of radiusVector squared = radius squared + theLineLength squared.
+	 * @post Because of Pythagora's theorem, the length of radiusVector squared = radius squared + theLineLength squared.
 	 * | (radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) <= 0.01 
 	 * | && radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) >= -0.01)
+	 * @post The drawn radius can not be longer then this rounded polygons radius.
+	 * | this.radius >= theRadius
 	 */
 	public String getDrawingCommands() {
-		if (PointArrays.checkDefinesProperPolygon(this.points) != null) {
-			throw new IllegalArgumentException(PointArrays.checkDefinesProperPolygon(this.points));
+		if (this.points.length<=2) {
+			return "";
 		}
 		IntPoint[] originalPoints = this.getVertices();
 		IntPoint[] newPointsTemp = PointArrays.insert(originalPoints, 0, originalPoints[originalPoints.length - 1]);
@@ -224,11 +226,15 @@ public class RoundedPolygon {
 	 * 		The new vertices.
 	 * @pre Argument {@code newVertices} is not {@code null}.
      *    | newVertices != null
-	 * @throws IllegalArgumentException if the given vertices equal null
- * 		| PointArrays.checkDefinesProperPolygon(newVertices) == null
+	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon.
+ * 		| PointArrays.checkDefinesProperPolygon(newVertices) != null
 	 * @mutates
 	 */
 	public void setVertices(IntPoint[] newVertices) {
+//		PointArrays.checkDefinesProperPolygon(newVertices) != null
+		if (PointArrays.checkDefinesProperPolygon(newVertices) != null) {
+			throw new IllegalArgumentException(PointArrays.checkDefinesProperPolygon(newVertices));
+		}
 		this.points = newVertices;
 	}
 
