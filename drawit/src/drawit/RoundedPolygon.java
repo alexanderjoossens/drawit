@@ -196,7 +196,7 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the index is null.
 	 * 		| index == null
 	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon.
-	 * 		| 0 > index || index > this.points.length
+	 * 		| 0 < index || index >= this.points.length
 	 */
 	public void remove(int index) {
 		IntPoint[] vertices = this.getVertices();
@@ -260,7 +260,7 @@ public class RoundedPolygon {
 			throw new IllegalArgumentException("The given point equals null!");
 		}
 		
-		if (index < 0 || this.points.length >= index) {
+		if (index < 0 || this.points.length <= index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
 		IntPoint[] vertices = this.getVertices();
@@ -276,7 +276,7 @@ public class RoundedPolygon {
 	 * @post The size of the resulting vector is 1.
 	 * 		| normalizedVector.getSize() < 1.01 && normalizedVector.getSize() > 0.99
 	 */
-	public DoubleVector normalize(DoubleVector vector) {
+	public static DoubleVector normalize(DoubleVector vector) {
 		double powerComponents = vector.getX() * vector.getX() + vector.getY() * vector.getY();
 		double normalizeScale = 1 / Math.sqrt(powerComponents);
 		DoubleVector normalizedVector = vector.scale(normalizeScale);
