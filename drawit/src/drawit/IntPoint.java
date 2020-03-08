@@ -46,10 +46,10 @@ public class IntPoint {
 	/**
 	 * Returns this point's X coordinate.
 	 * @return | this.x
-	 * @immutable
 	 * @creates result
 	 * @post The result is not {@code null}
      *    | result != null
+     * @inspects this
 	 */
 	public int getX() {
 		return this.x;
@@ -58,10 +58,10 @@ public class IntPoint {
 	/**
 	 * Returns this point's Y coordinate.
 	 * @return | this.y
-	 * @immutable
 	 * @creates result
 	 * @post The result is not {@code null}
      *    | result != null
+     * @inspects this
 	 */
 	public int getY() {
 		return this.y;

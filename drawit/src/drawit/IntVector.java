@@ -45,7 +45,6 @@ public class IntVector {
     /**
      * Returns the X value of the given vector.
      * @return | this.x
-     * @immutable
      * @post | result == this.x
      * @creates result
      * @post The result is not {@code null}
@@ -59,7 +58,6 @@ public class IntVector {
      * Returns the Y value of the given vector.
      * @return | this.y
      * @post | result == this.y
-     * @immutable
      * @creates result
      * @post The result is not {@code null}
      *    | result != null
