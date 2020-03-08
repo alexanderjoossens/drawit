@@ -28,8 +28,20 @@ public class RoundedPolygon {
 	 * 
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
+	 * @param points
+	 * 		The points to check if they are in the polygon.
+	 * @pre Argument {@code points} is not {@code null}.
+     *    | points != null
+     * @inspects | this
+     * @throws IllegalArgumentException if the point is null.
+	 * 		| point == null
+     * 
 	 */
 	public boolean contains(IntPoint point) {
+		
+		if (point == null) {
+			throw new IllegalArgumentException("The point equals null");
+			
 		for (int i = 0; i < this.points.length; i++) {
 			if (this.points[i].equals(point)) {
 				return true;
@@ -69,7 +81,7 @@ public class RoundedPolygon {
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
-	 * @inspects this
+	 * @inspects | this
 	 * @post Because of Pythagora's theorem, the length of radiusVector squared = radius squared + theLineLength squared.
 	 * | (radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) <= 0.01 
 	 * | && radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) >= -0.01)
@@ -180,6 +192,7 @@ public class RoundedPolygon {
 	 * | points[index] == point
 	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon or if negative.
 	 * 		| 0 > index || index < this.points.length
+	 * @inspects | this
 	 */
 	public void insert(int index, IntPoint point) {
 		if (index < 0 || this.points.length < index) {
