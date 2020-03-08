@@ -5,7 +5,7 @@ package drawit;
  * defined by a set of 2D points with integer coordinates and a nonnegative
  * corner radius.
  * 
- * @author Alexander & Stefan
+ * @author Alexander and Stefan
  * @invar This object's radius is positive
  */
 public class RoundedPolygon {
