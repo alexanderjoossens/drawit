@@ -24,6 +24,13 @@ public class PointArraysTest {
 		IntPoint point11 = new IntPoint(1, 1);
 		IntPoint point12 = new IntPoint(2, 1);
 		IntPoint point13 = new IntPoint(1, 0);
+		
+		IntPoint point14 = new IntPoint(0, 0);
+		IntPoint point15 = new IntPoint(2, 0);
+		IntPoint point16 = new IntPoint(2, 2);
+		IntPoint point17 = new IntPoint(1, 0);
+		IntPoint point18 = new IntPoint(2, 1);
+		IntPoint point19 = new IntPoint(1, 1);
 
 		
 		IntPoint[] pointArray = new IntPoint[4];
@@ -56,7 +63,31 @@ public class PointArraysTest {
 		pointArray9[2] = point12;
 		pointArray9[3] = point11;
 		pointArray9[4] = point13;
+		
+		IntPoint[] pointArray10 = new IntPoint[3];
 
+		pointArray10[0] = point14;
+		pointArray10[1] = point15;
+		pointArray10[2] = point16;
+		
+		IntPoint[] pointArray11 = new IntPoint[3];
+
+		pointArray11[0] = point14;
+		pointArray11[1] = point15;
+		pointArray11[2] = point17;
+		
+		IntPoint[] pointArray12 = new IntPoint[3];
+
+		pointArray12[0] = point14;
+		pointArray12[1] = point15;
+		pointArray12[2] = point18;
+		
+		IntPoint[] pointArray13 = new IntPoint[3];
+
+		pointArray13[0] = point14;
+		pointArray13[1] = point15;
+		pointArray13[2] = point19;
+		
 
 		// copy_Test
 		IntPoint[] pointArray2 = PointArrays.copy(pointArray);
@@ -92,6 +123,12 @@ public class PointArraysTest {
 		assert PointArrays.checkDefinesProperPolygon(pointArray8) == null;
 		System.out.println(PointArrays.checkDefinesProperPolygon(pointArray9));
 		assert PointArrays.checkDefinesProperPolygon(pointArray9) == "There is a vertex on an edge!";
+		assert PointArrays.checkDefinesProperPolygon(pointArray10) == null;
+		assert PointArrays.checkDefinesProperPolygon(pointArray11) == "There is a vertex on an edge!";
+		assert PointArrays.checkDefinesProperPolygon(pointArray12) == "There is a vertex on an edge!";
+		assert PointArrays.checkDefinesProperPolygon(pointArray13) == "There is a vertex on an edge!";
+
+
 
 		
 		
