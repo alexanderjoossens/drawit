@@ -12,9 +12,9 @@ public class IntPoint {
 	
 	/**
 	 * @param x
-	 * The X coordinate of the point.
+	 * 		The X coordinate of the point.
 	 * @param y
-	 * The Y coordinate of the point
+	 * 		The Y coordinate of the point
 	 * @pre Argument {@code x} is not {@code null}.
      *    | x != null
      * @pre Argument {@code y} is not {@code null}.
@@ -25,9 +25,9 @@ public class IntPoint {
 
 	/**
 	 * @param x
-	 * The X coordinate of the point.
+	 * 		The X coordinate of the point.
 	 * @param y
-	 * The Y coordinate of the point
+	 * 		The Y coordinate of the point
 	 * @pre Argument {@code x} is not {@code null}.
      *    | x != null
      * @pre Argument {@code y} is not {@code null}.
@@ -94,7 +94,7 @@ public class IntPoint {
 	 * @inspects | this
 	 */
 	public DoublePoint asDoublePoint() {
-		DoublePoint point = new DoublePoint(this.x, this.y);
+		DoublePoint point = new DoublePoint(this.getX(), this.getY());
 		return point;
 	}
 
