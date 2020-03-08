@@ -178,8 +178,13 @@ public class RoundedPolygon {
 	 *       | old(points.length) == points.length -1
 	 * @post The vertex at the given index of points, equals point. 
 	 * | points[index] == point
+	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon or if negative.
+	 * 		| 0 > index || index < this.points.length
 	 */
 	public void insert(int index, IntPoint point) {
+		if (index < 0 || this.points.length < index) {
+			throw new IllegalArgumentException("Index out of bounds exception!");
+		}
 		IntPoint[] vertices = this.getVertices();
 		this.points = PointArrays.insert(vertices, index, point);
 	}
@@ -196,9 +201,12 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the index is null.
 	 * 		| index == null
 	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon.
-	 * 		| 0 < index || index >= this.points.length
+	 * 		| 0 > index || index <= this.points.length
 	 */
 	public void remove(int index) {
+		if (index < 0 || this.points.length <= index) {
+			throw new IllegalArgumentException("Index out of bounds exception!");
+		}
 		IntPoint[] vertices = this.getVertices();
 		this.points = PointArrays.remove(vertices, index);
 	}
