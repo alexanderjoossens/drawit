@@ -143,7 +143,7 @@ public class PointArrays {
 	 * @pre Argument {@code points} is not {@code null}.
      *    | points != null
 	 */
-	static String checkDefinesProperPolygon(IntPoint[] points) {
+	public static String checkDefinesProperPolygon(IntPoint[] points) {
 		for (int i = 0; i < points.length; i++) {
 			for (int j = 0; j < points.length; j++) {
 				if (points[i].equals(points[j]) && i != j) {
