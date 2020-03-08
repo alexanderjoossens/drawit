@@ -99,7 +99,7 @@ public class IntPoint {
 	}
 
 	/**
-	 * Returns true if this point is on open line segment bc. An open line segment does not include its endpoints.
+	 * Returns true iff this point is on open line segment bc. An open line segment does not include its endpoints.
 	 * Returns false otherwise.
 	 * @param b
 	 * 		The IntPoint b.
