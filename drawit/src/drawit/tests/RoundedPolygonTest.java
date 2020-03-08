@@ -14,6 +14,8 @@ public class RoundedPolygonTest {
 	void test() {
 		// contains_Test
 		RoundedPolygon poly1 = new RoundedPolygon();
+		RoundedPolygon poly3 = new RoundedPolygon();
+
 		IntPoint point1 = new IntPoint(2, 0);
 		IntPoint point2 = new IntPoint(2, 2);
 		IntPoint point3 = new IntPoint(0, 2);
@@ -28,7 +30,11 @@ public class RoundedPolygonTest {
 		IntPoint point10 = new IntPoint(1, 0);
 		IntPoint point11 = new IntPoint(2, 1);
 		IntPoint point16 = new IntPoint(0, 1);
-
+		
+		IntPoint point17 = new IntPoint(0, 0);
+		IntPoint point18 = new IntPoint(2, 2);
+		IntPoint point19 = new IntPoint(4, 0);
+		IntPoint point20 = new IntPoint(2, -2);
 
 		IntPoint[] pointArray = new IntPoint[4];
 
@@ -38,6 +44,17 @@ public class RoundedPolygonTest {
 		pointArray[3] = point4;
 		poly1.setRadius(10);
 		poly1.setVertices(pointArray);
+		
+		IntPoint[] pointArray3 = new IntPoint[4];
+
+		pointArray3[0] = point17;
+		pointArray3[1] = point18;
+		pointArray3[2] = point19;
+		pointArray3[3] = point20;
+		
+		poly3.setRadius(10);
+		poly3.setVertices(pointArray3);
+
 		
 		// getRadius&getVertices_Test
 		assert poly1.getRadius() == 10;
@@ -51,6 +68,7 @@ public class RoundedPolygonTest {
 		assert poly1.contains(point9) == true;
 		assert poly1.contains(point10) == true;
 		assert poly1.contains(point11) == true;
+		assert poly3.contains(point3) == true;
 		
 		// insert_Test
 		poly1.insert(0, point10);

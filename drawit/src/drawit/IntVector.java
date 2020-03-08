@@ -94,7 +94,7 @@ public class IntVector {
      * @inspects | other
      */
     public long dotProduct(IntVector other) {
-    	long dotProd = (this.getX() * other.getX()) + (this.getX() * other.getY());
+    	long dotProd = (this.getX() * other.getX()) + (this.getY() * other.getY());
     	return dotProd;
     }
 

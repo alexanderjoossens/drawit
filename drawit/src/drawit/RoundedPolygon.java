@@ -57,7 +57,7 @@ public class RoundedPolygon {
 		int intersectAmount = 0;
 
 		for (int i = 0; i < this.points.length; i++) {
-			if (!(this.points[i].getX() > point.getX() && this.points[i].getY() == point.getY())) {
+			if (this.points[i].getX() > point.getX() && this.points[i].getY() == point.getY()) {
 				intersectAmount++;
 			}
 		}
@@ -191,9 +191,19 @@ public class RoundedPolygon {
 	 * | points[index] == point
 	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon or if negative.
 	 * 		| 0 > index || index < this.points.length
+	 * @throws IllegalArgumentException object is null.
+	 * 		| points == null
+	 * @throws IllegalArgumentException poinnt is null.
+	 * 		| point == null
 	 * @inspects | this
 	 */
 	public void insert(int index, IntPoint point) {
+		if (this.points == null) {
+			throw new IllegalArgumentException("There is nothing to insert in!");
+		}
+		if (point == null) {
+			throw new IllegalArgumentException("Point does not exist!");
+		}
 		if (index < 0 || this.points.length < index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
@@ -210,12 +220,17 @@ public class RoundedPolygon {
 	 *       | old(points.length) == points.length + 1
 	 * @post The vertex at the given index of points, equals point. 
 	 * 		| points[index] == old(points[index+1])
+	 * @throws IllegalArgumentException if the object is null.
+	 * 		| points == null
 	 * @throws IllegalArgumentException if the index is null.
 	 * 		| index == null
 	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon.
 	 * 		| 0 > index || index <= this.points.length
 	 */
 	public void remove(int index) {
+		if (this.points == null) {
+			throw new IllegalArgumentException("There are no points to remove!");
+		}
 		if (index < 0 || this.points.length <= index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
@@ -267,6 +282,8 @@ public class RoundedPolygon {
 	 * 		The index of the point to be updated.
      * @throws IllegalArgumentException if the given point is null
      * 		| point == null
+     * @throws IllegalArgumentException if the own points is null
+     * 		| points == null
 	 * @throws IllegalArgumentException if the given index is not in the range of the points.
 	 * 		| index < 0 || this.points.length >= index
 	 * @post The vertex at the given index equals point.
@@ -275,6 +292,9 @@ public class RoundedPolygon {
 	 * @inspects | this
 	 */
 	public void update(int index, IntPoint point) {
+		if (this.points == null) {
+			throw new IllegalArgumentException("There are no objects to update!");
+		}
 		
 		if (point == null) {
 			throw new IllegalArgumentException("The given point equals null!");
