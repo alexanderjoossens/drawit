@@ -26,6 +26,7 @@ public class RoundedPolygon {
 	 * 
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
+	 * @inspects this
 	 */
 	public boolean contains(IntPoint point) {
 		for (int i = 0; i < this.points.length; i++) {
@@ -67,6 +68,7 @@ public class RoundedPolygon {
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
+	 * @inspects this
 	 * @post Because of Pythagora's theorem, the length of radiusVector squared = radius squared + theLineLength squared.
 	 * | (radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) <= 0.01 
 	 * | && radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) >= -0.01)
@@ -151,6 +153,7 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
+	 * @inspects this.radius
 	 * @post the result equals the given radius 
 	 * 		| result == getRadius()
 	 */
@@ -160,6 +163,7 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
+	 * @inspects this.points
 	 * @post The result equals the points 
 	 * 		| result == points
 	 */
@@ -169,7 +173,7 @@ public class RoundedPolygon {
 
 	/**
 	 * This method adds the given point to the points field of this object.
-	 * @mutates
+	 * @mutates this.points
 	 * @post The length of the points is 1 longer than the length of the old points
 	 *       | old(points.length) == points.length -1
 	 * @post The vertex at the given index of points, equals point. 
@@ -184,7 +188,7 @@ public class RoundedPolygon {
 	 * This method removes the given point to the points field of this object.
 	 * @param index
 	 * 		The index of the point to be removed.
-	 * @mutates
+	 * @mutates this.points
 	 * @post The length of the points is 1 shorter than the length of the old points
 	 *       | old(points.length) == points.length + 1
 	 * @post The vertex at the given index of points, equals point. 
@@ -202,7 +206,7 @@ public class RoundedPolygon {
 	/**
 	 * @param radius
 	 * 		The new radius.
-	 * @mutates
+	 * @mutates this.radius
 	 * @post the new radius equals the given radius.
 	 * 		| this.radius == radius
 	 * @throws IllegalArgumentException if the radius is null.
@@ -226,7 +230,7 @@ public class RoundedPolygon {
      *    | newVertices != null
 	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon.
  * 		| PointArrays.checkDefinesProperPolygon(newVertices) != null
-	 * @mutates
+	 * @mutates this.points
 	 */
 	public void setVertices(IntPoint[] newVertices) {
 //		PointArrays.checkDefinesProperPolygon(newVertices) != null
@@ -250,7 +254,7 @@ public class RoundedPolygon {
 	 * 		| index < 0 || this.points.length >= index
 	 * @post The vertex at the given index equals point.
 	 * 		| points[index] == point
-	 * @mutates
+	 * @mutates this.points
 	 */
 	public void update(int index, IntPoint point) {
 		if (index < 0 || this.points.length >= index) {
