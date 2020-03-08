@@ -146,6 +146,28 @@ public class RoundedPolygonTest {
 				"line 0.5 0.5 0.5 0.5\n" + 
 				"arc 1.707106781186547 1.7071067811865475 1.707106781186547 3.141592653589793 0.7853981633974483\n" + 
 				"",poly1.getDrawingCommands());
+		
+		// alexander nieuwe test om 23:00
+		RoundedPolygon poly4 = new RoundedPolygon();
+		IntPoint point21 = new IntPoint(1, 1);
+		IntPoint point22 = new IntPoint(1, 4);
+		IntPoint point23 = new IntPoint(5, 2);
+		IntPoint point24 = new IntPoint(9, 1);
+		IntPoint point25 = new IntPoint(9, 4);
+		IntPoint point31 = new IntPoint(2, 3);
+		IntPoint point32 = new IntPoint(4, 3);
+		IntPoint[] pointArray4 = new IntPoint[5];
+
+		pointArray4[0] = point21;
+		pointArray4[1] = point22;
+		pointArray4[2] = point23;
+		pointArray4[3] = point24;
+		pointArray4[4] = point25;
+		poly4.setRadius(10);
+		poly4.setVertices(pointArray4);
+		
+		assert poly4.contains(point31);
+		assert !(poly4.contains(point32));
 	}
 
 }
