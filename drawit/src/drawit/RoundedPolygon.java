@@ -7,12 +7,12 @@ package drawit;
  * 
  * @author Alexander and Stefan
  * @invar This object's radius is positive
+ * 		| radius >= 0
  */
 public class RoundedPolygon {
 
 	/**
 	 * @invar | radius >= 0
-	 * 
 	 */
 	private int radius;
 	private IntPoint[] points;
@@ -28,14 +28,11 @@ public class RoundedPolygon {
 	 * 
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
-	 * @param points
-	 * 		The points to check if they are in the polygon.
-	 * @pre Argument {@code points} is not {@code null}.
-     *    | points != null
+	 * @param point
+	 * 		The point to check if it is in the polygon.
      * @inspects | this
      * @throws IllegalArgumentException if the point is null.
 	 * 		| point == null
-     * 
 	 */
 	public boolean contains(IntPoint point) {
 		
@@ -165,7 +162,7 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
-	 * @inspects this.radius
+	 * @inspects | this
 	 * @post the result equals the given radius 
 	 * 		| result == getRadius()
 	 */
@@ -175,7 +172,7 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
-	 * @inspects this.points
+	 * @inspects | this
 	 * @post The result equals the points 
 	 * 		| result == points
 	 */
@@ -206,7 +203,7 @@ public class RoundedPolygon {
 	 * This method removes the given point to the points field of this object.
 	 * @param index
 	 * 		The index of the point to be removed.
-	 * @mutates this.points
+	 * @mutates | this
 	 * @post The length of the points is 1 shorter than the length of the old points
 	 *       | old(points.length) == points.length + 1
 	 * @post The vertex at the given index of points, equals point. 
@@ -225,6 +222,7 @@ public class RoundedPolygon {
 	}
 
 	/**
+	 * Sets this rounded polygon's corner radius to the given value.
 	 * @param radius
 	 * 		The new radius.
 	 * @mutates this.radius
@@ -234,7 +232,7 @@ public class RoundedPolygon {
 	 * 		| radius == null
 	 * @throws IllegalArgumentException if the radius is smaller than 0.
 	 * 		| 0 > radius
-	 * Sets this rounded polygon's corner radius to the given value.
+	 * @mutates | this
 	 */
 	public void setRadius(int radius) {
 		if (radius < 0) {
@@ -247,11 +245,9 @@ public class RoundedPolygon {
 	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
 	 * @param newVertices
 	 * 		The new vertices.
-	 * @pre Argument {@code newVertices} is not {@code null}.
-     *    | newVertices != null
 	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon.
  * 		| PointArrays.checkDefinesProperPolygon(newVertices) != null
-	 * @mutates this.points
+	 * @mutates | this
 	 */
 	public void setVertices(IntPoint[] newVertices) {
 //		PointArrays.checkDefinesProperPolygon(newVertices) != null
@@ -274,6 +270,7 @@ public class RoundedPolygon {
 	 * @post The vertex at the given index equals point.
 	 * 		| points[index] == point
 	 * @mutates this.points
+	 * @inspects | this
 	 */
 	public void update(int index, IntPoint point) {
 		
@@ -292,12 +289,18 @@ public class RoundedPolygon {
 	 * This method returns the normalized vector.
 	 * @param vector
 	 * 		The vector to be normalized.
-	 * @throws IllegalArgumentException if the given point equals null
-	 * 		| point == null
+	 * @throws IllegalArgumentException if the given vector equals null
+	 * 		| vector == null
 	 * @post The size of the resulting vector is 1.
 	 * 		| normalizedVector.getSize() < 1.01 && normalizedVector.getSize() > 0.99
+	 * @inspects | vector
 	 */
 	public static DoubleVector normalize(DoubleVector vector) {
+		
+		if (vector == null) {
+			throw new IllegalArgumentException("The given vector equals null!");
+		}
+		
 		double powerComponents = vector.getX() * vector.getX() + vector.getY() * vector.getY();
 		double normalizeScale = 1 / Math.sqrt(powerComponents);
 		DoubleVector normalizedVector = vector.scale(normalizeScale);

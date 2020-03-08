@@ -21,7 +21,10 @@ public class PointArrays {
 	 * 	| this.equals(newArray) == true
 	 * @post the length of the new array is equal to the length of the points.
 	 * 		| newArray.length == points.length
-	 * @inspects points
+	 * @inspects | points
+     * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];
@@ -49,6 +52,9 @@ public class PointArrays {
      *    | point != null
 	 * @post The length of the newArray is 1 more than the given points |
 	 *       points.length+1 == newArray.length
+     * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public static IntPoint[] insert(IntPoint[] points, int index, IntPoint point) {
 		IntPoint[] newArray = new IntPoint[points.length + 1];
@@ -78,6 +84,9 @@ public class PointArrays {
      *    | index != null
 	 * @post The length of the newArray is 1 less than the given points |
 	 *       points.length()-1 == newArray.length()
+     * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public static IntPoint[] remove(IntPoint[] points, int index) {
 		IntPoint[] newArray = new IntPoint[points.length - 1];
@@ -110,6 +119,9 @@ public class PointArrays {
      *    | value != null
 	 * @post the value of the new array at position i equals the given value.
 	 * 		| newArray[i] == value
+     * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public static IntPoint[] update(IntPoint[] points, int index, IntPoint value) {
 		IntPoint[] newArray = new IntPoint[points.length];

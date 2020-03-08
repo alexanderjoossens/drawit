@@ -1,11 +1,9 @@
 package drawit;
 
 /**
- * An immutable abstraction for a point in the two-dimensional plane with int
- * coordinates.
+ * An immutable abstraction for a point in the two-dimensional plane with int coordinates.
  * 
  * @author Alexander and Stefan
- * @pre This object's coordinates are integers.
  * @immutable
  */
 public class IntPoint {
@@ -32,7 +30,7 @@ public class IntPoint {
      *    | x != null
      * @pre Argument {@code y} is not {@code null}.
      *    | y != null
-	 * @inspects | this
+	 * @mutates | this
 	 * @post the new X coordinate of the point is equal to the given X coordinate.
 	 * 		| getX() == x
 	 * @post the new Y coordinate of the point is equal to the given Y coordinate.
@@ -110,6 +108,8 @@ public class IntPoint {
      * @pre Argument {@code c} is not {@code null}.
      *    | c != null
 	 * @return True if and only if this point is on the open line segment bc.
+	 * @inspects | b
+	 * @inspects | c
 	 */
 	public boolean isOnLineSegment(IntPoint b, IntPoint c) {
 		if (b.getX() == c.getX()) {
@@ -121,7 +121,9 @@ public class IntPoint {
 		}
 		double rico = ((double) (c.getY() - b.getY())) / ((double) (c.getX() - b.getX()));
 		double function = rico * (this.x - c.getX()) + c.getY();
+		//check if the point is on line bc
 		if (function == this.getY()) {
+			//check if the point is between points b and c
 			if ((b.getY() < this.getY() && this.getY() < c.getY())
 					|| (c.getY() < this.getY() && this.getY() < b.getY())) {
 				if ((b.getX() < this.getX() && this.getX() < c.getX())
@@ -157,6 +159,22 @@ public class IntPoint {
 
 	/**
 	 * Returns true if the open line segment ab intersects the open line segment cd.
+	 * @param a
+	 * 		The IntPoint a.
+	 * @param b
+	 * 		The IntPoint b.
+	 * @param c
+	 * 		The IntPoint c.
+	 * @param d
+	 * 		The IntPoint d.
+	 * @pre Argument {@code a} is not {@code null}.
+     *    | a != null
+     * @pre Argument {@code b} is not {@code null}.
+     *    | b != null
+     * @pre Argument {@code c} is not {@code null}.
+     *    | c != null
+     * @pre Argument {@code d} is not {@code null}.
+     *    | d != null
 	 */
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
 		if (a.equals(d) || b.equals(c)) {
@@ -173,6 +191,10 @@ public class IntPoint {
 	 * @post the resulting vector is the difference of the given 2 vectors.
 	 * 	| vector.getX() == this.x - other.getX()
 	 * 	| vector.getY() == this.y - other.getY()
+	 * @inspects | other
+	 * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public IntVector minus(IntPoint other) {
 		
@@ -207,12 +229,22 @@ public class IntPoint {
 	 * Returns true if the exitpath of this point intersects with the open linesegment defined by connecting point a and b.
 	 * The exitpath is defined by the line from the given point in the positive X direction.
 	 * Returns false otherwise.
-	 * @pre IntPoint a and IntPoint b do not equal null.
-	 * 	| a != null && b != null
+	 * @param a
+	 * 		The IntPoint a.
+	 * @param b
+	 * 		The IntPoint b.
+	 * @param d
+	 * 		The IntPoint d.
+	 * @pre Argument {@code a} is not {@code null}.
+     *    | a != null
+     * @pre Argument {@code b} is not {@code null}.
+     *    | b != null
 	 * @return True if and only if the exitpath of this point intersects with the open linesegment defined by connecting point a and b.
 	 * @creates result
 	 * @post The result is not {@code null}
      *    | result != null
+     * @inspects | a
+     * @inspects | b
 	 */
 	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
 		if (a.getX() == b.getX()) {
