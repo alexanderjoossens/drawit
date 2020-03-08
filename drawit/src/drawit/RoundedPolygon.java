@@ -209,7 +209,7 @@ public class RoundedPolygon {
 	 * @post The length of the points is 1 shorter than the length of the old points
 	 *       | old(points.length) == points.length + 1
 	 * @post The vertex at the given index of points, equals point. 
-	 * 		| points[index] == old(points[index+1]
+	 * 		| points[index] == old(points[index+1])
 	 * @throws IllegalArgumentException if the index is null.
 	 * 		| index == null
 	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon.

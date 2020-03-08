@@ -18,9 +18,9 @@ public class PointArrays {
 	 * @pre Argument {@code points} is not {@code null}.
      *    | points != null
 	 * @post the content of the new array equals the given points.
-	 * 	| this.equals(newArray) == true
+	 * 	| points.equals(result) == true
 	 * @post the length of the new array is equal to the length of the points.
-	 * 		| newArray.length == points.length
+	 * 		| result.length == points.length
 	 * @inspects | points
      * @creates result
 	 * @post The result is not {@code null}
@@ -46,8 +46,6 @@ public class PointArrays {
 	 * 		The point that will be inserted.
 	 * @pre Argument {@code points} is not {@code null}.
      *    | points != null
-     * @pre Argument {@code index} is not {@code null}.
-     *    | index != null
 	 * @pre Argument {@code point} is not {@code null}.
      *    | point != null
 	 * @post The length of the newArray is 1 more than the given points |
@@ -80,8 +78,6 @@ public class PointArrays {
 	 * 		The position (index) of the point that will be removed.
 	 * @pre Argument {@code points} is not {@code null}.
      *    | points != null
-     * @pre Argument {@code index} is not {@code null}.
-     *    | index != null
 	 * @post The length of the newArray is 1 less than the given points |
 	 *       points.length()-1 == newArray.length()
      * @creates result
@@ -113,12 +109,10 @@ public class PointArrays {
 	 * 		The value of the new point.
 	 * @pre Argument {@code points} is not {@code null}.
      *    | points != null
-	 * @pre Argument {@code index} is not {@code null}.
-     *    | index != null
 	 * @pre Argument {@code value} is not {@code null}.
      *    | value != null
 	 * @post the value of the new array at position i equals the given value.
-	 * 		| newArray[i] == value
+	 * 		| result[index] == value
      * @creates result
 	 * @post The result is not {@code null}
      *    | result != null

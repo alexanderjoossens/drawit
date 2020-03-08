@@ -26,10 +26,6 @@ public class IntVector {
 	 * The X value of the vector.
 	 * @param y
 	 * The Y value of the vector.
-	 * @pre Argument {@code x} is not {@code null}.
-     *    | x != null
-     * @pre Argument {@code y} is not {@code null}.
-     *    | y != null
 	 * @mutates | this
 	 * @post the new X value of the vector is equal to the given X value.
 	 * 		| getX() == x
@@ -45,10 +41,7 @@ public class IntVector {
     /**
      * Returns the X value of the given vector.
      * @return | this.x
-     * @post | result == this.x
      * @creates result
-     * @post The result is not {@code null}
-     *    | result != null
      * @inspects | this
      */
     public int getX() {
@@ -58,10 +51,7 @@ public class IntVector {
     /**
      * Returns the Y value of the given vector.
      * @return | this.y
-     * @post | result == this.y
      * @creates result
-     * @post The result is not {@code null}
-     *    | result != null
      * @inspects | this
      */
     public int getY() {
@@ -85,8 +75,6 @@ public class IntVector {
      * @post The result equals the cross product of this vector and the given vector.
      *  | result == (long)getX() * other.getY() - (long)getY() * other.getX()
      * @creates result
-	 * @post The result is not {@code null}
-     *    | result != null
      * @inspects | other
      */
     public long crossProduct(IntVector other) {
@@ -103,8 +91,6 @@ public class IntVector {
      * @post The result is equal to the dot product of this vector and the given vector.
      * | result == this.getX() * other.getX() + this.getY() * other.getY()
      * @creates result
-	 * @post The result is not {@code null}
-     *    | result != null
      * @inspects | other
      */
     public long dotProduct(IntVector other) {
@@ -121,8 +107,6 @@ public class IntVector {
      * @return True if the crossProduct of this vector and the other vector equals 0. Otherwise return false.
      * | result == (this.crossProduct(other) == 0)
      * @creates result
-	 * @post The result is not {@code null}
-     *    | result != null
      * @post The crossProduct of this vector and the other vector is 0.
      * 		| result == (this.crossProduct(other) == 0)
      * @inspects | other
