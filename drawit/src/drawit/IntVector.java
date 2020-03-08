@@ -123,11 +123,13 @@ public class IntVector {
      * @creates result
 	 * @post The result is not {@code null}
      *    | result != null
+     * @post The crossProduct of this vector and the other vector is 0.
+     * 		| result == (this.crossProduct(other) == 0)
      * @inspects | other
      */
     public boolean isCollinearWith(IntVector other) {
-    	boolean Collinearity = (this.crossProduct(other) == 0);
-    	return Collinearity;
+    	boolean result = (this.crossProduct(other) == 0);
+    	return result;
     }
 }
 
