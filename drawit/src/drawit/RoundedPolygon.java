@@ -11,8 +11,6 @@ package drawit;
 public class RoundedPolygon {
 
 	/**
-	 * @throws IllegalArgumentException if the radius is smaller than 0
-	 * | !(0 <= radius)
 	 */
 	private int radius;
 	private IntPoint[] points;
@@ -69,9 +67,6 @@ public class RoundedPolygon {
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
-	 * @throws IllegalArgumentException if the vertices don't define a proper polygon.
-	 * | !(PointArrays.checkDefinesProperPolygon(this.points)==null)
-	 * 
 	 * @post Because of Pythagora's theorem, the length of radiusVector squared = radius squared + theLineLength squared.
 	 * | (radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) <= 0.01 
 	 * | && radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) >= -0.01)
@@ -217,6 +212,9 @@ public class RoundedPolygon {
 	 * Sets this rounded polygon's corner radius to the given value.
 	 */
 	public void setRadius(int radius) {
+		if (radius < 0) {
+			throw new IllegalArgumentException("Radius is smaller then 0");
+		}
 		this.radius = radius;
 	}
 
@@ -245,20 +243,19 @@ public class RoundedPolygon {
 	 * @param index
 	 * 		The index of the point to be updated.
 	 * @pre Argument {@code point} is not {@code null}.
-     *    | point != null
+     *   	| point != null
 	 * @pre Argument {@code index} is not {@code null}.
-     *    | index != null
-	 * @throws IllegalArgumentException if the given index equals null.
-	 * 		| index != null 
+     *    	| index != null
 	 * @throws IllegalArgumentException if the given index is not in the range of the points.
-	 * | index < 0 || this.points.length < index
-	 * @throws IllegalArgumentException if the given point equals null
-	 * 		| point != null
+	 * 		| index < 0 || this.points.length >= index
 	 * @post The vertex at the given index equals point.
-	 * | points[index] == point
+	 * 		| points[index] == point
 	 * @mutates
 	 */
 	public void update(int index, IntPoint point) {
+		if (index < 0 || this.points.length >= index) {
+			throw new IllegalArgumentException("Index out of bounds exception!");
+		}
 		IntPoint[] vertices = this.getVertices();
 		this.points = PointArrays.update(vertices, index, point);
 	}
@@ -269,6 +266,8 @@ public class RoundedPolygon {
 	 * 		The vector to be normalized.
 	 * @throws IllegalArgumentException if the given point equals null
 	 * 		| point == null
+	 * @post The size of the resulting vector is 1.
+	 * 		| normalizedVector.getSize() < 1.01 && normalizedVector.getSize() > 0.99
 	 */
 	public DoubleVector normalize(DoubleVector vector) {
 		double powerComponents = vector.getX() * vector.getX() + vector.getY() * vector.getY();
