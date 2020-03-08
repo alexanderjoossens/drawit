@@ -4,6 +4,7 @@ package drawit;
  * An instance of this class represents a displacement in the two-dimensional plane.
  * @author Alexander and Stefan
  * @pre This vector's values are integers.
+ * @invar This object's x value
  * @immutable
  */
 public class IntVector {
@@ -46,6 +47,9 @@ public class IntVector {
      * @return | this.x
      * @immutable
      * @post | result == this.x
+     * @creates result
+     * @post The result is not {@code null}
+     *    | result != null
      */
     public int getX() {
     	return this.x;
@@ -56,6 +60,9 @@ public class IntVector {
      * @return | this.y
      * @post | result == this.y
      * @immutable
+     * @creates result
+     * @post The result is not {@code null}
+     *    | result != null
      */
     public int getY() {
     	return this.y;

@@ -21,6 +21,7 @@ public class PointArrays {
 	 * 	| this.equals(newArray) == true
 	 * @post the length of the new array is equal to the length of the points.
 	 * 		| newArray.length == points.length
+	 * @inspects points
 	 */
 	public static IntPoint[] copy(IntPoint[] points) {
 		IntPoint[] newArray = new IntPoint[points.length];

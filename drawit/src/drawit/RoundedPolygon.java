@@ -6,11 +6,13 @@ package drawit;
  * corner radius.
  * 
  * @author Alexander and Stefan
- * 
+ * @invar This object's radius is positive
  */
 public class RoundedPolygon {
 
 	/**
+	 * @invar | radius >= 0
+	 * 
 	 */
 	private int radius;
 	private IntPoint[] points;
@@ -26,7 +28,6 @@ public class RoundedPolygon {
 	 * 
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
-	 * @inspects this
 	 */
 	public boolean contains(IntPoint point) {
 		for (int i = 0; i < this.points.length; i++) {
@@ -146,7 +147,6 @@ public class RoundedPolygon {
 			}
 
 		}
-//		System.out.println(text);
 		return text;
 	}
 
@@ -246,10 +246,8 @@ public class RoundedPolygon {
 	 * 		The new point that you want to update the old point with.
 	 * @param index
 	 * 		The index of the point to be updated.
-	 * @pre Argument {@code point} is not {@code null}.
-     *   	| point != null
-	 * @pre Argument {@code index} is not {@code null}.
-     *    	| index != null
+     * @throws IllegalArgumentException if the given point is null
+     * 		| point == null
 	 * @throws IllegalArgumentException if the given index is not in the range of the points.
 	 * 		| index < 0 || this.points.length >= index
 	 * @post The vertex at the given index equals point.
@@ -257,6 +255,11 @@ public class RoundedPolygon {
 	 * @mutates this.points
 	 */
 	public void update(int index, IntPoint point) {
+		
+		if (point == null) {
+			throw new IllegalArgumentException("The given point equals null!");
+		}
+		
 		if (index < 0 || this.points.length >= index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}

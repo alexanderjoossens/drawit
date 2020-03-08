@@ -47,6 +47,9 @@ public class IntPoint {
 	 * Returns this point's X coordinate.
 	 * @return | this.x
 	 * @immutable
+	 * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public int getX() {
 		return this.x;
@@ -56,6 +59,9 @@ public class IntPoint {
 	 * Returns this point's Y coordinate.
 	 * @return | this.y
 	 * @immutable
+	 * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public int getY() {
 		return this.y;
@@ -71,6 +77,9 @@ public class IntPoint {
 	 * @inspects other
 	 * @return True if and only if this point has the same coordinates as the given point.
 	 * 		result == ( (this.x == other.getX()) && (this.y == other.getY()) )
+	 * @creates result
+	 * @post The result is not {@code null}
+     *    | result != null
 	 */
 	public boolean equals(IntPoint other) {
 		boolean result = ( (this.x == other.getX()) && (this.y == other.getY()) );
