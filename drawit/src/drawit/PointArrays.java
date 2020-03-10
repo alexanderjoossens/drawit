@@ -143,20 +143,6 @@ public class PointArrays {
 				
 		}
 		
-		
-//		for (int i = 0; i < points.length; i++) {
-//			for (int j = 0; j < points.length - 1; j++) {
-//				if (points[i].isOnLineSegment(points[j], points[j + 1]) && i != j + 1 && i != j) {
-//					return "There is a vertex on an edge!";
-//
-//				}
-//				if (points[i].isOnLineSegment(points[0], points[points.length - 1]) && i != j + 1 && i != j && i != 0
-//						&& i != points.length - 1) {
-//					return "There is a vertex on an edge!";
-//
-//				}
-//			}
-//		}
 
 		for (int i = 0; i < points.length - 1; i++) {
 			for (int j = 0; j < points.length - 1; j++) {
