@@ -134,8 +134,7 @@ public class IntPoint {
 	 * @pre Argument {@code a} is not {@code null}. | a != null
 	 * @pre Argument {@code b} is not {@code null}. | b != null
 	 * @pre Argument {@code c} is not {@code null}. | c != null
-	 * @post | result == ((c.getY() - a.getY()) * (b.getX() - a.getX()) > (b.getY()
-	 *       - a.getY()) * (c.getX() - a.getX()))
+	 * @post | result == (((c.getY() - a.getY()) * (b.getX() - a.getX())) > ((b.getY() - a.getY()) * (c.getX() - a.getX())))
 	 */
 	private static boolean isCounterClockWise(IntPoint a, IntPoint b, IntPoint c) {
 		return (c.getY() - a.getY()) * (b.getX() - a.getX()) > (b.getY() - a.getY()) * (c.getX() - a.getX());
@@ -167,8 +166,8 @@ public class IntPoint {
 	 * 
 	 * @pre other does not equal null. | other != null
 	 * @post the resulting vector is the difference of the given 2 vectors. 
-	 * 		 | getX() == this.x - other.getX() 
-	 *       | getY() == this.y - other.getY()
+	 * 		 | getX() == (this.x - other.getX())
+	 *       | getY() == (this.y - other.getY())
 	 * @inspects | other
 	 * @creates result
 	 * @post The result is not {@code null} | result != null
