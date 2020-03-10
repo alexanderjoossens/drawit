@@ -6,8 +6,7 @@ package drawit;
  * corner radius.
  * 
  * @author Alexander and Stefan
- * @invar This object's radius is positive
- * 		| radius >= 0
+ * @invar This object's radius is positive | radius >= 0
  */
 public class RoundedPolygon {
 
@@ -18,8 +17,13 @@ public class RoundedPolygon {
 	private IntPoint[] points;
 
 	public RoundedPolygon() {
+		IntPoint point1 = new IntPoint(0, 0);
+		IntPoint point2 = new IntPoint(105, 0);
+		IntPoint point3 = new IntPoint(100, 100);
+		IntPoint point4 = new IntPoint(0, 100);
+		IntPoint[] vertices = { point1, point2, point3, point4 };
 		this.radius = 0;
-		this.points = null;
+		this.points = vertices;
 	}
 
 	/**
@@ -30,28 +34,28 @@ public class RoundedPolygon {
 	 * 
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
-	 * @param point
-	 * 		The point to check if it is in the polygon.
-     * @inspects | this
-     * @throws IllegalArgumentException if the point is null.
-	 * 		| point == null
+	 * 
+	 * @param point The point to check if it is in the polygon.
+	 * @inspects | this
+	 * @throws IllegalArgumentException if the point is null. | point == null
 	 */
 	public boolean contains(IntPoint point) {
-		
 		if (point == null) {
 			throw new IllegalArgumentException("The point equals null");
 		}
-			
+
 		for (int i = 0; i < this.points.length; i++) {
 			if (this.points[i].equals(point)) {
 				return true;
 			}
 		}
 		if (point.isOnLineSegment(this.points[0], this.points[this.points.length - 1])) {
+
 			return true;
 		}
 		for (int i = 0; i < points.length - 1; i++) {
 			if (point.isOnLineSegment(this.points[i], this.points[i + 1])) {
+
 				return true;
 			}
 		}
@@ -60,13 +64,17 @@ public class RoundedPolygon {
 
 		for (int i = 0; i < this.points.length; i++) {
 			if (this.points[i].getX() > point.getX() && this.points[i].getY() == point.getY()) {
+
 				intersectAmount++;
 			}
 		}
-
+		if (point.exitPathIntersect(this.points[0], this.points[points.length - 1])) {
+			intersectAmount++;
+		}
 		for (int i = 0; i < this.points.length - 1; i++) {
 			boolean intersectsExitPath = point.exitPathIntersect(this.points[i], this.points[i + 1]);
 			if (intersectsExitPath) {
+
 				intersectAmount++;
 			}
 		}
@@ -76,21 +84,25 @@ public class RoundedPolygon {
 		}
 
 		return true;
-		
+
 	}
 
 	/**
 	 * Returns a textual representation of a set of drawing commands for drawing
 	 * this rounded polygon.
+	 * 
 	 * @inspects | this
-	 * @post Because of Pythagora's theorem, the length of radiusVector squared = radius squared + theLineLength squared.
-	 * | (radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) <= 0.01 
-	 * | && radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius + theLineLength*theLineLength) >= -0.01)
-	 * @post The drawn radius can not be longer then this rounded polygons radius.
-	 * | this.radius >= theRadius
+	 * @post Because of Pythagora's theorem, the length of radiusVector squared =
+	 *       radius squared + theLineLength squared. |
+	 *       (radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius +
+	 *       theLineLength*theLineLength) <= 0.01 | &&
+	 *       radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius +
+	 *       theLineLength*theLineLength) >= -0.01)
+	 * @post The drawn radius can not be longer then this rounded polygons radius. |
+	 *       this.radius >= theRadius
 	 */
 	public String getDrawingCommands() {
-		if (this.points.length<=2) {
+		if (this.points.length <= 2) {
 			return "";
 		}
 		IntPoint[] originalPoints = this.getVertices();
@@ -123,7 +135,6 @@ public class RoundedPolygon {
 				} else {
 					lengthScale = BC.scale(0.5).getSize() / (BAUcuttoff);
 				}
-
 				double radiusScale = ((double) this.radius) / unitRadius;
 				double scale;
 				if (radiusScale <= lengthScale) {
@@ -132,7 +143,6 @@ public class RoundedPolygon {
 					scale = lengthScale;
 				}
 
-				
 				double theRadius = scale * unitRadius;
 				DoubleVector radiusVector = BSU.scale(scale);
 				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
@@ -140,8 +150,7 @@ public class RoundedPolygon {
 				DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
 				DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
 				DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
-				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);				
-
+				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);
 
 				Double startAngle = startAngleVector.asAngle();
 				Double endAngle = endAngleVector.asAngle();
@@ -163,12 +172,11 @@ public class RoundedPolygon {
 		return text;
 	}
 
-
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
+	 * 
 	 * @inspects | this
-	 * @post the result equals the given radius 
-	 * 		| result == getRadius()
+	 * @post the result equals the given radius | result == getRadius()
 	 */
 	public int getRadius() {
 		return this.radius;
@@ -176,9 +184,9 @@ public class RoundedPolygon {
 
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
+	 * 
 	 * @inspects | this
-	 * @post The result equals the points 
-	 * 		| result == points
+	 * @post The result equals the points | result == points
 	 */
 	public IntPoint[] getVertices() {
 		return this.points;
@@ -186,17 +194,17 @@ public class RoundedPolygon {
 
 	/**
 	 * This method adds the given point to the points field of this object.
+	 * 
 	 * @mutates this.points
 	 * @post The length of the points is 1 longer than the length of the old points
 	 *       | old(points.length) == points.length -1
-	 * @post The vertex at the given index of points, equals point. 
-	 * | points[index] == point
-	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon or if negative.
-	 * 		| 0 > index || index < this.points.length
-	 * @throws IllegalArgumentException object is null.
-	 * 		| points == null
-	 * @throws IllegalArgumentException poinnt is null.
-	 * 		| point == null
+	 * @post The vertex at the given index of points, equals point. | points[index]
+	 *       == point
+	 * @throws IllegalArgumentException if the index is not in the range of the
+	 *                                  length of the polygon or if negative. | 0 >
+	 *                                  index || index < this.points.length
+	 * @throws IllegalArgumentException object is null. | points == null
+	 * @throws IllegalArgumentException poinnt is null. | point == null
 	 * @inspects | this
 	 */
 	public void insert(int index, IntPoint point) {
@@ -215,19 +223,18 @@ public class RoundedPolygon {
 
 	/**
 	 * This method removes the given point to the points field of this object.
-	 * @param index
-	 * 		The index of the point to be removed.
+	 * 
+	 * @param index The index of the point to be removed.
 	 * @mutates | this
 	 * @post The length of the points is 1 shorter than the length of the old points
 	 *       | old(points.length) == points.length + 1
-	 * @post The vertex at the given index of points, equals point. 
-	 * 		| points[index] == old(points[index+1])
-	 * @throws IllegalArgumentException if the object is null.
-	 * 		| points == null
-	 * @throws IllegalArgumentException if the index is null.
-	 * 		| index == null
-	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon.
-	 * 		| 0 > index || index <= this.points.length
+	 * @post The vertex at the given index of points, equals point. | points[index]
+	 *       == old(points[index+1])
+	 * @throws IllegalArgumentException if the object is null. | points == null
+	 * @throws IllegalArgumentException if the index is null. | index == null
+	 * @throws IllegalArgumentException if the index is not in the range of the
+	 *                                  length of the polygon. | 0 > index || index
+	 *                                  <= this.points.length
 	 */
 	public void remove(int index) {
 		if (this.points == null) {
@@ -242,15 +249,13 @@ public class RoundedPolygon {
 
 	/**
 	 * Sets this rounded polygon's corner radius to the given value.
-	 * @param radius
-	 * 		The new radius.
+	 * 
+	 * @param radius The new radius.
 	 * @mutates this.radius
-	 * @post the new radius equals the given radius.
-	 * 		| this.radius == radius
-	 * @throws IllegalArgumentException if the radius is null.
-	 * 		| radius == null
-	 * @throws IllegalArgumentException if the radius is smaller than 0.
-	 * 		| 0 > radius
+	 * @post the new radius equals the given radius. | this.radius == radius
+	 * @throws IllegalArgumentException if the radius is null. | radius == null
+	 * @throws IllegalArgumentException if the radius is smaller than 0. | 0 >
+	 *                                  radius
 	 * @mutates | this
 	 */
 	public void setRadius(int radius) {
@@ -261,11 +266,14 @@ public class RoundedPolygon {
 	}
 
 	/**
-	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
-	 * @param newVertices
-	 * 		The new vertices.
-	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon.
- * 		| PointArrays.checkDefinesProperPolygon(newVertices) != null
+	 * Sets the vertices of this rounded polygon to be equal to the elements of the
+	 * given array.
+	 * 
+	 * @param newVertices The new vertices.
+	 * @throws IllegalArgumentException if the given vertices do not define a proper
+	 *                                  polygon. |
+	 *                                  PointArrays.checkDefinesProperPolygon(newVertices)
+	 *                                  != null
 	 * @mutates | this
 	 */
 	public void setVertices(IntPoint[] newVertices) {
@@ -278,18 +286,15 @@ public class RoundedPolygon {
 
 	/**
 	 * This method replaces the vertex at the given index of points, with point.
-	 * @param point
-	 * 		The new point that you want to update the old point with.
-	 * @param index
-	 * 		The index of the point to be updated.
-     * @throws IllegalArgumentException if the given point is null
-     * 		| point == null
-     * @throws IllegalArgumentException if the own points is null
-     * 		| points == null
-	 * @throws IllegalArgumentException if the given index is not in the range of the points.
-	 * 		| index < 0 || this.points.length >= index
-	 * @post The vertex at the given index equals point.
-	 * 		| points[index] == point
+	 * 
+	 * @param point The new point that you want to update the old point with.
+	 * @param index The index of the point to be updated.
+	 * @throws IllegalArgumentException if the given point is null | point == null
+	 * @throws IllegalArgumentException if the own points is null | points == null
+	 * @throws IllegalArgumentException if the given index is not in the range of
+	 *                                  the points. | index < 0 ||
+	 *                                  this.points.length >= index
+	 * @post The vertex at the given index equals point. | points[index] == point
 	 * @mutates this.points
 	 * @inspects | this
 	 */
@@ -297,11 +302,11 @@ public class RoundedPolygon {
 		if (this.points == null) {
 			throw new IllegalArgumentException("There are no objects to update!");
 		}
-		
+
 		if (point == null) {
 			throw new IllegalArgumentException("The given point equals null!");
 		}
-		
+
 		if (index < 0 || this.points.length <= index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
@@ -311,20 +316,20 @@ public class RoundedPolygon {
 
 	/**
 	 * This method returns the normalized vector.
-	 * @param vector
-	 * 		The vector to be normalized.
-	 * @throws IllegalArgumentException if the given vector equals null
-	 * 		| vector == null
-	 * @post The size of the resulting vector is 1.
-	 * 		| normalizedVector.getSize() < 1.01 && normalizedVector.getSize() > 0.99
+	 * 
+	 * @param vector The vector to be normalized.
+	 * @throws IllegalArgumentException if the given vector equals null | vector ==
+	 *                                  null
+	 * @post The size of the resulting vector is 1. | normalizedVector.getSize() <
+	 *       1.01 && normalizedVector.getSize() > 0.99
 	 * @inspects | vector
 	 */
 	public static DoubleVector normalize(DoubleVector vector) {
-		
+
 		if (vector == null) {
 			throw new IllegalArgumentException("The given vector equals null!");
 		}
-		
+
 		double powerComponents = vector.getX() * vector.getX() + vector.getY() * vector.getY();
 		double normalizeScale = 1 / Math.sqrt(powerComponents);
 		DoubleVector normalizedVector = vector.scale(normalizeScale);
