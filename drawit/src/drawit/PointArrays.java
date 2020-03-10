@@ -121,9 +121,8 @@ public class PointArrays {
 	 * @pre Argument {@code points} is not {@code null}. | points != null
 	 */
 	public static String checkDefinesProperPolygon(IntPoint[] points) {
-		IntPoint[] copyOfPointsTemp = insert(points, 0, points[points.length-1]);
-		IntPoint[] copyOfPoints = insert(copyOfPointsTemp,copyOfPointsTemp.length,
-				points[0]);
+		IntPoint[] copyOfPointsTemp = insert(points, 0, points[points.length - 1]);
+		IntPoint[] copyOfPoints = insert(copyOfPointsTemp, copyOfPointsTemp.length, points[0]);
 
 		for (int i = 0; i < points.length; i++) {
 			for (int j = 0; j < points.length; j++) {
@@ -133,16 +132,15 @@ public class PointArrays {
 			}
 		}
 
-		for (int i = 1; i < copyOfPoints.length-1; i++) {
-			for (int j = 1; j< copyOfPoints.length-1;j++) {
+		for (int i = 1; i < copyOfPoints.length - 1; i++) {
+			for (int j = 1; j < copyOfPoints.length - 1; j++) {
 				if (copyOfPoints[i].isOnLineSegment(copyOfPoints[j], copyOfPoints[j + 1])) {
 					return "There is a vertex on an edge!";
 				}
 
 			}
-				
+
 		}
-		
 
 		for (int i = 0; i < points.length - 1; i++) {
 			for (int j = 0; j < points.length - 1; j++) {
