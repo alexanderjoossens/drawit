@@ -60,7 +60,12 @@ public class RoundedPolygonTest {
 
 		// getRadius&getVertices_Test
 		assert poly1.getRadius() == 10;
-		assert poly1.getVertices() == pointArray;
+		IntPoint[] vertices = poly1.getVertices();
+		assert vertices[0] == point1;
+		assert vertices[1] == point2;
+		assert vertices[2] == point3;
+		assert vertices[3] == point4;
+
 		
 		// contains_Test
 		assert poly1.contains(point5) == false;
