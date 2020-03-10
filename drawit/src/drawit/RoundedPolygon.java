@@ -189,7 +189,8 @@ public class RoundedPolygon {
 	 * @post The result equals the points | result == points
 	 */
 	public IntPoint[] getVertices() {
-		return this.points;
+		IntPoint[] newArray = PointArrays.copy(points);
+		return newArray;
 	}
 
 	/**
@@ -203,14 +204,10 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the index is not in the range of the
 	 *                                  length of the polygon or if negative. | 0 >
 	 *                                  index || index < this.points.length
-	 * @throws IllegalArgumentException object is null. | points == null
 	 * @throws IllegalArgumentException poinnt is null. | point == null
 	 * @inspects | this
 	 */
 	public void insert(int index, IntPoint point) {
-		if (this.points == null) {
-			throw new IllegalArgumentException("There is nothing to insert in!");
-		}
 		if (point == null) {
 			throw new IllegalArgumentException("Point does not exist!");
 		}
@@ -230,16 +227,12 @@ public class RoundedPolygon {
 	 *       | old(points.length) == points.length + 1
 	 * @post The vertex at the given index of points, equals point. | points[index]
 	 *       == old(points[index+1])
-	 * @throws IllegalArgumentException if the object is null. | points == null
 	 * @throws IllegalArgumentException if the index is null. | index == null
 	 * @throws IllegalArgumentException if the index is not in the range of the
 	 *                                  length of the polygon. | 0 > index || index
 	 *                                  <= this.points.length
 	 */
 	public void remove(int index) {
-		if (this.points == null) {
-			throw new IllegalArgumentException("There are no points to remove!");
-		}
 		if (index < 0 || this.points.length <= index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
@@ -253,7 +246,6 @@ public class RoundedPolygon {
 	 * @param radius The new radius.
 	 * @mutates this.radius
 	 * @post the new radius equals the given radius. | this.radius == radius
-	 * @throws IllegalArgumentException if the radius is null. | radius == null
 	 * @throws IllegalArgumentException if the radius is smaller than 0. | 0 >
 	 *                                  radius
 	 * @mutates | this
@@ -277,7 +269,6 @@ public class RoundedPolygon {
 	 * @mutates | this
 	 */
 	public void setVertices(IntPoint[] newVertices) {
-//		PointArrays.checkDefinesProperPolygon(newVertices) != null
 		if (PointArrays.checkDefinesProperPolygon(newVertices) != null) {
 			throw new IllegalArgumentException(PointArrays.checkDefinesProperPolygon(newVertices));
 		}
@@ -290,7 +281,6 @@ public class RoundedPolygon {
 	 * @param point The new point that you want to update the old point with.
 	 * @param index The index of the point to be updated.
 	 * @throws IllegalArgumentException if the given point is null | point == null
-	 * @throws IllegalArgumentException if the own points is null | points == null
 	 * @throws IllegalArgumentException if the given index is not in the range of
 	 *                                  the points. | index < 0 ||
 	 *                                  this.points.length >= index
@@ -299,10 +289,6 @@ public class RoundedPolygon {
 	 * @inspects | this
 	 */
 	public void update(int index, IntPoint point) {
-		if (this.points == null) {
-			throw new IllegalArgumentException("There are no objects to update!");
-		}
-
 		if (point == null) {
 			throw new IllegalArgumentException("The given point equals null!");
 		}
@@ -320,8 +306,8 @@ public class RoundedPolygon {
 	 * @param vector The vector to be normalized.
 	 * @throws IllegalArgumentException if the given vector equals null | vector ==
 	 *                                  null
-	 * @post The size of the resulting vector is 1. | normalizedVector.getSize() <
-	 *       1.01 && normalizedVector.getSize() > 0.99
+	 * @post The size of the resulting vector is 1. | result.getSize() <
+	 *       1.01 && result.getSize() > 0.99
 	 * @inspects | vector
 	 */
 	public static DoubleVector normalize(DoubleVector vector) {
