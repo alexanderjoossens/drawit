@@ -18,7 +18,7 @@ public class RoundedPolygon {
 
 	public RoundedPolygon() {
 		IntPoint point1 = new IntPoint(0, 0);
-		IntPoint point2 = new IntPoint(105, 0);
+		IntPoint point2 = new IntPoint(100, 0);
 		IntPoint point3 = new IntPoint(100, 100);
 		IntPoint point4 = new IntPoint(0, 100);
 		IntPoint[] vertices = { point1, point2, point3, point4 };
@@ -92,14 +92,6 @@ public class RoundedPolygon {
 	 * this rounded polygon.
 	 * 
 	 * @inspects | this
-	 * @post Because of Pythagora's theorem, the length of radiusVector squared =
-	 *       radius squared + theLineLength squared. |
-	 *       (radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius +
-	 *       theLineLength*theLineLength) <= 0.01 | &&
-	 *       radiusVector.getSize()*radiusVector.getSize() - (theRadius*theRadius +
-	 *       theLineLength*theLineLength) >= -0.01)
-	 * @post The drawn radius can not be longer then this rounded polygons radius. |
-	 *       this.radius >= theRadius
 	 */
 	public String getDrawingCommands() {
 		if (this.points.length <= 2) {
@@ -176,7 +168,6 @@ public class RoundedPolygon {
 	 * Returns the radius of the corners of this rounded polygon.
 	 * 
 	 * @inspects | this
-	 * @post the result equals the given radius | result == getRadius()
 	 */
 	public int getRadius() {
 		return this.radius;
@@ -186,7 +177,6 @@ public class RoundedPolygon {
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * 
 	 * @inspects | this
-	 * @post The result equals the points | result == points
 	 */
 	public IntPoint[] getVertices() {
 		IntPoint[] newArray = PointArrays.copy(points);
