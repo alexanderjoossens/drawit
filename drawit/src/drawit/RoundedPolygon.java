@@ -193,7 +193,7 @@ public class RoundedPolygon {
 	 *       == point
 	 * @throws IllegalArgumentException if the index is not in the range of the
 	 *                                  length of the polygon or if negative. | 0 >
-	 *                                  index || index < this.points.length
+	 *                                  index || index <= this.points.length
 	 * @throws IllegalArgumentException if the given point is null. | point == null
 	 * @throws IllegalArgumentException if the resulting polygon is not proper.
 	 * @inspects | this
@@ -202,7 +202,7 @@ public class RoundedPolygon {
 		if (point == null) {
 			throw new IllegalArgumentException("Point does not exist!");
 		}
-		if (index < 0 || this.points.length < index) {
+		if (index < 0 || this.points.length <= index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
 		
@@ -229,10 +229,10 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the resulting polygon is not proper.
 	 * @throws IllegalArgumentException if the index is not in the range of the
 	 *                                  length of the polygon. | 0 > index || index
-	 *                                  <= getVertices().length
+	 *                                  < getVertices().length
 	 */
 	public void remove(int index) {
-		if (index < 0 || this.points.length <= index) {
+		if (index < 0 || this.points.length < index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
 		
