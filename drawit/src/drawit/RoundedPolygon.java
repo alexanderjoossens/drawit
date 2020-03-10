@@ -262,8 +262,7 @@ public class RoundedPolygon {
 	 * @param radius The new radius.
 	 * @mutates this.radius
 	 * @post the new radius equals the given radius. | this.radius == radius
-	 * @throws IllegalArgumentException if the radius is smaller than 0. | 0 >
-	 *                                  radius
+	 * @throws IllegalArgumentException if the radius is smaller than 0. | 0 > radius
 	 * @mutates | this
 	 */
 	public void setRadius(int radius) {
@@ -278,10 +277,7 @@ public class RoundedPolygon {
 	 * given array.
 	 * 
 	 * @param newVertices The new vertices.
-	 * @throws IllegalArgumentException if the given vertices do not define a proper
-	 *                                  polygon. |
-	 *                                  PointArrays.checkDefinesProperPolygon(newVertices)
-	 *                                  != null
+	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon. | PointArrays.checkDefinesProperPolygon(newVertices) != null
 	 * @mutates | this
 	 */
 	public void setVertices(IntPoint[] newVertices) {
@@ -299,9 +295,7 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the given point is null | point == null
 	 * @throws IllegalArgumentException if the new polygon is not proper
 	 *  | 
-	 * @throws IllegalArgumentException if the given index is not in the range of
-	 *                                  the points. | index < 0 ||
-	 *                                  this.points.length >= index
+	 * @throws IllegalArgumentException if the given index is not in the range of the points. | index < 0 || this.points.length >= index
 	 * @post The vertex at the given index equals point. | points[index] == point
 	 * @mutates this.points
 	 * @inspects | this
@@ -327,8 +321,7 @@ public class RoundedPolygon {
 	 * This method returns the normalized vector.
 	 * 
 	 * @param vector The vector to be normalized.
-	 * @throws IllegalArgumentException if the given vector equals null | vector ==
-	 *                                  null
+	 * @throws IllegalArgumentException if the given vector equals null | vector == null
 	 * @post The size of the resulting vector is 1. | result.getSize() <
 	 *       1.01 && result.getSize() > 0.99
 	 * @inspects | vector
