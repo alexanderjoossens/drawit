@@ -58,7 +58,6 @@ public class RoundedPolygonTest {
 		poly3.setRadius(10);
 		poly3.setVertices(pointArray3);
 
-		
 		// getRadius&getVertices_Test
 		assert poly1.getRadius() == 10;
 		assert poly1.getVertices() == pointArray;
