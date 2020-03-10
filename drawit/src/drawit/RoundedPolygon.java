@@ -204,7 +204,8 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the index is not in the range of the
 	 *                                  length of the polygon or if negative. | 0 >
 	 *                                  index || index < this.points.length
-	 * @throws IllegalArgumentException poinnt is null. | point == null
+	 * @throws IllegalArgumentException if the given point is null. | point == null
+	 * @throws IllegalArgumentException if the resulting polygon is not proper.
 	 * @inspects | this
 	 */
 	public void insert(int index, IntPoint point) {
@@ -214,8 +215,15 @@ public class RoundedPolygon {
 		if (index < 0 || this.points.length < index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
+		
 		IntPoint[] vertices = this.getVertices();
-		this.points = PointArrays.insert(vertices, index, point);
+		IntPoint[] newArray = PointArrays.insert(vertices, index, point);
+		
+		if (PointArrays.checkDefinesProperPolygon(newArray) != null) {
+			throw new IllegalArgumentException("The resulting polygon is not proper!");
+		}
+		
+		this.setVertices(newArray);
 	}
 
 	/**
@@ -228,6 +236,7 @@ public class RoundedPolygon {
 	 * @post The vertex at the given index of points, equals point. | points[index]
 	 *       == old(points[index+1])
 	 * @throws IllegalArgumentException if the index is null. | index == null
+	 * @throws IllegalArgumentException if the resulting polygon is not proper.
 	 * @throws IllegalArgumentException if the index is not in the range of the
 	 *                                  length of the polygon. | 0 > index || index
 	 *                                  <= this.points.length
@@ -236,8 +245,15 @@ public class RoundedPolygon {
 		if (index < 0 || this.points.length <= index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
+		
 		IntPoint[] vertices = this.getVertices();
-		this.points = PointArrays.remove(vertices, index);
+		IntPoint[] newArray = PointArrays.remove(vertices, index);
+		
+		if (PointArrays.checkDefinesProperPolygon(newArray) != null) {
+			throw new IllegalArgumentException("The resulting polygon is not proper!");
+		}
+		
+		this.setVertices(newArray);
 	}
 
 	/**
@@ -281,6 +297,8 @@ public class RoundedPolygon {
 	 * @param point The new point that you want to update the old point with.
 	 * @param index The index of the point to be updated.
 	 * @throws IllegalArgumentException if the given point is null | point == null
+	 * @throws IllegalArgumentException if the new polygon is not proper
+	 *  | 
 	 * @throws IllegalArgumentException if the given index is not in the range of
 	 *                                  the points. | index < 0 ||
 	 *                                  this.points.length >= index
@@ -297,7 +315,12 @@ public class RoundedPolygon {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
 		IntPoint[] vertices = this.getVertices();
-		this.points = PointArrays.update(vertices, index, point);
+		IntPoint[] newArray = PointArrays.update(vertices, index, point);
+		if (PointArrays.checkDefinesProperPolygon(newArray) != null) {
+			throw new IllegalArgumentException("The resulting polygon is not proper!");
+		}
+		
+		this.setVertices(newArray);
 	}
 
 	/**

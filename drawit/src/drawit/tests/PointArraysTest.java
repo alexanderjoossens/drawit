@@ -85,6 +85,7 @@ public class PointArraysTest {
 		assert pointArray3.length == 5;
 		assert pointArray3[2] == point5;
 		assert pointArray3[3] == point3;
+		assert pointArray.length==4;
 
 		// remove_Test
 		IntPoint[] pointArray4 = PointArrays.remove(pointArray3, 2);
