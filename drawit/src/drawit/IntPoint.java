@@ -166,8 +166,7 @@ public class IntPoint {
 	 * 
 	 * @pre other does not equal null. | other != null
 	 * @post the resulting vector is the difference of the given 2 vectors. 
-	 * 		 | getX() == (this.x - other.getX())
-	 *       | getY() == (this.y - other.getY())
+	 * 		 | getX() == (this.x - other.getX()) && getY() == (this.y - other.getY())
 	 * @inspects | other
 	 * @creates result
 	 * @post The result is not {@code null} | result != null
@@ -188,8 +187,7 @@ public class IntPoint {
 	 * @inspects | other
 	 * @post the resulting point is the point obtained by displacing this point by
 	 *       the given vector.
-	 *       | getX() == this.x + other.getX()
-	 *       | getY() == this.y + other.getY()
+	 *       | getX() == this.x + other.getX() && getY() == this.y + other.getY()
 	 * @creates result
 	 * @post The result is not {@code null} | result != null
 	 */
