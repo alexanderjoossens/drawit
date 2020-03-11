@@ -110,6 +110,7 @@ public class RoundedPolygon {
 			DoublePoint BCC = newPoints[i].asDoublePoint().plus(BC.scale(0.5));
 
 			if (newPoints[i].isOnLineSegment(newPoints[i - 1], newPoints[i + 1])) {
+				System.out.println("Is on line segment!");
 				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), newPoints[i].getX(),
 						newPoints[i].getY());
 				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), newPoints[i].getX(),
@@ -193,7 +194,7 @@ public class RoundedPolygon {
 	 *       == point
 	 * @throws IllegalArgumentException if the index is not in the range of the
 	 *                                  length of the polygon or if negative. | 0 >
-	 *                                  index || index <= this.points.length
+	 *                                  index || index < this.points.length
 	 * @throws IllegalArgumentException if the given point is null. | point == null
 	 * @throws IllegalArgumentException if the resulting polygon is not proper.
 	 * @inspects | this
@@ -202,7 +203,7 @@ public class RoundedPolygon {
 		if (point == null) {
 			throw new IllegalArgumentException("Point does not exist!");
 		}
-		if (index < 0 || this.points.length <= index) {
+		if (index < 0 || this.points.length < index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
 		
