@@ -100,38 +100,13 @@ public class IntPoint {
 	 * @inspects | b
 	 * @inspects | c
 	 */
-//	public boolean isOnLineSegment(IntPoint b, IntPoint c) {
-//		if (b.getX() == c.getX()) {
-//			if (((b.getY() < this.getY() && this.getY() < c.getY())
-//					|| (c.getY() < this.getY() && this.getY() < b.getY())) && this.getX() == b.getX()) {
-//				return true;
-//			}
-//			return false;
-//		}
-//		double rico = ((double) (c.getY() - b.getY())) / ((double) (c.getX() - b.getX()));
-//		double function = rico * (this.x - c.getX()) + c.getY();
-//		// check if the point is on line bc
-//		if (Math.abs(function - (double) this.getY()) < 0.1) {
-//			// check if the point is between points b and c
-//			if ((b.getY() < this.getY() && this.getY() < c.getY())
-//					|| (c.getY() < this.getY() && this.getY() < b.getY())) {
-//				if ((b.getX() < this.getX() && this.getX() < c.getX())
-//						|| (c.getX() < this.getX() && this.getX() < b.getX())) {
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
-
 	public boolean isOnLineSegment(IntPoint b, IntPoint c) {
-		IntVector ba = new IntVector(this.x - b.x, this.y - b.y);
-		IntVector bc = new IntVector(c.x - b.x, c.y - b.y);
+		IntVector BA = new IntVector(this.getX() - b.getX(), this.getY() - b.getY());
+		IntVector BC = new IntVector(c.getX() - b.getX(), c.getY() - b.getY());
 		
-		if (ba.isCollinearWith(bc)) {
-			long dotproduct = ba.dotProduct(bc);
-			
-			if (0 < dotproduct && dotproduct < bc.dotProduct(bc)) {
+		if (BA.isCollinearWith(BC)) {
+			long dotproductVectors = BA.dotProduct(BC);
+			if (0 < dotproductVectors && dotproductVectors < BC.dotProduct(BC)) {
 				return true;
 			}
 			
