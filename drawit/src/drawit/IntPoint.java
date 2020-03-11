@@ -111,7 +111,7 @@ public class IntPoint {
 		double rico = ((double) (c.getY() - b.getY())) / ((double) (c.getX() - b.getX()));
 		double function = rico * (this.x - c.getX()) + c.getY();
 		// check if the point is on line bc
-		if (function == this.getY()) {
+		if (Math.abs(function - (double) this.getY()) < 0.1) {
 			// check if the point is between points b and c
 			if ((b.getY() < this.getY() && this.getY() < c.getY())
 					|| (c.getY() < this.getY() && this.getY() < b.getY())) {

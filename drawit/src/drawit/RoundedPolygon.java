@@ -285,7 +285,7 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the given point is null | point == null
 	 * @throws IllegalArgumentException if the new polygon is not proper
 	 *  | 
-	 * @throws IllegalArgumentException if the given index is not in the range of the points. | index < 0 || this.points.length >= index
+	 * @throws IllegalArgumentException if the given index is not in the range of the points. | index < 0 || this.points.length <= index
 	 * @post The vertex at the given index equals point. | getVertices()[index] == point
 	 * @mutates this.points
 	 * @inspects | this
