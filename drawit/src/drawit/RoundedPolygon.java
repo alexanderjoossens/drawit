@@ -226,11 +226,9 @@ public class RoundedPolygon {
 	 *       | old(getVertices().length) == getVertices().length + 1
 	 * @post The vertex at the given index of points, equals point. 
 	 * 		| getVertices()[index] == old(getVertices()[index+1])
-	 * @throws IllegalArgumentException if the index is null. | index == null
 	 * @throws IllegalArgumentException if the resulting polygon is not proper.
-	 * @throws IllegalArgumentException if the index is not in the range of the
-	 *                                  length of the polygon. | 0 > index || index
-	 *                                  < getVertices().length
+	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon. 
+	 * 	| 0 > index || index < getVertices().length
 	 */
 	public void remove(int index) {
 		if (index < 0 || this.points.length < index) {
