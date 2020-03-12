@@ -154,8 +154,8 @@ public class IntPoint {
 
 	/**
 	 * Returns an IntVector object representing the displacement from other to this.
-	 * 
-	 * @pre other does not equal null. | other != null
+	 * @pre Argument {@code other} is not {@code null}. 
+	 * 		| other != null
 	 * @post the resulting vector is the difference of the given 2 vectors. 
 	 * 		 | result.getX() == (this.getX() - other.getX()) && result.getY() == (this.getY() - other.getY())
 	 * @inspects | other
@@ -174,7 +174,8 @@ public class IntPoint {
 	 * Returns an IntPoint object representing the point obtained by displacing this
 	 * point by the given vector.
 	 * 
-	 * @pre other does not equal null. | other != null
+	 * @pre Argument {@code other} is not {@code null}. 
+	 * 		| other != null
 	 * @inspects | other
 	 * @post the resulting point is the point obtained by displacing this point by
 	 *       the given vector.
