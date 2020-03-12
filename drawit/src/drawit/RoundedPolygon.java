@@ -228,10 +228,10 @@ public class RoundedPolygon {
 	 * 		| getVertices()[index] == old(getVertices()[index+1])
 	 * @throws IllegalArgumentException if the resulting polygon is not proper.
 	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon. 
-	 * 	| 0 > index || index < getVertices().length
+	 * 	| 0 > index || index <= getVertices().length
 	 */
 	public void remove(int index) {
-		if (index < 0 || this.points.length < index) {
+		if (index < 0 || this.points.length <= index) {
 			throw new IllegalArgumentException("Index out of bounds exception!");
 		}
 		
