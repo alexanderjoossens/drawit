@@ -123,7 +123,10 @@ public class PointArrays {
 	public static String checkDefinesProperPolygon(IntPoint[] points) {
 		IntPoint[] copyOfPointsTemp = insert(points, 0, points[points.length - 1]);
 		IntPoint[] copyOfPoints = insert(copyOfPointsTemp, copyOfPointsTemp.length, points[0]);
-
+		if (points.length <=2) {
+			return "Not enough points to make a polygon!";
+		}
+		
 		for (int i = 0; i < points.length; i++) {
 			for (int j = 0; j < points.length; j++) {
 				if (points[i].equals(points[j]) && i != j) {
