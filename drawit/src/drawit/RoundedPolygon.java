@@ -15,7 +15,8 @@ public class RoundedPolygon {
 	 */
 	private int radius;
 	private IntPoint[] points;
-
+	private java.awt.Color color;
+	
 	public RoundedPolygon() {
 		IntPoint point1 = new IntPoint(0, 0);
 		IntPoint point2 = new IntPoint(100, 0);
@@ -24,6 +25,7 @@ public class RoundedPolygon {
 		IntPoint[] vertices = { point1, point2, point3, point4 };
 		this.radius = 0;
 		this.points = vertices;
+		this.color = java.awt.Color.YELLOW;
 	}
 
 	/**
@@ -85,6 +87,20 @@ public class RoundedPolygon {
 
 		return true;
 
+	}
+	
+	/** Returns the color of this rounder polygon.
+	 * @inspects	|	this
+	 */
+	public java.awt.Color getColor() {
+		return this.color;
+	}
+	
+	/**	Sets the color of this rounded polygon to the given color.
+	 * @mutates		|	this
+	 */
+	public void setColor(java.awt.Color color) {
+		this.color = color;
 	}
 
 	/**
