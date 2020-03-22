@@ -32,7 +32,7 @@ public class Extent {
 	 * @return
 	 */
 	public boolean contains(IntPoint point) {
-		return this.contains(point); //
+		return this.contains(point);
 	}
 	
 	/**
@@ -93,16 +93,16 @@ public class Extent {
 		return this.right-this.left;
 	}
 	
-	public static Extent ofLeftTopRightBottom(int left, int top, int width, int bottom) {
-		int right = left+width;
-		Extent shape = new Extent(left, top, right, bottom);
-		return shape;
+	public static Extent ofLeftTopRightBottom(int left, int top, int right, int bottom) {
+		Extent newRectangle = new Extent(left, top, right, bottom);
+		return newRectangle;
 	}
 	
-	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int bottom) {
+	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {
 		int right = left+width;
-		Extent shape = new Extent(left, top, right, bottom);
-		return shape;
+		int bottom = top-height;
+		Extent newRectangle = new Extent(left, top, right, bottom);
+		return newRectangle;
 	}
 	
 	/**
