@@ -1,6 +1,8 @@
 package drawit.shapegroups1;
 
-import drawit.IntPoint;
+import drawit.IntPoint;		
+
+// moet er wel overal this. voor bij laatste methods? nog vragen in forum (reminder)
 
 public class Extent {
 	
@@ -16,7 +18,7 @@ public class Extent {
 	 * @param right
 	 * @param bottom
 	 */
-	public Extent(int left, int top, int right, int bottom) {
+	private Extent(int left, int top, int right, int bottom) {
 		this.left = left;
 		this.top = top;
 		this.right = right;
@@ -30,7 +32,7 @@ public class Extent {
 	 * @return
 	 */
 	public boolean contains(IntPoint point) {
-		return contains(point);
+		return this.contains(point); //
 	}
 	
 	/**
@@ -59,7 +61,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getLeft() {
-		return left;
+		return this.left;
 	}
 	
 	/**
@@ -67,7 +69,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getRight() {
-		return right;
+		return this.right;
 	}
 	
 	/**
@@ -75,7 +77,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getTop() {
-		return top;
+		return this.top;
 	}
 	
 	public IntPoint getTopLeft() {
@@ -88,45 +90,81 @@ public class Extent {
 	 * @return
 	 */
 	public int getWidth() {
-		return this.right- this.left;
+		return this.right-this.left;
 	}
 	
-	//ik denk dat ge hier een nieuwe rechthoek moet maken? er staat geen documentatie in de html
 	public static Extent ofLeftTopRightBottom(int left, int top, int width, int bottom) {
 		int right = left+width;
 		Extent shape = new Extent(left, top, right, bottom);
 		return shape;
 	}
 	
-	//same?
 	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int bottom) {
 		int right = left+width;
 		Extent shape = new Extent(left, top, right, bottom);
 		return shape;
 	}
 	
+	/**
+	 * Returns an object that has the given bottom coordinate and the same left, top, and right coordinate as this object.
+	 * @param newBottom
+	 * @return
+	 */
 	public Extent withBottom(int newBottom) {
-		
+		Extent newextent = new Extent(this.left, this.top, this.right, newBottom);
+		return newextent;
 	}
 	
+	/**
+	 * Returns an object that has the given height and the same left, top, and right coordinate as this object.
+	 * @param NewHeight
+	 * @return
+	 */
 	public Extent withHeight(int NewHeight) {
-		
+		int newBottom = top-NewHeight;
+		Extent newextent = new Extent(this.left, this.top, this.right, newBottom);
+		return newextent;
 	}
 	
+	/**
+	 * Returns an object that has the given left coordinate and the same right, top, and bottom coordinate as this object.
+	 * @param newLeft
+	 * @return
+	 */
 	public Extent withLeft(int newLeft) {
-		
+		Extent newextent = new Extent(newLeft, this.top, this.right, this.bottom);
+		return newextent;
 	}
 	
+	/**
+	 * Returns an object that has the given right coordinate and the same left, top, and bottom coordinate as this object.
+	 * @param newRight
+	 * @return
+	 */
 	public Extent withRight(int newRight) {
-		
+		Extent newextent = new Extent(this.left, this.top, newRight, this.bottom);
+		return newextent;
 	}
 	
+	/**
+	 * Returns an object that has the given top coordinate and the same left, right, and bottom coordinate as this object.
+	 * @param newTop
+	 * @return
+	 */
 	public Extent withTop(int newTop) {
-		
+		Extent newextent = new Extent(this.left, newTop, this.right, this.bottom);
+		return newextent;
 	}
 	
+	/**
+	 * Returns an object that has the given width and the same left, top, and bottom coordinate as this object.
+	 * @param newWidth
+	 * @return
+	 */
 	public Extent withWidth(int newWidth) {
-		
+		int newRight = left+newWidth;
+		Extent newextent = new Extent(this.left, this.top, newRight, this.bottom);
+		return newextent;
 	}
 	
 }
