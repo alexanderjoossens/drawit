@@ -1,39 +1,26 @@
 package drawit.shapegroups1;
-package drawit
 
-import drawit.IntPoint;//waarom kan ik dit niet importen?? ik denk dat de drawit folder een ander type folder/package is want op github staan die methods ook niet in een mapje maar gwn onder elkaar hier https://github.com/stefanlommaert/drawit/tree/master/drawit/src/drawit
+import drawit.IntPoint;
 
 public class Extent {
 	
-	private final int X1;
-	private final int Y1;
-	private final int X2;
-	private final int Y2;
-	private final int X3;
-	private final int Y3;
-	private final int X4;
-	private final int Y4;
-	
+	private final int left;
+	private final int top;
+	private final int right;
+	private final int bottom;
+
 	/**
 	 * 
-	 * @param X1 The X coordinate of the left under point.
-	 * @param Y1 The Y coordinate of the left under point.
-	 * @param X2 The X coordinate of the right under point.
-	 * @param Y2 The Y coordinate of the right under point.
-	 * @param X3 The X coordinate of the top right point.
-	 * @param Y3 The Y coordinate of the top right point.
-	 * @param X4 The X coordinate of the top left point.
-	 * @param Y4 The Y coordinate of the top left point.
+	 * @param left
+	 * @param top
+	 * @param right
+	 * @param bottom
 	 */
-	public Extent(int X1, int Y1, int X2, int Y2, int X3, int Y3, int X4, int Y4) {
-		this.X1 = X1;
-		this.Y1 = Y1;
-		this.X2 = X2;
-		this.Y2 = Y2;
-		this.X3 = X3;
-		this.Y3 = Y3;
-		this.X4 = X4;
-		this.Y4 = Y4;
+	public Extent(int left, int top, int right, int bottom) {
+		this.left = left;
+		this.top = top;
+		this.right = right;
+		this.bottom = bottom;
 	}
 
 	/**
@@ -51,12 +38,12 @@ public class Extent {
 	 * @return
 	 */
 	public int getBottom() {
-		return Y3;
+		return this.bottom;
 	}
 	
-	public IntPoint getBottomRIght() {
-		IntPoint[] newArray = new IntPoint[4];
-		return newArray;
+	public IntPoint getBottomRight() {
+		IntPoint bottomright = new IntPoint(right, bottom);
+		return bottomright;
 	}
 	
 	/**
@@ -64,7 +51,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getHeight() {
-		return Y4-Y1;
+		return this.top-this.bottom;
 	}
 	
 	/**
@@ -72,7 +59,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getLeft() {
-		return X1;
+		return left;
 	}
 	
 	/**
@@ -80,7 +67,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getRight() {
-		return X2;
+		return right;
 	}
 	
 	/**
@@ -88,12 +75,12 @@ public class Extent {
 	 * @return
 	 */
 	public int getTop() {
-		return Y1;
+		return top;
 	}
 	
 	public IntPoint getTopLeft() {
-		IntPoint[] newArray = new IntPoint[4];
-		return newArray;
+		IntPoint topleft = new IntPoint(left, top);
+		return topleft;
 	}
 	
 	/**
@@ -101,16 +88,21 @@ public class Extent {
 	 * @return
 	 */
 	public int getWidth() {
-		return X2-X1;
+		return this.right- this.left;
 	}
 	
+	//ik denk dat ge hier een nieuwe rechthoek moet maken? er staat geen documentatie in de html
 	public static Extent ofLeftTopRightBottom(int left, int top, int width, int bottom) {
-		
+		int right = left+width;
+		Extent shape = new Extent(left, top, right, bottom);
+		return shape;
 	}
 	
-	
+	//same?
 	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int bottom) {
-		
+		int right = left+width;
+		Extent shape = new Extent(left, top, right, bottom);
+		return shape;
 	}
 	
 	public Extent withBottom(int newBottom) {
