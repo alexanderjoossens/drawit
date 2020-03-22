@@ -105,12 +105,12 @@ Returns the distance between the edges that are parallel to the Y axis.
 		return X2-X1;
 	}
 	
-	public static Extent ofLeftTopRightBottom(int left, int top; int width, int bottom) {
+	public static Extent ofLeftTopRightBottom(int left, int top, int width, int bottom) {
 		
 	}
 	
 	
-	public static Extent ofLeftTopWidthHeight(int left, int top; int width, int bottom) {
+	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int bottom) {
 		
 	}
 	
