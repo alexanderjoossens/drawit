@@ -97,8 +97,7 @@ public class Extent {
 	}
 	
 	/**
-	 * 	
-Returns the distance between the edges that are parallel to the Y axis.
+	 * Returns the distance between the edges that are parallel to the Y axis.
 	 * @return
 	 */
 	public int getWidth() {
