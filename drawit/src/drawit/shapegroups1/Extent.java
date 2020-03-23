@@ -44,7 +44,7 @@ public class Extent {
 	}
 	
 	public IntPoint getBottomRight() {
-		IntPoint bottomright = new IntPoint(right, bottom);
+		IntPoint bottomright = new IntPoint(this.getRight(), this.getBottom());
 		return bottomright;
 	}
 	
@@ -53,7 +53,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getHeight() {
-		return this.top-this.bottom;
+		return this.getTop()-this.getBottom();
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class Extent {
 	}
 	
 	public IntPoint getTopLeft() {
-		IntPoint topleft = new IntPoint(left, top);
+		IntPoint topleft = new IntPoint(this.getLeft(), this.getTop());
 		return topleft;
 	}
 	
@@ -90,7 +90,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getWidth() {
-		return this.right-this.left;
+		return this.getRight()-this.getLeft();
 	}
 	
 	public static Extent ofLeftTopRightBottom(int left, int top, int right, int bottom) {
@@ -111,7 +111,7 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withBottom(int newBottom) {
-		Extent newextent = new Extent(this.left, this.top, this.right, newBottom);
+		Extent newextent = new Extent(this.getLeft(), this.getTop(), this.getRight(), newBottom);
 		return newextent;
 	}
 	
@@ -122,7 +122,7 @@ public class Extent {
 	 */
 	public Extent withHeight(int NewHeight) {
 		int newBottom = top-NewHeight;
-		Extent newextent = new Extent(this.left, this.top, this.right, newBottom);
+		Extent newextent = new Extent(this.getLeft(), this.getTop(), this.getRight(), newBottom);
 		return newextent;
 	}
 	
@@ -132,7 +132,7 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withLeft(int newLeft) {
-		Extent newextent = new Extent(newLeft, this.top, this.right, this.bottom);
+		Extent newextent = new Extent(newLeft, this.getTop(), this.getRight(), this.getBottom());
 		return newextent;
 	}
 	
@@ -142,7 +142,7 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withRight(int newRight) {
-		Extent newextent = new Extent(this.left, this.top, newRight, this.bottom);
+		Extent newextent = new Extent(this.getLeft(), this.getTop(), newRight, this.getBottom());
 		return newextent;
 	}
 	
@@ -152,7 +152,7 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withTop(int newTop) {
-		Extent newextent = new Extent(this.left, newTop, this.right, this.bottom);
+		Extent newextent = new Extent(this.getLeft(), newTop, this.getRight(), this.getBottom());
 		return newextent;
 	}
 	
@@ -163,7 +163,7 @@ public class Extent {
 	 */
 	public Extent withWidth(int newWidth) {
 		int newRight = left+newWidth;
-		Extent newextent = new Extent(this.left, this.top, newRight, this.bottom);
+		Extent newextent = new Extent(this.getLeft(), this.getTop(), newRight, this.getBottom());
 		return newextent;
 	}
 	
