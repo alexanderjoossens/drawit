@@ -6,7 +6,7 @@ package drawit;
  * corner radius.
  * 
  * @author Alexander and Stefan
- * @invar This object's radius is positive | radius >= 0
+ * @invar This object's radius is positive | getRadius() >= 0
  */
 public class RoundedPolygon {
 
@@ -206,8 +206,8 @@ public class RoundedPolygon {
 	 * @mutates this.points
 	 * @post The length of the points is 1 longer than the length of the old points
 	 *       | old(getVertices().length) == getVertices().length -1
-	 * @post The vertex at the given index of points, equals point. | points[index]
-	 *       == point
+	 * @post The vertex at the given index of points, equals point. 
+	 * | getVertices()[index]== point
 	 * @throws IllegalArgumentException if the index is not in the range of the
 	 *                                  length of the polygon or if negative. | 0 >
 	 *                                  index || index < this.points.length
@@ -297,9 +297,7 @@ public class RoundedPolygon {
 	 * @param point The new point that you want to update the old point with.
 	 * @param index The index of the point to be updated.
 	 * @throws IllegalArgumentException if the given point is null | point == null
-	 * @throws IllegalArgumentException if the new polygon is not proper
-	 *  | 
-	 * @throws IllegalArgumentException if the given index is not in the range of the points. | index < 0 || this.points.length <= index
+	 * @throws IllegalArgumentException if the given index is not in the range of the points. | index < 0 || getVertices().length <= index
 	 * @post The vertex at the given index equals point. | getVertices()[index] == point
 	 * @mutates this.points
 	 * @inspects | this
@@ -326,8 +324,8 @@ public class RoundedPolygon {
 	 * 
 	 * @param vector The vector to be normalized.
 	 * @throws IllegalArgumentException if the given vector equals null | vector == null
-	 * @post The size of the resulting vector is 1. | result.getSize() <
-	 *       1.01 && result.getSize() > 0.99
+	 * @post The size of the resulting vector is 1. 
+	 * | result.getSize() < 1.01 && result.getSize() > 0.99
 	 * @inspects | vector
 	 */
 	public static DoubleVector normalize(DoubleVector vector) {

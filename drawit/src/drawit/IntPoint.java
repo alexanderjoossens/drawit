@@ -21,13 +21,11 @@ public class IntPoint {
 	/**
 	 * @param x The X coordinate of the point.
 	 * @param y The Y coordinate of the point
-	 * @pre Argument {@code x} is not {@code null}. | x != null
-	 * @pre Argument {@code y} is not {@code null}. | y != null
 	 * @mutates | this
-	 * @post the new X coordinate of the point is equal to the given X coordinate. |
-	 *       getX() == x
-	 * @post the new Y coordinate of the point is equal to the given Y coordinate. |
-	 *       getY() == y
+	 * @post the new X coordinate of the point is equal to the given X coordinate. 
+	 * | getX() == x
+	 * @post the new Y coordinate of the point is equal to the given Y coordinate. 
+	 * | getY() == y
 	 */
 	public IntPoint(int x, int y) {
 		this.x = x;
@@ -39,7 +37,6 @@ public class IntPoint {
 	 * 
 	 * @return | this.x
 	 * @creates result
-	 * @post The result is not {@code null} | result != null
 	 * @inspects | this
 	 */
 	public int getX() {
@@ -51,7 +48,6 @@ public class IntPoint {
 	 * 
 	 * @return | this.y
 	 * @creates result
-	 * @post The result is not {@code null} | result != null
 	 * @inspects | this
 	 */
 	public int getY() {
@@ -69,7 +65,6 @@ public class IntPoint {
 	 *         point. result == ( (this.x == other.getX()) && (this.y ==
 	 *         other.getY()) )
 	 * @creates result
-	 * @post The result is not {@code null} | result != null
 	 */
 	public boolean equals(IntPoint other) {
 		boolean result = ((this.getX() == other.getX()) && (this.getY() == other.getY()));
@@ -80,7 +75,7 @@ public class IntPoint {
 	 * Returns a DoublePoint object that represents the same 2D point represented by
 	 * this IntPoint object.
 	 * 
-	 * @post a new object of type DoublePoint was made. | point == DoublePoint
+//	 * @post a new object of type DoublePoint was made. | point == DoublePoint  // deze moet met command equals ofzoiets
 	 * @inspects | this
 	 */
 	public DoublePoint asDoublePoint() {
@@ -204,7 +199,6 @@ public class IntPoint {
 	 * @return True if and only if the exitpath of this point intersects with the
 	 *         open linesegment defined by connecting point a and b.
 	 * @creates result
-	 * @post The result is not {@code null} | result != null
 	 * @inspects | a
 	 * @inspects | b
 	 */

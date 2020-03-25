@@ -15,10 +15,10 @@ public class PointArrays {
 	 * 
 	 * @param points The points are the content of the given array.
 	 * @pre Argument {@code points} is not {@code null}. | points != null
-	 * @post the content of the new array equals the given points. |
-	 *       points.equals(result) == true
-	 * @post the length of the new array is equal to the length of the points. |
-	 *       result.length == points.length
+	 * @post the content of the new array equals the given points. 
+	 * | points.equals(result) == true
+	 * @post the length of the new array is equal to the length of the points. 
+	 * | result.length == points.length
 	 * @inspects | points
 	 * @creates result
 	 * @post The result is not {@code null} | result != null
@@ -41,8 +41,8 @@ public class PointArrays {
 	 * @param point  The point that will be inserted.
 	 * @pre Argument {@code points} is not {@code null}. | points != null
 	 * @pre Argument {@code point} is not {@code null}. | point != null
-	 * @post The length of the newArray is 1 more than the given points |
-	 *       points.length+1 == newArray.length
+	 * @post The length of the newArray is 1 more than the given points 
+	 * | points.length+1 == result.length
 	 * @creates result
 	 * @post The result is not {@code null} | result != null
 	 */
@@ -68,8 +68,8 @@ public class PointArrays {
 	 * @param pointss The content of the given array.
 	 * @param index   The position (index) of the point that will be removed.
 	 * @pre Argument {@code points} is not {@code null}. | points != null
-	 * @post The length of the newArray is 1 less than the given points |
-	 *       points.length()-1 == newArray.length()
+	 * @post The length of the newArray is 1 less than the given points 
+	 * | points.length-1 == result.length
 	 * @creates result
 	 * @post The result is not {@code null} | result != null
 	 */
@@ -96,8 +96,8 @@ public class PointArrays {
 	 * @param value  The value of the new point.
 	 * @pre Argument {@code points} is not {@code null}. | points != null
 	 * @pre Argument {@code value} is not {@code null}. | value != null
-	 * @post the value of the new array at position i equals the given value. |
-	 *       result[index] == value
+	 * @post the value of the new array at position i equals the given value. 
+	 * | result[index] == value
 	 * @creates result
 	 * @post The result is not {@code null} | result != null
 	 */
