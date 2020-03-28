@@ -10,23 +10,25 @@ class ExtentTest {
 
 	@Test
 	void test() {
-		Extent extent1 = new Extent(10, 20, 20, 10);
+		
+		RoundedPolygon extent1 = new RoundedPolygon();
+		extent1.setVertices(new IntPoint[] {new IntPoint(10, 10), new IntPoint(20, 10), new IntPoint(20, 20), new IntPoint(10,20)});
 		IntPoint point1 = new IntPoint (15, 15);
 		IntPoint point2 = new IntPoint (10, 10);
 		IntPoint point3 = new IntPoint (25, 25);
-		IntPoint bottomright1 = new IntPoint(10, 20);
-		IntPoint topleft1 = new IntPoint(20, 10);
+		IntPoint bottomright1 = new IntPoint(20, 20);
+		IntPoint topleft1 = new IntPoint(10, 10);
 //		
 //		assert extent1.contains(point1);
 //		assert extent1.contains(point2);
 //		assert !extent1.contains(point3);
 //		
-		assert extent1.getBottom() == 10;
+		assert extent1.getBottom() == 20;
 		assert extent1.getBottomRight() == bottomright1;
 		assert extent1.getHeight() == 20-10;
 		assert extent1.getLeft() == 10;
 		assert extent1.getRight() == 20;
-		assert extent1.getTop() == 20;
+		assert extent1.getTop() == 10;
 		assert extent1.getTopLeft() == topleft1;
 		assert extent1.getWidth() == 20-10;
 		
