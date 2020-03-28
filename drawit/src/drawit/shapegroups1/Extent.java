@@ -18,7 +18,7 @@ public class Extent {
 	 * @param right
 	 * @param bottom
 	 */
-	private Extent(int left, int top, int right, int bottom) {
+	public Extent(int left, int top, int right, int bottom) {
 		this.left = left;
 		this.top = top;
 		this.right = right;

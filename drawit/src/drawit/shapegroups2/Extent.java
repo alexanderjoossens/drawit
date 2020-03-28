@@ -19,7 +19,7 @@ public class Extent {
 	 * @param width
 	 * @param height
 	 */
-	private Extent(int left, int top, int width, int height) {
+	public Extent(int left, int top, int width, int height) {
 		this.left = left;
 		this.top = top;
 		this.width = width;
