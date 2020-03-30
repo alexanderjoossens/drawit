@@ -77,20 +77,20 @@ public class ShapeGroup {
 		}
 	}
 	
-	public ShapeGroup getSubgroup(int index) {
-		return null;
-	}
-	
 	public ShapeGroup getParentgroup() {
 		return null;
 	}
 	
-	public java.util.List<ShapeGroup> getSubgroups() {
-		return null;
+	public ShapeGroup[] getSubgroups() {
+		return subgroups;
 	}
 	
 	public int getSubgroupCount() {
-		return 0;
+		return this.getSubgroups().length;
+	}
+	
+	public ShapeGroup getSubgroup(int index) {
+		return this.getSubgroups()[index];
 	}
 	
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
