@@ -20,8 +20,32 @@ public class ShapeGroup {
 	
 	
 	public Extent getExtent() {
-		return null;
-		
+		int maxX = 0;
+		int maxY = 0;
+		int minX = 0;
+		int minY = 0;
+		IntPoint[] points = shape.getVertices();
+		for (int i = 0 ; i<points.length; i++) {
+			int xCoord = points[i].getX();
+			int yCoord = points[i].getY();
+			if (i ==0) {
+				maxX = xCoord;
+				minX = xCoord;
+				maxY = yCoord;
+				minY = yCoord;
+			}
+			else {
+				maxX = Math.max(maxX, xCoord);
+				maxY = Math.max(maxY, yCoord);
+				minX = Math.min(minX, xCoord);
+				minY = Math.min(minY, yCoord);
+
+				
+			}
+		}
+	
+		Extent extent = Extent.ofLeftTopRightBottom(minX,minY,maxX,maxY);
+		return extent;
 	}
 	
 	public Extent getOriginalExtent() {
@@ -45,7 +69,12 @@ public class ShapeGroup {
 	}
 	
 	public RoundedPolygon getShape() {
-		return null;
+		if (shape != null) {
+			return shape;
+		}
+		else {
+			return null;
+		}
 	}
 	
 	public ShapeGroup getSubgroup(int index) {
