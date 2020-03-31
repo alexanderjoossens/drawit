@@ -9,6 +9,7 @@ public class ShapeGroup {
 	private ShapeGroup[] subgroups;
 	private float horizontalScale;
 	private float verticalScale;
+	private Extent setExtent;
 
 	public ShapeGroup(RoundedPolygon shape) {
 		this.shape = shape;
@@ -67,24 +68,24 @@ public class ShapeGroup {
 		return extent;
 	}
 
-	public Extent getOriginalExtent() {
-		return null;
-	}
-
-	public IntPoint toGLobalCoordinates(IntPoint innerCoordinates) {
-		return null;
-	}
-
-	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
-		return null;
-	}
-
-	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
-		return null;
-	}
+//	public Extent getOriginalExtent() {
+//		return null;
+//	}
+//
+//	public IntPoint toGLobalCoordinates(IntPoint innerCoordinates) {
+//		return null;
+//	}
+//
+//	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
+//		return null;
+//	}
+//
+//	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
+//		return null;
+//	}
 
 	public void setExtent(Extent newExtent) {
-
+		this.setExtent = newExtent;
 	}
 
 	public RoundedPolygon getShape() {
@@ -95,9 +96,9 @@ public class ShapeGroup {
 		}
 	}
 
-	public ShapeGroup getParentgroup() {
-		return null;
-	}
+//	public ShapeGroup getParentgroup() {
+//		return null;
+//	}
 
 	public ShapeGroup[] getSubgroups() {
 		return subgroups;
@@ -111,19 +112,19 @@ public class ShapeGroup {
 		return this.getSubgroups()[index];
 	}
 
-	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
-		return null;
-	}
-
-	public void bringToFront() {
-
-	}
-
-	public void sendToBack() {
-
-	}
-
-	public java.lang.String getDrawingCommands() {
-		return null;
-	}
+//	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
+//		return null;
+//	}
+//
+//	public void bringToFront() {
+//
+//	}
+//
+//	public void sendToBack() {
+//
+//	}
+//
+//	public java.lang.String getDrawingCommands() {
+//		return null;
+//	}
 }
