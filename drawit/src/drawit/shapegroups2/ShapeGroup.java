@@ -7,17 +7,24 @@ import drawit.RoundedPolygon;
 public class ShapeGroup {
 	private RoundedPolygon shape;
 	private ShapeGroup[] subgroups;
-	private float horizontalScale;
-	private float verticalScale;
-	private Extent setExtent;
+	private Extent ownExtent;
+	private final Extent originalExtent;
+	private ShapeGroup parentGroup;
+	
+	
 
 	public ShapeGroup(RoundedPolygon shape) {
 		this.shape = shape;
+		this.originalExtent = this.getExtent();
 
 	}
 
 	public ShapeGroup(ShapeGroup[] subgroups) {
 		this.subgroups = subgroups;
+		this.originalExtent = this.getExtent();
+		for (ShapeGroup shapeGroup: subgroups) {
+			shapeGroup.parentGroup = this;
+		}
 	}
 
 	public Extent getExtent() {
@@ -68,9 +75,9 @@ public class ShapeGroup {
 		return extent;
 	}
 
-//	public Extent getOriginalExtent() {
-//		return null;
-//	}
+	public Extent getOriginalExtent() {
+		return this.originalExtent;
+	}
 //
 //	public IntPoint toGLobalCoordinates(IntPoint innerCoordinates) {
 //		return null;
@@ -85,7 +92,7 @@ public class ShapeGroup {
 //	}
 
 	public void setExtent(Extent newExtent) {
-		this.setExtent = newExtent;
+		this.ownExtent = newExtent;
 	}
 
 	public RoundedPolygon getShape() {
@@ -96,9 +103,9 @@ public class ShapeGroup {
 		}
 	}
 
-//	public ShapeGroup getParentgroup() {
-//		return null;
-//	}
+	public ShapeGroup getParentgroup() {
+		return this.parentGroup;
+	}
 
 	public ShapeGroup[] getSubgroups() {
 		return subgroups;
