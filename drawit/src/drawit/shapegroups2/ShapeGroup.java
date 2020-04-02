@@ -1,4 +1,5 @@
 package drawit.shapegroups2;
+import drawit.shapegroups1.Extent;
 
 import drawit.IntPoint;
 import drawit.IntVector;

@@ -1,10 +1,8 @@
 package drawit.shapegroups1.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
-import drawit.shapegroups2.*;
-
+import drawit.shapegroups1.*;
 import drawit.*;
-import drawit.shapegroups1.Extent;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,12 +11,12 @@ class ExtentTest {
 	@Test
 	void test() {
 		
+		
 		RoundedPolygon triangle = new RoundedPolygon();
 		triangle.setVertices(new IntPoint[] {new IntPoint(10, 10), new IntPoint(30, 10), new IntPoint(20, 20)});
 
 		ShapeGroup leaf = new ShapeGroup(triangle);
-		assert leaf.getExtent().getTopLeft().equals(new IntPoint(10, 10));
-		assert leaf.getExtent().getBottomRight().equals(new IntPoint(30, 20));
+		assert leaf.getExtent().getTopLeft().equals(new IntPoint(10, 10)) && leaf.getExtent().getBottomRight().equals(new IntPoint(30, 20));
 		leaf.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 20, 10));
 
 		// For simplicity, we here ignore the constraint that a non-leaf ShapeGroup shall have at least two subgroups.
@@ -26,7 +24,7 @@ class ExtentTest {
 		assert nonLeaf.getExtent().getTopLeft().equals(new IntPoint(0, 0)) && nonLeaf.getExtent().getBottomRight().equals(new IntPoint(20, 10));
 		nonLeaf.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 10, 5));
 		
-		
+
 		
 		
 ////		Extent extent1 = new Extent();

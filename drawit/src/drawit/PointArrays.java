@@ -15,8 +15,6 @@ public class PointArrays {
 	 * 
 	 * @param points The points are the content of the given array.
 	 * @pre Argument {@code points} is not {@code null}. | points != null
-	 * @post the content of the new array equals the given points. 
-	 * | points.equals(result) == true
 	 * @post the length of the new array is equal to the length of the points. 
 	 * | result.length == points.length
 	 * @inspects | points
