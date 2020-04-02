@@ -10,24 +10,6 @@ public class Extent {
 	private int width;
 	private int height;
 
-	public static Extent ofLeftTopRightBottom(int left, int top, int right, int bottom) {
-		Extent extent = new Extent();
-		extent.left = left;
-		extent.top = top;
-		extent.width = right - left;
-		extent.height = bottom - top;
-		return extent;
-	}
-
-	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {
-		Extent extent = new Extent();
-		extent.left = left;
-		extent.top = top;
-		extent.width = width;
-		extent.height = height;
-		return extent;
-	}
-
 	/**
 	 * Returns whether this extent, considered as a closed set of points (i.e.
 	 * including its edges and its vertices), contains the given point.
@@ -35,7 +17,7 @@ public class Extent {
 	 * @param point
 	 * @return
 	 */
-	public boolean contains(IntPoint point) {
+	public boolean contains(IntPoint point) {//beter om getRight enzo te gebruiken??
 		RoundedPolygon polygon = new RoundedPolygon();
 		IntPoint[] vertices = new IntPoint[] { new IntPoint(this.left, this.top),
 				new IntPoint(this.left + this.width, this.top),
@@ -114,7 +96,25 @@ public class Extent {
 	public int getWidth() {
 		return this.width;
 	}
+	
+	
+	public static Extent ofLeftTopRightBottom(int left, int top, int right, int bottom) {
+		Extent extent = new Extent();
+		extent.left = left;
+		extent.top = top;
+		extent.width = right - left;
+		extent.height = bottom - top;
+		return extent;
+	}
 
+	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {
+		Extent extent = new Extent();
+		extent.left = left;
+		extent.top = top;
+		extent.width = width;
+		extent.height = height;
+		return extent;
+	}
 	/**
 	 * Returns an object that has the given bottom coordinate and the same left,
 	 * top, and right coordinate as this object.

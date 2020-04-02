@@ -1,29 +1,13 @@
 package drawit.shapegroups1;
 
-import drawit.IntPoint;		
-
-// moet er wel overal this. voor bij laatste methods? nog vragen in forum (reminder)
+import drawit.IntPoint;
 
 public class Extent {
 	
-	private final int left;
-	private final int top;
-	private final int right;
-	private final int bottom;
-
-	/**
-	 * 
-	 * @param left
-	 * @param top
-	 * @param right
-	 * @param bottom
-	 */
-	private Extent(int left, int top, int right, int bottom) {
-		this.left = left;
-		this.top = top;
-		this.right = right;
-		this.bottom = bottom;
-	}
+	private int left;
+	private int top;
+	private int right;
+	private int bottom;
 
 	/**
 	 * Returns whether this extent, considered as a closed set of points 
@@ -53,7 +37,7 @@ public class Extent {
 	 * @return
 	 */
 	public int getHeight() {
-		return this.getTop()-this.getBottom();
+		return this.getBottom()-this.getTop();
 	}
 	
 	/**
@@ -94,15 +78,21 @@ public class Extent {
 	}
 	
 	public static Extent ofLeftTopRightBottom(int left, int top, int right, int bottom) {
-		Extent newRectangle = new Extent(left, top, right, bottom);
-		return newRectangle;
+		Extent extent = new Extent();
+		extent.left = left;
+		extent.top = top;
+		extent.right = right;
+		extent.bottom = bottom;
+		return extent;
 	}
 	
 	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {
-		int right = left+width;
-		int bottom = top-height;
-		Extent newRectangle = new Extent(left, top, right, bottom);
-		return newRectangle;
+		Extent extent = new Extent();
+		extent.left = left;
+		extent.top = top;
+		extent.right = left+width;
+		extent.bottom = top+height;
+		return extent;
 	}
 	
 	/**
@@ -111,8 +101,8 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withBottom(int newBottom) {
-		Extent newextent = new Extent(this.getLeft(), this.getTop(), this.getRight(), newBottom);
-		return newextent;
+		Extent newExtent = Extent.ofLeftTopRightBottom(this.getLeft(), this.getTop(), this.getRight(), newBottom);
+		return newExtent;
 	}
 	
 	/**
@@ -120,10 +110,9 @@ public class Extent {
 	 * @param NewHeight
 	 * @return
 	 */
-	public Extent withHeight(int NewHeight) {
-		int newBottom = top-NewHeight;
-		Extent newextent = new Extent(this.getLeft(), this.getTop(), this.getRight(), newBottom);
-		return newextent;
+	public Extent withHeight(int newHeight) {
+		Extent newExtent = Extent.ofLeftTopWidthHeight(this.getLeft(), this.getTop(), this.getWidth(), newHeight);
+		return newExtent;
 	}
 	
 	/**
@@ -132,8 +121,8 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withLeft(int newLeft) {
-		Extent newextent = new Extent(newLeft, this.getTop(), this.getRight(), this.getBottom());
-		return newextent;
+		Extent newExtent = Extent.ofLeftTopRightBottom(newLeft, this.getTop(), this.getRight(), this.getBottom());
+		return newExtent;
 	}
 	
 	/**
@@ -142,8 +131,8 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withRight(int newRight) {
-		Extent newextent = new Extent(this.getLeft(), this.getTop(), newRight, this.getBottom());
-		return newextent;
+		Extent newExtent = Extent.ofLeftTopRightBottom(this.getLeft(), this.getTop(), newRight, this.getBottom());
+		return newExtent;
 	}
 	
 	/**
@@ -152,8 +141,8 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withTop(int newTop) {
-		Extent newextent = new Extent(this.getLeft(), newTop, this.getRight(), this.getBottom());
-		return newextent;
+		Extent newExtent = Extent.ofLeftTopRightBottom(this.getLeft(), newTop, this.getRight(), this.getBottom());
+		return newExtent;
 	}
 	
 	/**
@@ -162,9 +151,8 @@ public class Extent {
 	 * @return
 	 */
 	public Extent withWidth(int newWidth) {
-		int newRight = left+newWidth;
-		Extent newextent = new Extent(this.getLeft(), this.getTop(), newRight, this.getBottom());
-		return newextent;
+		Extent newExtent = Extent.ofLeftTopWidthHeight(this.getLeft(), this.getTop(), newWidth, this.getHeight());
+		return newExtent;
 	}
 	
 }
