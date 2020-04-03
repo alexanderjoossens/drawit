@@ -10,7 +10,7 @@ public class ShapeGroup {
 	private ShapeGroup[] subgroups;
 	private Extent ownExtent;
 	private final Extent originalExtent;
-	private ShapeGroup parentGroup;
+	private ShapeGroup parentGroup; //test
 	
 	
 
