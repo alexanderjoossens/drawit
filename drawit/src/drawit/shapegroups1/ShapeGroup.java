@@ -5,18 +5,16 @@ import drawit.shapegroups1.Extent;
 import drawit.shapegroups2.ShapeGroup;
 
 public class ShapeGroup {
+	
 	private RoundedPolygon shape;
 	private ShapeGroup[] subgroups;
 	private Extent ownExtent;
 	private final Extent originalExtent;
 	private ShapeGroup parentGroup;
-	
-	
 
 	public ShapeGroup(RoundedPolygon shape) {
 		this.shape = shape;
 		this.originalExtent = this.getExtent();
-
 	}
 
 	public ShapeGroup(ShapeGroup[] subgroups) {
@@ -108,6 +106,10 @@ public class ShapeGroup {
 //		return extent;
 //	}
 //	
+	public Extent getOriginalExtent() {
+		return this.originalExtent;
+	}
+	
 	public void setExtent(Extent newExtent) {
 		this.ownExtent = newExtent;
 	}

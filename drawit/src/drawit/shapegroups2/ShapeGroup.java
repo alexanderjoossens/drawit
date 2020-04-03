@@ -6,13 +6,12 @@ import drawit.IntVector;
 import drawit.RoundedPolygon;
 
 public class ShapeGroup {
+	
 	private RoundedPolygon shape;
 	private ShapeGroup[] subgroups;
 	private Extent ownExtent;
 	private final Extent originalExtent;
 	private ShapeGroup parentGroup;
-	
-	
 
 	public ShapeGroup(RoundedPolygon shape) {		
 		int maxX = 0;

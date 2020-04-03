@@ -38,9 +38,7 @@ public class Extent {
 	}
 
 	public IntPoint getBottomRight() {
-		int right = this.getRight();
-		int bottom = this.getBottom();
-		IntPoint bottomright = new IntPoint(right, bottom);
+		IntPoint bottomright = new IntPoint(this.getRight(), this.getBottom());
 		return bottomright;
 	}
 
