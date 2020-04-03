@@ -1,5 +1,5 @@
 package drawit.shapegroups2;
-import drawit.shapegroups1.Extent;
+import drawit.shapegroups2.Extent;
 
 import drawit.IntPoint;
 import drawit.IntVector;
@@ -10,7 +10,7 @@ public class ShapeGroup {
 	private ShapeGroup[] subgroups;
 	private Extent ownExtent;
 	private final Extent originalExtent;
-	private ShapeGroup parentGroup; //test
+	private ShapeGroup parentGroup;
 	
 	
 
@@ -101,11 +101,7 @@ public class ShapeGroup {
 
 
 	public RoundedPolygon getShape() {
-		if (shape != null) {
-			return shape;
-		} else {
-			return null;
-		}
+		return shape;
 	}
 
 	public ShapeGroup getParentgroup() {
