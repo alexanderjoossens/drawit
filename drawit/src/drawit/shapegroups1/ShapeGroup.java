@@ -12,11 +12,19 @@ public class ShapeGroup {
 	private final Extent originalExtent;
 	private ShapeGroup parentGroup;
 
+	/**
+	 * Initializes this object to represent a leaf shape group that directly contains the given shape.
+	 * @param shape
+	 */
 	public ShapeGroup(RoundedPolygon shape) {
 		this.shape = shape;
 		this.originalExtent = this.getExtent();
 	}
 
+	/**
+	 * Initializes this object to represent a non-leaf shape group that directly contains the given subgroups, in the given order.
+	 * @param subgroups
+	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
 		this.subgroups = subgroups;
 		this.originalExtent = this.getExtent();
