@@ -227,7 +227,27 @@ public class ShapeGroup {
 	 * expressed in this shape group's outer coordinate system.
 	 */
 	public java.lang.String getDrawingCommands() {
-		return null;
+		
+		String text = "";
+
+		if (this.getShape() != null) {
+			text += String.format("pushTranslate");
+			text += String.format("pushScale");
+			text += this.getShape().getDrawingCommands();
+			text += String.format("popTransform");
+			text += String.format("popTransform");
+		}
+		
+		else {
+			for (int i = 1; i < this.getSubgroupCount(); i++) {
+				text += String.format("pushTranslate");
+				text += String.format("pushScale");
+				text += this.getSubgroup(i).getShape().getDrawingCommands();
+				text += String.format("popTransform");
+				text += String.format("popTransform");
+				}
+		}
+		return text;
 	}
 }
 
