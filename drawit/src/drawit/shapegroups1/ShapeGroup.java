@@ -158,8 +158,7 @@ public class ShapeGroup {
 	 * @return
 	 */
 	public ShapeGroup getSubgroup(int index) {
-		return null;
-		//return this.getSubgroups()[index];
+		return this.getSubgroups()[index];
 	}
 
 	/**
