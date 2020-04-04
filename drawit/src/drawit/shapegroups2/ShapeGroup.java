@@ -158,8 +158,7 @@ public class ShapeGroup {
 	 * @return
 	 */
 	public ShapeGroup getSubgroup(int index) {
-		return null;
-		//return this.getSubgroups()[index];
+		return this.getSubgroups()[index];
 	}
 
 	/**
@@ -172,8 +171,8 @@ public class ShapeGroup {
 	/**
 	 * Returns the list of subgroups of this shape group, or null if this is a leaf shape group.
 	 */
-	public java.util.List<ShapeGroup> getSubgroups() {
-		return null;
+	public ShapeGroup[] getSubgroups() {
+		return this.subgroups;
 	}
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.

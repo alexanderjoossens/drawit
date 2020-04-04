@@ -172,7 +172,7 @@ public class ShapeGroup {
 	/**
 	 * Returns the list of subgroups of this shape group, or null if this is a leaf shape group.
 	 */
-	public java.util.List<ShapeGroup> getSubgroups() {
+	public ShapeGroup[] getSubgroups() {
 		return null;
 	}
 	/**
