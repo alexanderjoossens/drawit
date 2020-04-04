@@ -50,8 +50,8 @@ class ExtentTest {
 		//tests for getters
 		IntPoint point1 = new IntPoint(10,10);
 		IntPoint point2 = new IntPoint(15,15);
-//		assert leaf2.getExtent().contains(point1);
-//		assert leaf2.getExtent().contains(point2);
+		assert leaf2.getExtent().contains(point1);
+		assert leaf2.getExtent().contains(point2);
 		assert leaf2.getExtent().withBottom(80).getBottom() == 80;
 		assert leaf2.getExtent().withHeight(90).getHeight() == 90;
 		assert leaf2.getExtent().withLeft(5).getLeft() == 5;

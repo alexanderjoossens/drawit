@@ -1,6 +1,7 @@
 package drawit.shapegroups1;
 
 import drawit.IntPoint;
+import drawit.RoundedPolygon;
 
 public class Extent {
 	
@@ -16,7 +17,19 @@ public class Extent {
 	 * @return
 	 */
 	public boolean contains(IntPoint point) {
-		return this.contains(point);
+		IntPoint bottomleft = new IntPoint(this.getLeft(), this.getBottom());
+		IntPoint topright = new IntPoint(this.getRight(), this.getTop());
+		
+		IntPoint[] vertices = new IntPoint[4];
+		vertices[0] = bottomleft;
+		vertices[1] = this.getBottomRight();
+		vertices[2] = topright;
+		vertices[3] = this.getTopLeft();
+		
+		RoundedPolygon polygon = new RoundedPolygon();
+		polygon.setVertices(vertices);
+		
+		return polygon.contains(point);
 	}
 	
 	/**
