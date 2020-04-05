@@ -3,6 +3,9 @@ package drawit.shapegroups1;
 import drawit.IntPoint;
 import drawit.RoundedPolygon;
 
+/**
+ * @immutable
+ */
 public class Extent {
 	
 	private int left;
@@ -14,7 +17,9 @@ public class Extent {
 	 * Returns whether this extent, considered as a closed set of points 
 	 * (i.e. including its edges and its vertices), contains the given point.
 	 * @param point
-	 * @return
+	 * The point to check if it is in the extent.
+	 * @inspects | this
+	 * @throws IllegalArgumentException if the point is null. | point == null
 	 */
 	public boolean contains(IntPoint point) {
 		IntPoint bottomleft = new IntPoint(this.getLeft(), this.getBottom());
@@ -34,7 +39,6 @@ public class Extent {
 	
 	/**
 	 * Returns the Y coordinate of the edge parallel to the X axis with the largest Y coordinate.
-	 * @return
 	 */
 	public int getBottom() {
 		return this.bottom;
@@ -47,7 +51,6 @@ public class Extent {
 	
 	/**
 	 * Returns the distance between the edges that are parallel to the X axis.
-	 * @return
 	 */
 	public int getHeight() {
 		return this.getBottom()-this.getTop();
@@ -55,7 +58,6 @@ public class Extent {
 	
 	/**
 	 * Returns the X coordinate of the edge parallel to the Y axis with the smallest X coordinate.
-	 * @return
 	 */
 	public int getLeft() {
 		return this.left;
@@ -63,7 +65,6 @@ public class Extent {
 	
 	/**
 	 * Returns the X coordinate of the edge parallel to the Y axis with the largest X coordinate.
-	 * @return
 	 */
 	public int getRight() {
 		return this.right;
@@ -71,7 +72,6 @@ public class Extent {
 	
 	/**
 	 * Returns the Y coordinate of the edge parallel to the X axis with the smallest Y coordinate.
-	 * @return
 	 */
 	public int getTop() {
 		return this.top;
@@ -84,12 +84,29 @@ public class Extent {
 	
 	/**
 	 * Returns the distance between the edges that are parallel to the Y axis.
-	 * @return
 	 */
 	public int getWidth() {
 		return this.getRight()-this.getLeft();
 	}
 	
+	/**
+	 * @throws IllegalArgumentException if left is null. | left == null
+	 * @throws IllegalArgumentException if top is null. | top == null
+	 * @throws IllegalArgumentException if right is null. | right == null
+	 * @throws IllegalArgumentException if bottom is null. | bottom == null
+	 * @creates | result
+	 * @param left
+	 * The X coordinate of the left side of the extent
+	 * @param top
+	 * The Y coordinate of the top side of the extent
+	 * @param right
+	 * The X coordinate of the right side of the extent
+	 * @param bottom 
+	 * The Y cootdinate of the bottom side of the extent
+	 * @post | getLeft() == left
+	 * POST WERKT NIET??
+	 * @post | result != null
+	 */
 	public static Extent ofLeftTopRightBottom(int left, int top, int right, int bottom) {
 		Extent extent = new Extent();
 		extent.left = left;
@@ -99,6 +116,20 @@ public class Extent {
 		return extent;
 	}
 	
+	/**
+	 * @creates | result
+	 * @param left 
+	 * The X coordinate of the left side of the extent
+	 * @param top 
+	 * The Y coordinate of the top side of the extent
+	 * @param width 
+	 * The width of the extent
+	 * @param height 
+	 * The height of the extent
+	 * @post | getLeft() == left
+	 * POST WERKT NIET??
+	 * @post | result != null
+	 */
 	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {
 		Extent extent = new Extent();
 		extent.left = left;
@@ -111,7 +142,9 @@ public class Extent {
 	/**
 	 * Returns an object that has the given bottom coordinate and the same left, top, and right coordinate as this object.
 	 * @param newBottom
-	 * @return
+	 * @creates | result
+	 * @post | getBottom() == newBottom
+	 * @post | result != null
 	 */
 	public Extent withBottom(int newBottom) {
 		Extent newExtent = Extent.ofLeftTopRightBottom(this.getLeft(), this.getTop(), this.getRight(), newBottom);
@@ -121,7 +154,9 @@ public class Extent {
 	/**
 	 * Returns an object that has the given height and the same left, top, and right coordinate as this object.
 	 * @param NewHeight
-	 * @return
+	 * @creates | result
+	 * @post | getHeight() == newHeight
+	 * @post | result != null
 	 */
 	public Extent withHeight(int newHeight) {
 		Extent newExtent = Extent.ofLeftTopWidthHeight(this.getLeft(), this.getTop(), this.getWidth(), newHeight);
@@ -131,7 +166,9 @@ public class Extent {
 	/**
 	 * Returns an object that has the given left coordinate and the same right, top, and bottom coordinate as this object.
 	 * @param newLeft
-	 * @return
+	 * @creates | result
+	 * @post | getLeft() == newLeft
+	 * @post | result != null
 	 */
 	public Extent withLeft(int newLeft) {
 		Extent newExtent = Extent.ofLeftTopRightBottom(newLeft, this.getTop(), this.getRight(), this.getBottom());
@@ -141,7 +178,9 @@ public class Extent {
 	/**
 	 * Returns an object that has the given right coordinate and the same left, top, and bottom coordinate as this object.
 	 * @param newRight
-	 * @return
+	 * @creates | result
+	 * @post | getRight() == newRight
+	 * @post | result != null
 	 */
 	public Extent withRight(int newRight) {
 		Extent newExtent = Extent.ofLeftTopRightBottom(this.getLeft(), this.getTop(), newRight, this.getBottom());
@@ -151,7 +190,9 @@ public class Extent {
 	/**
 	 * Returns an object that has the given top coordinate and the same left, right, and bottom coordinate as this object.
 	 * @param newTop
-	 * @return
+	 * @creates | result
+	 * @post | getTop() == newTop
+	 * @post | result != null
 	 */
 	public Extent withTop(int newTop) {
 		Extent newExtent = Extent.ofLeftTopRightBottom(this.getLeft(), newTop, this.getRight(), this.getBottom());
@@ -161,7 +202,9 @@ public class Extent {
 	/**
 	 * Returns an object that has the given width and the same left, top, and bottom coordinate as this object.
 	 * @param newWidth
-	 * @return
+	 * @creates | result
+	 * @post | getWidth() == newWidth
+	 * @post | result != null
 	 */
 	public Extent withWidth(int newWidth) {
 		Extent newExtent = Extent.ofLeftTopWidthHeight(this.getLeft(), this.getTop(), newWidth, this.getHeight());

@@ -37,7 +37,8 @@ public class RoundedPolygon {
 	 * A point is contained by a polygon if it coincides with one of its vertices,
 	 * or if it is on one of its edges, or if it is in the polygon's interior.
 	 * 
-	 * @param point The point to check if it is in the polygon.
+	 * @param point
+	 * The point to check if it is in the polygon.
 	 * @inspects | this
 	 * @throws IllegalArgumentException if the point is null. | point == null
 	 */
