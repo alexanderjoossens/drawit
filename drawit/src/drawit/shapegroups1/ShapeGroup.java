@@ -195,7 +195,7 @@ public class ShapeGroup {
 		
 		String text = "";
 
-		if (this.getShape() != null) {
+		if (this.subgroups != null) {
 			text += String.format("pushTranslate");
 			text += String.format("pushScale");
 			text += this.getShape().getDrawingCommands();
@@ -204,10 +204,10 @@ public class ShapeGroup {
 		}
 		
 		else {
-			for (int i = 1; i < this.getSubgroupCount(); i++) {
+			for (ShapeGroup subgroup: subgroups) {
 				text += String.format("pushTranslate");
 				text += String.format("pushScale");
-				text += this.getSubgroup(i).getShape().getDrawingCommands();
+				text += subgroup.getDrawingCommands();
 				text += String.format("popTransform");
 				text += String.format("popTransform");
 				}
