@@ -13,7 +13,7 @@ public class Extent {
 	private int top;
 	private int width;
 	private int height;
-
+	
 	/**
 	 * Returns whether this extent, considered as a closed set of points 
 	 * (i.e. including its edges and its vertices), contains the given point.
