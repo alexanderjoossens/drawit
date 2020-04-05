@@ -13,10 +13,10 @@ public class ShapeGroup {
 	private Extent ownExtent;
 	private final Extent originalExtent;
 	private ShapeGroup parentGroup;
-	private double horizontalScale = 0;
-	private double verticalScale = 0;
-	private double horizontalTranslate = 0;
-	private double verticalTranslate = 0;
+	private double horizontalScale = 1;
+	private double verticalScale = 1;
+	private double horizontalTranslation = 0;
+	private double verticalTranslation = 0;
 
 	/**
 	 * Initializes this object to represent a leaf shape group that directly
@@ -88,6 +88,7 @@ public class ShapeGroup {
 		this.originalExtent = extent;
 		this.ownExtent = extent;
 	}
+	
 
 	/**
 	 * Registers the given extent as this shape group's extent, expressed in this
@@ -97,6 +98,11 @@ public class ShapeGroup {
 	 */
 	public void setExtent(Extent newExtent) {
 		this.ownExtent = newExtent;
+		
+		this.horizontalScale = ((double) newExtent.getWidth() / (double) this.getOriginalExtent().getWidth());
+		this.verticalScale = ((double) newExtent.getHeight() / (double) this.getOriginalExtent().getHeight());
+		this.horizontalTranslation = ((double) (newExtent.getLeft() - getOriginalExtent().getLeft()*this.horizontalScale));
+		this.verticalTranslation  = ((double) (newExtent.getTop() - getOriginalExtent().getTop()*this.verticalScale));
 	}
 
 	/**
