@@ -13,6 +13,10 @@ public class ShapeGroup {
 	private Extent ownExtent;
 	private final Extent originalExtent;
 	private ShapeGroup parentGroup;
+	private double horizontalScale = 0;
+	private double verticalScale = 0;
+	private double horizontalTranslate = 0;
+	private double verticalTranslate = 0;
 
 	/**
 	 * Initializes this object to represent a leaf shape group that directly
@@ -192,7 +196,7 @@ public class ShapeGroup {
 		boolean foundSubgroup = false;
 		ShapeGroup returnGroup = null;
 		for (ShapeGroup subgroup : subgroups) {
-			if (subgroup.getExtent().contains(innerCoordinates) && !foundSubgroup) {
+			if (subgroup.getOriginalExtent().contains(innerCoordinates) && !foundSubgroup) {
 				returnGroup = subgroup;
 			}
 		}
