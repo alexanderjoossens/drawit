@@ -1,5 +1,7 @@
 package drawit;
 
+import java.awt.Color;
+
 /**
  * An instance of this class is a mutable abstraction storing a rounded polygon
  * defined by a set of 2D points with integer coordinates and a nonnegative
@@ -15,7 +17,7 @@ public class RoundedPolygon {
 	 */
 	private int radius;
 	private IntPoint[] points;
-	private java.awt.Color color;
+	private Color color;
 	
 	public RoundedPolygon() {
 		IntPoint point1 = new IntPoint(0, 0);
@@ -25,7 +27,7 @@ public class RoundedPolygon {
 		IntPoint[] vertices = { point1, point2, point3, point4 };
 		this.radius = 0;
 		this.points = vertices;
-		this.color = java.awt.Color.YELLOW;
+		this.color = Color.yellow;
 	}
 
 	/**
@@ -111,76 +113,57 @@ public class RoundedPolygon {
 	 * @inspects | this
 	 */
 	public String getDrawingCommands() {
-		if (this.points.length <= 2) {
+		if (points.length < 3)
 			return "";
-		}
-		IntPoint[] originalPoints = this.getVertices();
-		IntPoint[] newPointsTemp = PointArrays.insert(originalPoints, 0, originalPoints[originalPoints.length - 1]);
-		IntPoint[] newPoints = PointArrays.insert(newPointsTemp, newPointsTemp.length, originalPoints[0]);
-
-		String text = "";
-
-		for (int i = 1; i < newPoints.length - 1; i++) {
-			DoubleVector BA = newPoints[i - 1].minus(newPoints[i]).asDoubleVector();
-			DoubleVector BC = newPoints[i + 1].minus(newPoints[i]).asDoubleVector();
-			DoublePoint BAC = newPoints[i].asDoublePoint().plus(BA.scale(0.5));
-			DoublePoint BCC = newPoints[i].asDoublePoint().plus(BC.scale(0.5));
-
-			if (newPoints[i].isOnLineSegment(newPoints[i - 1], newPoints[i + 1])) {
-				System.out.println("Is on line segment!");
-				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), newPoints[i].getX(),
-						newPoints[i].getY());
-				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), newPoints[i].getX(),
-						newPoints[i].getY());
-
+		StringBuilder commands = new StringBuilder();
+		for (int index = 0; index < points.length; index++) {
+			IntPoint a = points[(index + points.length - 1) % points.length];
+			IntPoint b = points[index];
+			IntPoint c = points[(index + 1) % points.length];
+			DoubleVector ba = a.minus(b).asDoubleVector();
+			DoubleVector bc = c.minus(b).asDoubleVector();
+			DoublePoint baCenter = b.asDoublePoint().plus(ba.scale(0.5));
+			DoublePoint bcCenter = b.asDoublePoint().plus(bc.scale(0.5));
+			double baSize = ba.getSize();
+			double bcSize = bc.getSize();
+			if (ba.crossProduct(bc) == 0) {
+				commands.append("line " + bcCenter.getX() + " " + bcCenter.getY() + " " + b.getX() + " " + b.getY() + "\n");
+				commands.append("line " + b.getX() + " " + b.getY() + " " + baCenter.getX() + " " + baCenter.getY() + "\n");
 			} else {
-				DoubleVector BAU = normalize(BA);
-				DoubleVector BCU = normalize(BC);
-				DoubleVector BSU = normalize(BAU.plus(BCU));
-				double BAUcuttoff = BAU.dotProduct(BSU);
-				double unitRadius = Math.abs(BSU.crossProduct(BAU));
-				double lengthScale;
-				if (BAU.getSize() <= BCU.getSize()) {
-					lengthScale = BA.scale(0.5).getSize() / (BAUcuttoff);
-				} else {
-					lengthScale = BC.scale(0.5).getSize() / (BAUcuttoff);
-				}
-				double radiusScale = ((double) this.radius) / unitRadius;
-				double scale;
-				if (radiusScale <= lengthScale) {
-					scale = radiusScale;
-				} else {
-					scale = lengthScale;
-				}
-
-				double theRadius = scale * unitRadius;
-				DoubleVector radiusVector = BSU.scale(scale);
-				DoublePoint radiusCenter = newPoints[i].asDoublePoint().plus(radiusVector);
-				double theLineLength = radiusVector.dotProduct(BAU);
-				DoublePoint endPoint1 = (newPoints[i].asDoublePoint()).plus(BAU.scale(theLineLength));
-				DoublePoint endPoint2 = (newPoints[i].asDoublePoint()).plus(BCU.scale(theLineLength));
-				DoubleVector startAngleVector = endPoint1.minus(radiusCenter);
-				DoubleVector endAngleVector = endPoint2.minus(radiusCenter);
-
-				Double startAngle = startAngleVector.asAngle();
-				Double endAngle = endAngleVector.asAngle();
-				Double angleExtent = startAngle - endAngle;
-				if (angleExtent > (Math.PI)) {
-					angleExtent -= ((Math.PI) * 2);
-				}
-				if (angleExtent < -(Math.PI)) {
-					angleExtent += ((Math.PI) * 2);
-
-				}
-				text += String.format("line %s %s %s %s\n", BAC.getX(), BAC.getY(), endPoint1.getX(), endPoint1.getY());
-				text += String.format("line %s %s %s %s\n", BCC.getX(), BCC.getY(), endPoint2.getX(), endPoint2.getY());
-				text += String.format("arc %s %s %s %s %s\n", radiusCenter.getX(), radiusCenter.getY(), theRadius,
-						startAngle, (-angleExtent));
+				DoubleVector baUnit = ba.scale(1/baSize);
+				DoubleVector bcUnit = bc.scale(1/bcSize);
+				DoubleVector bisector = baUnit.plus(bcUnit);
+				bisector = bisector.scale(1/bisector.getSize());
+				double unitEdgeDistance = baUnit.dotProduct(bisector);
+				double unitRadius = Math.abs(bisector.crossProduct(baUnit));
+				double scaleFactor = Math.min(this.radius / unitRadius, Math.min(baSize, bcSize) / 2 / unitEdgeDistance);
+				DoublePoint center = b.asDoublePoint().plus(bisector.scale(scaleFactor));
+				double radius = unitRadius * scaleFactor;
+				DoublePoint bcCornerStart = b.asDoublePoint().plus(bcUnit.scale(unitEdgeDistance * scaleFactor));
+				DoublePoint baCornerStart = b.asDoublePoint().plus(baUnit.scale(unitEdgeDistance * scaleFactor));
+				double baAngle = baCornerStart.minus(center).asAngle();
+				double bcAngle = bcCornerStart.minus(center).asAngle();
+				double angleExtent = bcAngle - baAngle;
+				if (angleExtent < -Math.PI)
+					angleExtent += 2 * Math.PI;
+				else if (Math.PI < angleExtent)
+					angleExtent -= 2 * Math.PI;
+				commands.append("line " + baCenter.getX() + " " + baCenter.getY() + " " + baCornerStart.getX() + " " + baCornerStart.getY() + "\n");
+				commands.append("arc " + center.getX() + " " + center.getY() + " " + radius + " " + baAngle + " " + angleExtent + "\n");
+				commands.append("line " + bcCornerStart.getX() + " " + bcCornerStart.getY() + " " + bcCenter.getX() + " " + bcCenter.getY() + "\n");
 			}
-
 		}
-		return text;
+		if (color == Color.yellow)
+			commands.append("fill " + "255 " + "255 " + "0  " + "\n");
+		if (color == Color.red)
+			commands.append("fill " + "255 " + "0 " + "0 " + "\n");
+		if (color == Color.green)
+			commands.append("fill " + "0 " + "255 " + "0 " + "\n");
+		if (color == Color.blue)
+			commands.append("fill " + "0 " + "0 " + "255 " + "\n");
+		return commands.toString();
 	}
+
 
 	/**
 	 * Returns the radius of the corners of this rounded polygon.
