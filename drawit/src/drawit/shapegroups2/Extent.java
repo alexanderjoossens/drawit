@@ -105,7 +105,7 @@ public class Extent {
 	 * The X coordinate of the right side of the extent
 	 * @param bottom 
 	 * The Y cootdinate of the bottom side of the extent
-	 * @post | getLeft() == left
+	 * @post | result.getLeft() == left
 	 * POST WERKT NIET??
 	 * @post | result != null
 	 */
@@ -128,7 +128,7 @@ public class Extent {
 	 * The width of the extent
 	 * @param height 
 	 * The height of the extent
-	 * @post | getLeft() == left
+	 * @post | result.getLeft() == left
 	 * POST WERKT NIET??
 	 * @post | result != null
 	 */
