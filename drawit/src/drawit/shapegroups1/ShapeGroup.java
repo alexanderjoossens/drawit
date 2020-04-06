@@ -193,26 +193,26 @@ public class ShapeGroup {
 	 */
 	public java.lang.String getDrawingCommands() {
 		
-		String text = "";
+		StringBuilder commands = new StringBuilder();
 
 		if (this.subgroups != null) {
-			text += String.format("pushTranslate");
-			text += String.format("pushScale");
-			text += this.getShape().getDrawingCommands();
-			text += String.format("popTransform");
-			text += String.format("popTransform");
+			commands.append("pushTranslate");
+			commands.append("pushScale");
+			commands.append(this.getShape().getDrawingCommands());
+			commands.append("popTransform");
+			commands.append("popTransform");
 		}
 		
 		else {
 			for (ShapeGroup subgroup: subgroups) {
-				text += String.format("pushTranslate");
-				text += String.format("pushScale");
-				text += subgroup.getDrawingCommands();
-				text += String.format("popTransform");
-				text += String.format("popTransform");
+				commands.append("pushTranslate");
+				commands.append("pushScale");
+				commands.append(subgroup.getDrawingCommands());
+				commands.append("popTransform");
+				commands.append("popTransform");
 				}
 		}
-		return text;
+		return commands.toString();
 	}
 	
 }

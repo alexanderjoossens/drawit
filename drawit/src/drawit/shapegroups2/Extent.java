@@ -135,6 +135,8 @@ public class Extent {
 	 * @post | result.getWidth() == width
 	 * @post | result.getHeight() == height
 	 * @post | result != null
+	 * @throws IllegalArgumentException if the width is negative | width < 0
+	 * @throws IllegalArgumentException if the height is negative | height < 0
 	 */
 	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {
 		Extent extent = new Extent();
@@ -208,6 +210,7 @@ public class Extent {
 	 * @creates | result
 	 * @post | getHeight() == newHeight
 	 * @post | result != null
+	 * @throws IllegalArgumentException if the new height is negative | newHeight < 0
 	 */
 	public Extent withHeight(int newHeight) {
 		Extent newExtent = Extent.ofLeftTopWidthHeight(this.getLeft(), this.getTop(), this.getWidth(), newHeight);
@@ -222,6 +225,7 @@ public class Extent {
 	 * @creates | result
 	 * @post | getWidth() == newWidth
 	 * @post | result != null
+	 * @throws IllegalArgumentException if the new width is negative | newWidth < 0
 	 */
 	public Extent withWidth(int newWidth) {
 		Extent newExtent = Extent.ofLeftTopWidthHeight(this.getLeft(), this.getTop(), newWidth, this.getHeight());
