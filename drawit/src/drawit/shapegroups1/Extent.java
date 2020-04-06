@@ -90,10 +90,6 @@ public class Extent {
 	}
 	
 	/**
-	 * @throws IllegalArgumentException if left is null. | left == null
-	 * @throws IllegalArgumentException if top is null. | top == null
-	 * @throws IllegalArgumentException if right is null. | right == null
-	 * @throws IllegalArgumentException if bottom is null. | bottom == null
 	 * @creates | result
 	 * @param left
 	 * The X coordinate of the left side of the extent
@@ -181,7 +177,6 @@ public class Extent {
 	
 	/**
 	 * Returns an object that has the given right coordinate and the same left, top, and bottom coordinate as this object.
-	 * @throws IllegalArgumentException if right is null. | newRight == null
 	 * @param newRight
 	 * @creates | result
 	 * @post | getRight() == newRight
