@@ -154,19 +154,18 @@ public class ShapeGroup {
 		if (this.getParentgroup() != null) {
 			newCoords = this.getParentgroup().toInnerCoordinates(globalCoordinates);
 		}
-		
+
 		else {
 			newCoords = globalCoordinates;
 		}
-		
-		
-		double newX = (((double) this.getExtent().getLeft()) * (1 - (1/this.horizontalScale))
-				+ (1/this.horizontalScale) * newCoords.getX()) - this.horizontalTranslation;
-		double newY = (((double) this.getExtent().getTop()) * (1 - (1/this.verticalScale))
-				+ (1/this.verticalScale) * newCoords.getY()) - this.verticalTranslation;
+
+		double newX = (((double) this.getExtent().getLeft()) * (1 - (1 / this.horizontalScale))
+				+ (1 / this.horizontalScale) * newCoords.getX()) - this.horizontalTranslation;
+		double newY = (((double) this.getExtent().getTop()) * (1 - (1 / this.verticalScale))
+				+ (1 / this.verticalScale) * newCoords.getY()) - this.verticalTranslation;
 		IntPoint innerCoordinates = new DoublePoint(newX, newY).round();
 		return innerCoordinates;
-		
+
 	}
 
 	/**
