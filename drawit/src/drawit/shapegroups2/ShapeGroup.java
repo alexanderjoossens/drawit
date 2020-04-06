@@ -5,6 +5,7 @@ import drawit.shapegroups2.Extent;
 import drawit.IntPoint;
 import drawit.IntVector;
 import drawit.RoundedPolygon;
+import drawit.shapegroups1.ShapeGroup;
 
 public class ShapeGroup {
 
@@ -238,26 +239,26 @@ public class ShapeGroup {
 	 */
 	public java.lang.String getDrawingCommands() {
 		
-		String text = "";
+		StringBuilder commands = new StringBuilder();
 
-		if (this.getShape() != null) {
-			text += String.format("pushTranslate");
-			text += String.format("pushScale");
-			text += this.getShape().getDrawingCommands();
-			text += String.format("popTransform");
-			text += String.format("popTransform");
+		if (this.subgroups != null) {
+			commands.append("pushTranslate");
+			commands.append("pushScale");
+			commands.append(this.getShape().getDrawingCommands());
+			commands.append("popTransform");
+			commands.append("popTransform");
 		}
 		
 		else {
-			for (int i = 1; i < this.getSubgroupCount(); i++) {
-				text += String.format("pushTranslate");
-				text += String.format("pushScale");
-				text += this.getSubgroup(i).getShape().getDrawingCommands();
-				text += String.format("popTransform");
-				text += String.format("popTransform");
+			for (ShapeGroup subgroup: subgroups) {
+				commands.append("pushTranslate");
+				commands.append("pushScale");
+				commands.append(subgroup.getDrawingCommands());
+				commands.append("popTransform");
+				commands.append("popTransform");
 				}
 		}
-		return text;
+		return commands.toString();
 	}
 }
 
