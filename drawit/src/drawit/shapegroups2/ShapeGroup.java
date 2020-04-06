@@ -1,11 +1,10 @@
 package drawit.shapegroups2;
 
 import drawit.shapegroups2.Extent;
-
+import drawit.DoublePoint;
 import drawit.IntPoint;
 import drawit.IntVector;
 import drawit.RoundedPolygon;
-import drawit.shapegroups1.ShapeGroup;
 
 public class ShapeGroup {
 
@@ -16,8 +15,8 @@ public class ShapeGroup {
 	private ShapeGroup parentGroup;
 	private double horizontalScale = 1;
 	private double verticalScale = 1;
-	private double horizontalTranslation = 0;
-	private double verticalTranslation = 0;
+	private int horizontalTranslation = 0;
+	private int verticalTranslation = 0;
 
 	/**
 	 * Initializes this object to represent a leaf shape group that directly
@@ -89,7 +88,6 @@ public class ShapeGroup {
 		this.originalExtent = extent;
 		this.ownExtent = extent;
 	}
-	
 
 	/**
 	 * Registers the given extent as this shape group's extent, expressed in this
@@ -99,11 +97,11 @@ public class ShapeGroup {
 	 */
 	public void setExtent(Extent newExtent) {
 		this.ownExtent = newExtent;
-		
+
 		this.horizontalScale = ((double) newExtent.getWidth() / (double) this.getOriginalExtent().getWidth());
 		this.verticalScale = ((double) newExtent.getHeight() / (double) this.getOriginalExtent().getHeight());
-		this.horizontalTranslation = ((double) (newExtent.getLeft() - getOriginalExtent().getLeft()*this.horizontalScale));
-		this.verticalTranslation  = ((double) (newExtent.getTop() - getOriginalExtent().getTop()*this.verticalScale));
+		this.horizontalTranslation = (newExtent.getLeft() - getOriginalExtent().getLeft());
+		this.verticalTranslation = (newExtent.getTop() - getOriginalExtent().getTop());
 	}
 
 	/**
@@ -132,7 +130,18 @@ public class ShapeGroup {
 	 * coordinates.
 	 */
 	public IntPoint toGLobalCoordinates(IntPoint innerCoordinates) {
-		return null;
+		double newX = (((double) this.getOriginalExtent().getRight()) * (1 - this.horizontalScale)
+				+ this.horizontalScale * innerCoordinates.getX()) + this.horizontalTranslation;
+		double newY = (((double) this.getOriginalExtent().getBottom()) * (1 - this.verticalScale)
+				+ this.verticalScale * innerCoordinates.getY()) + this.verticalTranslation;
+
+		IntPoint outerCoordinates = new DoublePoint(newX, newY).round();
+
+		if (this.getParentgroup() != null) {
+			return this.getParentgroup().toGLobalCoordinates(outerCoordinates);
+		} else {
+			return outerCoordinates;
+		}
 	}
 
 	/**
@@ -238,7 +247,7 @@ public class ShapeGroup {
 	 * expressed in this shape group's outer coordinate system.
 	 */
 	public java.lang.String getDrawingCommands() {
-		
+
 		StringBuilder commands = new StringBuilder();
 
 		if (this.subgroups != null) {
@@ -248,15 +257,15 @@ public class ShapeGroup {
 			commands.append("popTransform");
 			commands.append("popTransform");
 		}
-		
+
 		else {
-			for (ShapeGroup subgroup: subgroups) {
+			for (ShapeGroup subgroup : subgroups) {
 				commands.append("pushTranslate");
 				commands.append("pushScale");
 				commands.append(subgroup.getDrawingCommands());
 				commands.append("popTransform");
 				commands.append("popTransform");
-				}
+			}
 		}
 		return commands.toString();
 	}
