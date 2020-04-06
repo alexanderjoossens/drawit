@@ -130,9 +130,9 @@ public class ShapeGroup {
 	 * coordinates.
 	 */
 	public IntPoint toGLobalCoordinates(IntPoint innerCoordinates) {
-		double newX = (((double) this.getOriginalExtent().getRight()) * (1 - this.horizontalScale)
+		double newX = (((double) this.getOriginalExtent().getLeft()) * (1 - this.horizontalScale)
 				+ this.horizontalScale * innerCoordinates.getX()) + this.horizontalTranslation;
-		double newY = (((double) this.getOriginalExtent().getBottom()) * (1 - this.verticalScale)
+		double newY = (((double) this.getOriginalExtent().getTop()) * (1 - this.verticalScale)
 				+ this.verticalScale * innerCoordinates.getY()) + this.verticalTranslation;
 
 		IntPoint outerCoordinates = new DoublePoint(newX, newY).round();
@@ -150,7 +150,23 @@ public class ShapeGroup {
 	 * coordinates.
 	 */
 	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
-		return null;
+		IntPoint newCoords;
+		if (this.getParentgroup() != null) {
+			newCoords = this.getParentgroup().toInnerCoordinates(globalCoordinates);
+		}
+		
+		else {
+			newCoords = globalCoordinates;
+		}
+		
+		
+		double newX = (((double) this.getExtent().getLeft()) * (1 - (1/this.horizontalScale))
+				+ (1/this.horizontalScale) * newCoords.getX()) - this.horizontalTranslation;
+		double newY = (((double) this.getExtent().getTop()) * (1 - (1/this.verticalScale))
+				+ (1/this.verticalScale) * newCoords.getY()) - this.verticalTranslation;
+		IntPoint innerCoordinates = new DoublePoint(newX, newY).round();
+		return innerCoordinates;
+		
 	}
 
 	/**
