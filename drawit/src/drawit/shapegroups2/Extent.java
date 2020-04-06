@@ -106,7 +106,9 @@ public class Extent {
 	 * @param bottom 
 	 * The Y cootdinate of the bottom side of the extent
 	 * @post | result.getLeft() == left
-	 * POST WERKT NIET??
+	 * @post | result.getTop() == top
+	 * @post | result.getRight() == right
+	 * @post | result.getBottom() == bottom
 	 * @post | result != null
 	 */
 	public static Extent ofLeftTopRightBottom(int left, int top, int right, int bottom) {
@@ -129,7 +131,9 @@ public class Extent {
 	 * @param height 
 	 * The height of the extent
 	 * @post | result.getLeft() == left
-	 * POST WERKT NIET??
+	 * @post | result.getTop() == top
+	 * @post | result.getWidth() == width
+	 * @post | result.getHeight() == height
 	 * @post | result != null
 	 */
 	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {

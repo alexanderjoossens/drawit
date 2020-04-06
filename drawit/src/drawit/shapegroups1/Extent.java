@@ -103,8 +103,10 @@ public class Extent {
 	 * The X coordinate of the right side of the extent
 	 * @param bottom 
 	 * The Y cootdinate of the bottom side of the extent
-	 * @post | getLeft() == left
-	 * POST WERKT NIET??
+	 * @post | result.getLeft() == left
+	 * @post | result.getTop() == top
+	 * @post | result.getRight() == right
+	 * @post | result.getBottom() == bottom
 	 * @post | result != null
 	 */
 	public static Extent ofLeftTopRightBottom(int left, int top, int right, int bottom) {
@@ -126,8 +128,10 @@ public class Extent {
 	 * The width of the extent
 	 * @param height 
 	 * The height of the extent
-	 * @post | getLeft() == left
-	 * POST WERKT NIET??
+	 * @post | result.getLeft() == left
+	 * @post | result.getTop() == top
+	 * @post | result.getWidth() == width
+	 * @post | result.getHeight() == height
 	 * @post | result != null
 	 */
 	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {
@@ -177,6 +181,7 @@ public class Extent {
 	
 	/**
 	 * Returns an object that has the given right coordinate and the same left, top, and bottom coordinate as this object.
+	 * @throws IllegalArgumentException if right is null. | newRight == null
 	 * @param newRight
 	 * @creates | result
 	 * @post | getRight() == newRight
