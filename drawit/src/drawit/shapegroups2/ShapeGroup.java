@@ -4,6 +4,7 @@ import drawit.shapegroups2.Extent;
 import drawit.DoublePoint;
 import drawit.IntPoint;
 import drawit.IntVector;
+import drawit.DoubleVector;
 import drawit.RoundedPolygon;
 
 public class ShapeGroup {
@@ -174,7 +175,19 @@ public class ShapeGroup {
 	 * coordinates.
 	 */
 	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
-		return null;
+		IntVector newVector;
+		if (this.getParentgroup() != null) {
+			newVector = this.getParentgroup().toInnerCoordinates(relativeGlobalCoordinates);
+		}
+
+		else {
+			newVector = relativeGlobalCoordinates;
+		}
+		int newX = (int) ((int) newVector.getX()*(1/this.horizontalScale));
+		int newY = (int) ((int) newVector.getY()*(1/this.verticalScale));
+		
+		IntVector innerVector = new IntVector(newX, newY);
+		return innerVector;
 	}
 
 	/**
@@ -265,7 +278,7 @@ public class ShapeGroup {
 
 		StringBuilder commands = new StringBuilder();
 
-		if (this.subgroups != null) {
+		if (this.subgroups == null) {
 			commands.append("pushTranslate");
 			commands.append("pushScale");
 			commands.append(this.getShape().getDrawingCommands());
@@ -274,7 +287,7 @@ public class ShapeGroup {
 		}
 
 		else {
-			for (ShapeGroup subgroup : subgroups) {
+			for (ShapeGroup subgroup : this.subgroups) {
 				commands.append("pushTranslate");
 				commands.append("pushScale");
 				commands.append(subgroup.getDrawingCommands());
