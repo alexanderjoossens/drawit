@@ -19,6 +19,12 @@ public class ShapeGroup {
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
 
+	private ShapeGroup firstChild;
+	private ShapeGroup lastChild;
+
+	private ShapeGroup previousSibling = null;
+	private ShapeGroup nextSibling = null;
+
 	/**
 	 * Initializes this object to represent a leaf shape group that directly
 	 * contains the given shape.
@@ -61,9 +67,19 @@ public class ShapeGroup {
 	 * @param subgroups
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
+		ShapeGroup tempPreviousSibling = null;
 		for (ShapeGroup shapeGroup : subgroups) {
 			shapeGroup.parentGroup = this;
+
+			if (tempPreviousSibling != null) {
+				shapeGroup.previousSibling = tempPreviousSibling;
+				tempPreviousSibling.nextSibling = shapeGroup;
+			}
+			tempPreviousSibling = shapeGroup;
 		}
+
+		this.firstChild = subgroups[0];
+		this.lastChild = subgroups[subgroups.length];
 
 		int maxX = 0;
 		int maxY = 0;
@@ -183,9 +199,9 @@ public class ShapeGroup {
 		else {
 			newVector = relativeGlobalCoordinates;
 		}
-		int newX = (int) ((int) newVector.getX()*(1/this.horizontalScale));
-		int newY = (int) ((int) newVector.getY()*(1/this.verticalScale));
-		
+		int newX = (int) ((int) newVector.getX() * (1 / this.horizontalScale));
+		int newY = (int) ((int) newVector.getY() * (1 / this.verticalScale));
+
 		IntVector innerVector = new IntVector(newX, newY);
 		return innerVector;
 	}
@@ -259,7 +275,11 @@ public class ShapeGroup {
 	 * Moves this shape group to the front of its parent's list of subgroups.
 	 */
 	public void bringToFront() {
-
+		this.nextSibling = this.getParentgroup().firstChild;
+		this.nextSibling.previousSibling = this.previousSibling;
+		this.previousSibling.nextSibling = this.nextSibling;
+		this.getParentgroup().firstChild.previousSibling = this;
+		this.getParentgroup().firstChild = this;
 	}
 
 	/**
