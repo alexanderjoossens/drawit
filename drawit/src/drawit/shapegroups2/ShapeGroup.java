@@ -316,20 +316,20 @@ public class ShapeGroup {
 		StringBuilder commands = new StringBuilder();
 
 		if (this.subgroups == null) {
-			commands.append("pushTranslate");
-			commands.append("pushScale");
+			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
 			commands.append(this.getShape().getDrawingCommands());
-			commands.append("popTransform");
-			commands.append("popTransform");
+			commands.append("popTransform\n");
+			commands.append("popTransform\n");
 		}
 
 		else {
-			for (ShapeGroup subgroup : this.getSubgroups()) {
-				commands.append("pushTranslate");
-				commands.append("pushScale");
+			for (ShapeGroup subgroup : subgroups) {
+				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
 				commands.append(subgroup.getDrawingCommands());
-				commands.append("popTransform");
-				commands.append("popTransform");
+				commands.append("popTransform\n");
+				commands.append("popTransform\n");
 			}
 		}
 		return commands.toString();
