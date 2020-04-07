@@ -325,7 +325,7 @@ public class ShapeGroup {
 		}
 
 		else {
-			for (ShapeGroup subgroup : this.subgroups) {
+			for (ShapeGroup subgroup : this.getSubgroups()) {
 				commands.append("pushTranslate");
 				commands.append("pushScale");
 				commands.append(subgroup.getDrawingCommands());
