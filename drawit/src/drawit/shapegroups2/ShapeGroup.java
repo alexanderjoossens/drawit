@@ -275,18 +275,24 @@ public class ShapeGroup {
 	 * Moves this shape group to the front of its parent's list of subgroups.
 	 */
 	public void bringToFront() {
-		this.nextSibling = this.getParentgroup().firstChild;
 		this.nextSibling.previousSibling = this.previousSibling;
 		this.previousSibling.nextSibling = this.nextSibling;
 		this.getParentgroup().firstChild.previousSibling = this;
+		this.nextSibling = this.getParentgroup().firstChild;
 		this.getParentgroup().firstChild = this;
+		this.previousSibling = null;
 	}
 
 	/**
 	 * Moves this shape group to the back of its parent's list of subgroups.
 	 */
 	public void sendToBack() {
-
+		this.previousSibling.nextSibling = this.nextSibling;
+		this.nextSibling.previousSibling = this.previousSibling;
+		this.getParentgroup().lastChild.nextSibling = this;
+		this.previousSibling = this.getParentgroup().lastChild;
+		this.getParentgroup().lastChild = this;
+		this.nextSibling = null;
 	}
 
 	/**
