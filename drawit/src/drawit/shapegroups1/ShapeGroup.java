@@ -1,6 +1,8 @@
 package drawit.shapegroups1;
 import drawit.shapegroups1.Extent;
-import drawit.shapegroups2.ShapeGroup;
+
+import java.util.ArrayList;
+
 import drawit.DoublePoint;
 import drawit.IntPoint;
 import drawit.IntVector;
@@ -8,21 +10,21 @@ import drawit.RoundedPolygon;
 
 public class ShapeGroup {
 
-	private RoundedPolygon shape;
-	private ShapeGroup[] subgroups;
-	private Extent ownExtent;
 	private final Extent originalExtent;
+	private Extent ownExtent = new Extent();
+	private final RoundedPolygon shape;
+
+	private ShapeGroup[] subgroups;
 	private ShapeGroup parentGroup;
+	private ShapeGroup firstChild;
+	private ShapeGroup lastChild;
+	private ShapeGroup previousSibling;
+	private ShapeGroup nextSibling;
+	
 	private double horizontalScale = 1;
 	private double verticalScale = 1;
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
-
-	private ShapeGroup firstChild;
-	private ShapeGroup lastChild;
-
-	private ShapeGroup previousSibling;
-	private ShapeGroup nextSibling;
 
 	/**
 	 * Initializes this object to represent a leaf shape group that directly
@@ -31,6 +33,7 @@ public class ShapeGroup {
 	 * @param shape
 	 */
 	public ShapeGroup(RoundedPolygon shape) {
+		this.shape = new RoundedPolygon();
 		int maxX = 0;
 		int maxY = 0;
 		int minX = 0;
@@ -66,6 +69,7 @@ public class ShapeGroup {
 	 * @param subgroups
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
+		this.shape = new RoundedPolygon();
 		ShapeGroup tempPreviousSibling = null;
 		for (ShapeGroup shapeGroup : subgroups) {
 			shapeGroup.parentGroup = this;
@@ -113,11 +117,6 @@ public class ShapeGroup {
 	 */
 	public void setExtent(Extent newExtent) {
 		this.ownExtent = newExtent;
-
-		this.horizontalScale = ((double) newExtent.getWidth() / (double) this.getOriginalExtent().getWidth());
-		this.verticalScale = ((double) newExtent.getHeight() / (double) this.getOriginalExtent().getHeight());
-		this.horizontalTranslation = (newExtent.getLeft() - getOriginalExtent().getLeft());
-		this.verticalTranslation = (newExtent.getTop() - getOriginalExtent().getTop());
 	}
 
 	/**
@@ -242,7 +241,7 @@ public class ShapeGroup {
 	 * @return
 	 */
 	public ShapeGroup getSubgroup(int index) {
-		return this.getSubgroups()[index];
+		return this.getSubgroups().get(index);
 	}
 
 	/**
@@ -251,12 +250,10 @@ public class ShapeGroup {
 	 * coordinate system.
 	 */
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
-		ShapeGroup[] subgroups = this.getSubgroups();
-		boolean foundSubgroup = false;
 		ShapeGroup returnGroup = null;
-		for (ShapeGroup subgroup : subgroups) {
-			if (subgroup.getOriginalExtent().contains(innerCoordinates) && !foundSubgroup) {
-				returnGroup = subgroup;
+		for (int i = 0; i < subgroups.length; i++) {
+			if (subgroups[i].getOriginalExtent().contains(innerCoordinates)) {
+				returnGroup = subgroups[i];
 			}
 		}
 		return returnGroup;
@@ -266,44 +263,42 @@ public class ShapeGroup {
 	 * Returns the list of subgroups of this shape group, or null if this is a leaf
 	 * shape group.
 	 */
-	public ShapeGroup[] getSubgroups() {
-		ShapeGroup[] subgroupList = new ShapeGroup[1];
-		subgroupList[0] = this.getParentgroup().firstChild;
-		for (int i=1; i<this.getSubgroupCount();i++) {
-			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
-			for (int j=0; i<subgroupList.length;i++) {
-				tempSubgroupList[j] = subgroupList[j];
-			}
-			tempSubgroupList[subgroupList.length] = subgroupList[subgroupList.length-1].nextSibling;
-			subgroupList = tempSubgroupList;
-			
+	public java.util.List<ShapeGroup> getSubgroups() {
+		if (firstChild != null) {
+			ArrayList<ShapeGroup> subgroups = new ArrayList<ShapeGroup>() ;
+			for (ShapeGroup subgroup = firstChild; subgroup !=null; subgroup=subgroup.nextSibling)
+				subgroups.add(subgroup);
+			return subgroups;
 		}
-		
-		return subgroupList;
+		return null;
 	}
 
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.
 	 */
 	public void bringToFront() {
-		this.nextSibling.previousSibling = this.previousSibling;
-		this.previousSibling.nextSibling = this.nextSibling;
-		this.getParentgroup().firstChild.previousSibling = this;
-		this.nextSibling = this.getParentgroup().firstChild;
-		this.getParentgroup().firstChild = this;
-		this.previousSibling = null;
-	}
+		for (int i = 0; i < parentGroup.subgroups.length; i++) {
+			if (parentGroup.getSubgroup(i) == this) {
+				parentGroup.subgroups.append(parentGroup.getSubgroup(i));
+				parentGroup.subgroups.delete(i);
+				break;
+			}
+		}
+
 
 	/**
 	 * Moves this shape group to the back of its parent's list of subgroups.
 	 */
 	public void sendToBack() {
-		this.previousSibling.nextSibling = this.nextSibling;
-		this.nextSibling.previousSibling = this.previousSibling;
-		this.getParentgroup().lastChild.nextSibling = this;
-		this.previousSibling = this.getParentgroup().lastChild;
-		this.getParentgroup().lastChild = this;
-		this.nextSibling = null;
+		for (int i=0; i< parentGroup.subgroups.length; i++) {
+			if (parentGroup.getSubgroup(i) == this) {
+				parentGroup.Subgroups.add(parentGroup.getSubgroup(i));
+				parentGroup.subgroups.remove(i);
+				break;
+			}
+		}
+	}
+
 	}
 
 	/**
