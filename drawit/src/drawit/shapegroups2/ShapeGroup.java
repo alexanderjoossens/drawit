@@ -22,8 +22,8 @@ public class ShapeGroup {
 	private ShapeGroup firstChild;
 	private ShapeGroup lastChild;
 
-	private ShapeGroup previousSibling = null;
-	private ShapeGroup nextSibling = null;
+	private ShapeGroup previousSibling;
+	private ShapeGroup nextSibling;
 
 	/**
 	 * Initializes this object to represent a leaf shape group that directly
@@ -232,7 +232,7 @@ public class ShapeGroup {
 	 * @return
 	 */
 	public int getSubgroupCount() {
-		return this.getSubgroups().length;
+		return this.subgroups.length;
 	}
 
 	/**
@@ -268,7 +268,19 @@ public class ShapeGroup {
 	 * shape group.
 	 */
 	public ShapeGroup[] getSubgroups() {
-		return this.subgroups;
+		ShapeGroup[] subgroupList = new ShapeGroup[1];
+		subgroupList[0] = this.getParentgroup().firstChild;
+		for (int i=1; i<this.getSubgroupCount();i++) {
+			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
+			for (int j=0; i<subgroupList.length;i++) {
+				tempSubgroupList[j] = subgroupList[j];
+			}
+			tempSubgroupList[subgroupList.length] = subgroupList[subgroupList.length-1].nextSibling;
+			subgroupList = tempSubgroupList;
+			
+		}
+		
+		return subgroupList;
 	}
 
 	/**
