@@ -82,7 +82,7 @@ public class ShapeGroup {
 		}
 
 		this.firstChild = subgroups[0];
-		this.lastChild = subgroups[subgroups.length];
+		this.lastChild = subgroups[subgroups.length-1];
 
 		int maxX = 0;
 		int maxY = 0;

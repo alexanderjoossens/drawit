@@ -61,6 +61,19 @@ class ShapeGroupTest {
 		
 		//test voor shapegroup
 		assert nonLeaf.getOriginalExtent().getBottomRight().equals(new IntPoint(20, 10));
+		
+		//test die alexander gestolen heeft van iemand
+		RoundedPolygon triangle88 = new RoundedPolygon();
+		triangle88.setVertices(new IntPoint[] {new IntPoint(10, 10), new IntPoint(30, 10), new IntPoint(20, 20)});
+		
+		ShapeGroup leaf88 = new ShapeGroup(triangle88);
+		ShapeGroup nonLeaf88 = new ShapeGroup(new ShapeGroup[] {leaf88});
+		nonLeaf88.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 10, 5));
+		
+		//deze test faalt, is onze functie dan fout??
+		assert leaf88.toInnerCoordinates(new IntPoint(500,1000)).equals(new IntPoint(10,10));
+		assert leaf88.toInnerCoordinates(new IntPoint(600,1300)).equals(new IntPoint(210,610));
+		assert leaf88.toGlobalCoordinates(new IntPoint(10, 10)).equals(new IntPoint(500, 1000));
 	}
 
 }
