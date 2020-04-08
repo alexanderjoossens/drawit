@@ -141,7 +141,7 @@ public class ShapeGroup {
 	 * coordinates in this shape group's inner coordinate system are the given
 	 * coordinates.
 	 */
-	public IntPoint toGLobalCoordinates(IntPoint innerCoordinates) {
+	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
 		double newX = (((double) this.getOriginalExtent().getLeft()) * (1 - this.horizontalScale)
 				+ this.horizontalScale * innerCoordinates.getX()) + this.horizontalTranslation;
 		double newY = (((double) this.getOriginalExtent().getTop()) * (1 - this.verticalScale)
