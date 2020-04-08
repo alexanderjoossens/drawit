@@ -152,7 +152,7 @@ public class Extent {
 	 * 
 	 * @param newBottom
 	 * @creates | result
-	 * @post | getBottom() == newBottom
+	 * @post | result.getBottom() == newBottom
 	 * @post | result != null
 	 */
 	public Extent withBottom(int newBottom) {
@@ -166,7 +166,7 @@ public class Extent {
 	 * 
 	 * @param newRight
 	 * @creates | result
-	 * @post | getRight() == newRight
+	 * @post | result.getRight() == newRight
 	 * @post | result != null
 	 */
 	public Extent withRight(int newRight) {
@@ -180,7 +180,7 @@ public class Extent {
 	 * 
 	 * @param newLeft
 	 * @creates | result
-	 * @post | getLeft() == newLeft
+	 * @post | result.getLeft() == newLeft
 	 * @post | result != null
 	 */
 	public Extent withLeft(int newLeft) {
@@ -194,7 +194,7 @@ public class Extent {
 	 * 
 	 * @param newTop
 	 * @creates | result
-	 * @post | getTop() == newTop
+	 * @post | result.getTop() == newTop
 	 * @post | result != null
 	 */
 	public Extent withTop(int newTop) {
@@ -208,7 +208,7 @@ public class Extent {
 	 * 
 	 * @param NewHeight
 	 * @creates | result
-	 * @post | getHeight() == newHeight
+//	 * @post | getHeight() == newHeight
 	 * @post | result != null
 	 * @throws IllegalArgumentException if the new height is negative | newHeight < 0
 	 */
