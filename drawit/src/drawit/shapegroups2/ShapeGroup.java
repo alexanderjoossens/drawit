@@ -150,7 +150,7 @@ public class ShapeGroup {
 		IntPoint outerCoordinates = new DoublePoint(newX, newY).round();
 
 		if (this.getParentGroup() != null) {
-			return this.getParentGroup().toGLobalCoordinates(outerCoordinates);
+			return this.getParentGroup().toGlobalCoordinates(outerCoordinates);
 		} else {
 			return outerCoordinates;
 		}
