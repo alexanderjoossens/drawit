@@ -1,5 +1,8 @@
 package drawit.shapegroups2;
 import drawit.shapegroups2.Extent;
+
+import java.util.ArrayList;
+
 import drawit.DoublePoint;
 import drawit.IntPoint;
 import drawit.IntVector;
@@ -103,6 +106,7 @@ public class ShapeGroup {
 		Extent extent = Extent.ofLeftTopRightBottom(minX, minY, maxX, maxY);
 		this.originalExtent = extent;
 		this.ownExtent = extent;
+		this.subgroups = subgroups;
 	}
 
 	/**
@@ -254,19 +258,33 @@ public class ShapeGroup {
 	 * Returns the list of subgroups of this shape group, or null if this is a leaf
 	 * shape group.
 	 */
+//	public java.util.List<ShapeGroup> getSubgroups() {
+//		if (firstChild != null) {
+//			ArrayList<ShapeGroup> subgroups = new ArrayList<ShapeGroup>() ;
+//			for (ShapeGroup subgroup = firstChild; subgroup !=null; subgroup=subgroup.nextSibling)
+//				subgroups.add(subgroup);
+//			return subgroups;
+//		}
+//		return null;
+//	}
+	
 	public ShapeGroup[] getSubgroups() {
 		ShapeGroup[] subgroupList = new ShapeGroup[1];
-		subgroupList[0] = this.getParentGroup().firstChild;
+		subgroupList[0] = this.firstChild;
+		if (this.firstChild == null) {
+			System.out.println("lol");
+		}
 		for (int i=1; i<this.getSubgroupCount();i++) {
 			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
-			for (int j=0; i<subgroupList.length;i++) {
+			for (int j=0; j<subgroupList.length;j++) {
 				tempSubgroupList[j] = subgroupList[j];
+				if (tempSubgroupList[0] == null) {
+					System.out.println("lol2");
+				}
 			}
 			tempSubgroupList[subgroupList.length] = subgroupList[subgroupList.length-1].nextSibling;
-			subgroupList = tempSubgroupList;
-			
+			subgroupList = tempSubgroupList;			
 		}
-		
 		return subgroupList;
 	}
 
@@ -274,7 +292,9 @@ public class ShapeGroup {
 	 * Moves this shape group to the front of its parent's list of subgroups.
 	 */
 	public void bringToFront() {
-		this.nextSibling.previousSibling = this.previousSibling;
+		if (this.nextSibling != null) {
+			this.nextSibling.previousSibling = this.previousSibling;
+		}
 		this.previousSibling.nextSibling = this.nextSibling;
 		this.getParentGroup().firstChild.previousSibling = this;
 		this.nextSibling = this.getParentGroup().firstChild;
@@ -286,7 +306,9 @@ public class ShapeGroup {
 	 * Moves this shape group to the back of its parent's list of subgroups.
 	 */
 	public void sendToBack() {
-		this.previousSibling.nextSibling = this.nextSibling;
+		if (this.previousSibling != null) {
+			this.previousSibling.nextSibling = this.nextSibling;
+		}
 		this.nextSibling.previousSibling = this.previousSibling;
 		this.getParentGroup().lastChild.nextSibling = this;
 		this.previousSibling = this.getParentGroup().lastChild;
