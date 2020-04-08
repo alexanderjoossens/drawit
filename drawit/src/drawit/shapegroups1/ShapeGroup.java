@@ -278,9 +278,9 @@ public class ShapeGroup {
 	 */
 	public void bringToFront() {
 		for (int i = 0; i < parentGroup.subgroups.length; i++) {
-			if (parentGroup.getSubgroup(i) == this) {
-				parentGroup.subgroups.append(parentGroup.getSubgroup(i));
-				parentGroup.subgroups.delete(i);
+//			if (parentGroup.getSubgroup(i) == this) {
+//				parentGroup.subgroups.append(parentGroup.getSubgroup(i));
+//				parentGroup.subgroups.delete(i);
 				break;
 			}
 		}
@@ -291,9 +291,9 @@ public class ShapeGroup {
 	 */
 	public void sendToBack() {
 		for (int i=0; i< parentGroup.subgroups.length; i++) {
-			if (parentGroup.getSubgroup(i) == this) {
-				parentGroup.Subgroups.add(parentGroup.getSubgroup(i));
-				parentGroup.subgroups.remove(i);
+//			if (parentGroup.getSubgroup(i) == this) {
+//				parentGroup.Subgroups.add(parentGroup.getSubgroup(i));
+//				parentGroup.subgroups.remove(i);
 				break;
 			}
 		}
