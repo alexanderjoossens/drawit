@@ -142,22 +142,21 @@ public class ShapeGroup {
 	 * coordinates.
 	 */
 	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
-		IntPoint currentCoord = innerCoordinates;
 
 //		double newX = (((double) this.getOriginalExtent().getLeft()) * (1 - this.horizontalScale)
 //				+ this.horizontalScale * innerCoordinates.getX()) + this.horizontalTranslation;
 //		double newY = (((double) this.getOriginalExtent().getTop()) * (1 - this.verticalScale)
 //				+ this.verticalScale * innerCoordinates.getY()) + this.verticalTranslation;
-		double InnerX = currentCoord.getX() + (horizontalTranslation)*horizontalScale;
-		double InnerY = currentCoord.getY() + (verticalTranslation)*verticalScale;
-
-		IntPoint outerCoordinates = new DoublePoint(InnerX, InnerY).round();
-
+		if (innerCoordinates == null) 
+			throw new IllegalArgumentException("The given innerCoordinates are null");
+		
+		double GlobalX = (innerCoordinates.getX())*horizontalScale +horizontalTranslation;
+		double GlobalY = (innerCoordinates.getY())*verticalScale +verticalTranslation;
+		IntPoint result = new IntPoint((int)GlobalX,(int)GlobalY);
 		if (this.getParentGroup() != null) {
-			return this.getParentGroup().toGlobalCoordinates(outerCoordinates);
-		} else {
-			return outerCoordinates;
+			 result = this.getParentGroup().toGlobalCoordinates(result);
 		}
+		return result;
 	}
 		
 	/**
@@ -301,29 +300,6 @@ public class ShapeGroup {
 	 * expressed in this shape group's outer coordinate system.
 	 */
 	public java.lang.String getDrawingCommands() {
-//		StringBuilder commands = new StringBuilder();
-//		commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-//		commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-//		if (getShape() != null)
-//			commands.append(getShape().getDrawingCommands());
-//		else {
-//			for (int i = getSubgroupCount() -1; i<=0;i--) {
-//				ShapeGroup currentSubgroup = getSubgroup(i);
-//				commands.append(currentSubgroup.getDrawingCommands());
-//			}
-//		}
-//		
-//		commands.append("popTransform\n");
-//		commands.append("popTransform\n");
-//		
-//		return commands.toString();
-//		
-//		
-//		
-//		
-//		
-//		
-//
 		StringBuilder commands = new StringBuilder();
 
 		if (this.subgroups == null && this.shape != null) {
