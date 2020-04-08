@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import drawit.IntPoint;
 import drawit.RoundedPolygon;
+import drawit.shapegroups2.Extent;
+import drawit.shapegroups2.ShapeGroup;
 
 class ExtentTest {
 
