@@ -149,8 +149,8 @@ public class ShapeGroup {
 
 		IntPoint outerCoordinates = new DoublePoint(newX, newY).round();
 
-		if (this.getParentgroup() != null) {
-			return this.getParentgroup().toGLobalCoordinates(outerCoordinates);
+		if (this.getParentGroup() != null) {
+			return this.getParentGroup().toGLobalCoordinates(outerCoordinates);
 		} else {
 			return outerCoordinates;
 		}
@@ -163,10 +163,10 @@ public class ShapeGroup {
 	 */
 	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
 		IntPoint newCoords;
-		if (this.getParentgroup() != null) {
-			newCoords = this.getParentgroup().toInnerCoordinates(globalCoordinates);
+		if (this.getParentGroup() != null) {
+			newCoords = this.getParentGroup().toInnerCoordinates(globalCoordinates);
 		}
-
+		
 		else {
 			newCoords = globalCoordinates;
 		}
@@ -187,8 +187,8 @@ public class ShapeGroup {
 	 */
 	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
 		IntVector newVector;
-		if (this.getParentgroup() != null) {
-			newVector = this.getParentgroup().toInnerCoordinates(relativeGlobalCoordinates);
+		if (this.getParentGroup() != null) {
+			newVector = this.getParentGroup().toInnerCoordinates(relativeGlobalCoordinates);
 		}
 
 		else {
@@ -213,7 +213,7 @@ public class ShapeGroup {
 	 * Returns the shape group that directly contains this shape group, or null if
 	 * no shape group directly contains this shape group.
 	 */
-	public ShapeGroup getParentgroup() {
+	public ShapeGroup getParentGroup() {
 		return this.parentGroup;
 	}
 
@@ -257,7 +257,7 @@ public class ShapeGroup {
 	 */
 	public ShapeGroup[] getSubgroups() {
 		ShapeGroup[] subgroupList = new ShapeGroup[1];
-		subgroupList[0] = this.getParentgroup().firstChild;
+		subgroupList[0] = this.getParentGroup().firstChild;
 		for (int i=1; i<this.getSubgroupCount();i++) {
 			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
 			for (int j=0; i<subgroupList.length;i++) {
@@ -277,9 +277,9 @@ public class ShapeGroup {
 	public void bringToFront() {
 		this.nextSibling.previousSibling = this.previousSibling;
 		this.previousSibling.nextSibling = this.nextSibling;
-		this.getParentgroup().firstChild.previousSibling = this;
-		this.nextSibling = this.getParentgroup().firstChild;
-		this.getParentgroup().firstChild = this;
+		this.getParentGroup().firstChild.previousSibling = this;
+		this.nextSibling = this.getParentGroup().firstChild;
+		this.getParentGroup().firstChild = this;
 		this.previousSibling = null;
 	}
 
@@ -289,9 +289,9 @@ public class ShapeGroup {
 	public void sendToBack() {
 		this.previousSibling.nextSibling = this.nextSibling;
 		this.nextSibling.previousSibling = this.previousSibling;
-		this.getParentgroup().lastChild.nextSibling = this;
-		this.previousSibling = this.getParentgroup().lastChild;
-		this.getParentgroup().lastChild = this;
+		this.getParentGroup().lastChild.nextSibling = this;
+		this.previousSibling = this.getParentGroup().lastChild;
+		this.getParentGroup().lastChild = this;
 		this.nextSibling = null;
 	}
 
@@ -301,27 +301,49 @@ public class ShapeGroup {
 	 * expressed in this shape group's outer coordinate system.
 	 */
 	public java.lang.String getDrawingCommands() {
-
 		StringBuilder commands = new StringBuilder();
-
-		if (this.subgroups == null) {
-			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-			commands.append(this.getShape().getDrawingCommands());
-			commands.append("popTransform\n");
-			commands.append("popTransform\n");
-		}
-
+		commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+		commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+		if (getShape() != null)
+			commands.append(getShape().getDrawingCommands());
 		else {
-			for (ShapeGroup subgroup : subgroups) {
-				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-				commands.append(subgroup.getDrawingCommands());
-				commands.append("popTransform\n");
-				commands.append("popTransform\n");
+			for (int i = getSubgroupCount() -1; i<=0;i--) {
+				ShapeGroup currentSubgroup = getSubgroup(i);
+				commands.append(currentSubgroup.getDrawingCommands());
 			}
 		}
+		
+		commands.append("popTransform\n");
+		commands.append("popTransform\n");
+		
 		return commands.toString();
+		
+		
+		
+		
+		
+		
+//
+//		StringBuilder commands = new StringBuilder();
+//
+//		if (this.subgroups == null) {
+//			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+//			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+//			commands.append(this.getShape().getDrawingCommands());
+//			commands.append("popTransform\n");
+//			commands.append("popTransform\n");
+//		}
+//
+//		else {
+//			for (ShapeGroup subgroup : subgroups) {
+//				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+//				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+//				commands.append(subgroup.getDrawingCommands());
+//				commands.append("popTransform\n");
+//				commands.append("popTransform\n");
+//			}
+//		}
+//		return commands.toString();
 	}
 }
 
