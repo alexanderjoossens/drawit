@@ -326,7 +326,8 @@ public class ShapeGroup {
 //
 		StringBuilder commands = new StringBuilder();
 
-		if (this.subgroups == null) {
+		if (this.subgroups == null && this.shape != null) {
+
 			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
 			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
 			commands.append(this.getShape().getDrawingCommands());
@@ -334,8 +335,11 @@ public class ShapeGroup {
 			commands.append("popTransform\n");
 		}
 
-		else {
-			for (ShapeGroup subgroup : subgroups) {
+		if (subgroups!=null) {
+			for (ShapeGroup subgroup : getSubgroups()) {
+				if (subgroup == null) {
+					System.out.println("lala");
+				}
 				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
 				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
 				commands.append(subgroup.getDrawingCommands());
@@ -347,66 +351,3 @@ public class ShapeGroup {
 	} 
 }
 
-// Dit is oude code, maar ik hou het bij voor als nieuwe code niet werkt
-
-//public ShapeGroup(RoundedPolygon shape) {
-//	this.shape = shape;
-//	this.originalExtent = this.getExtent();
-//
-//}
-//
-//public ShapeGroup(ShapeGroup[] subgroups) {
-//	this.subgroups = subgroups;
-//	this.originalExtent = this.getExtent();
-//	for (ShapeGroup shapeGroup: subgroups) {
-//		shapeGroup.parentGroup = this;
-//	}
-//}
-//
-//public Extent getExtent() {
-//	int maxX = 0;
-//	int maxY = 0;
-//	int minX = 0;
-//	int minY = 0;
-//	if (shape==null) {
-//		for(ShapeGroup shapeGroup: this.getSubgroups()) {
-//			Extent extent = shapeGroup.getExtent();
-//			if (maxX==0 && maxY == 0 && minX == 0 && minY ==0) {
-//				maxY = extent.getBottom();
-//				maxX = extent.getRight();
-//				minY = extent.getTop();
-//				minX = extent.getLeft();
-//			}
-//			else {
-//				maxY = Math.max(extent.getBottom(),maxY);
-//				maxX = Math.max(extent.getRight(),maxX);
-//				minY = Math.min(extent.getTop(),minY);
-//				minX = Math.min(extent.getLeft(),minX);
-//			}
-//			
-//		}
-//	}
-//	
-//	else {
-//		IntPoint[] points = shape.getVertices();
-//		for (int i = 0; i < points.length; i++) {
-//			int xCoord = points[i].getX();
-//			int yCoord = points[i].getY();
-//			if (i == 0) {
-//				maxX = xCoord;
-//				minX = xCoord;
-//				maxY = yCoord;
-//				minY = yCoord;
-//			} else {
-//				maxX = Math.max(maxX, xCoord);
-//				maxY = Math.max(maxY, yCoord);
-//				minX = Math.min(minX, xCoord);
-//				minY = Math.min(minY, yCoord);
-//
-//			}
-//		}
-//	}
-//
-//	Extent extent = Extent.ofLeftTopRightBottom(minX, minY, maxX, maxY);
-//	return extent;
-//}

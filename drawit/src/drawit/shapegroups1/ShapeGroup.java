@@ -297,9 +297,7 @@ public class ShapeGroup {
 				break;
 			}
 		}
-	}
 
-	}
 
 	/**
 	 * Returns a textual representation of a sequence of drawing commands for
