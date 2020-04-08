@@ -116,8 +116,8 @@ public class ShapeGroup {
 
 		this.horizontalScale = ((double) newExtent.getWidth() / (double) this.getOriginalExtent().getWidth());
 		this.verticalScale = ((double) newExtent.getHeight() / (double) this.getOriginalExtent().getHeight());
-		this.horizontalTranslation = (newExtent.getLeft() - getOriginalExtent().getLeft());
-		this.verticalTranslation = (newExtent.getTop() - getOriginalExtent().getTop());
+		this.horizontalTranslation = (int)(newExtent.getLeft() - getOriginalExtent().getLeft()*this.horizontalScale);
+		this.verticalTranslation = (int)(newExtent.getTop() - getOriginalExtent().getTop()*this.verticalScale);
 	}
 
 	/**
