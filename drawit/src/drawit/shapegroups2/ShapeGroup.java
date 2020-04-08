@@ -8,19 +8,19 @@ import drawit.RoundedPolygon;
 
 public class ShapeGroup {
 
-	private RoundedPolygon shape;
-	private ShapeGroup[] subgroups;
 	private Extent ownExtent;
+	private ShapeGroup[] subgroups;
 	private final Extent originalExtent;
-	private ShapeGroup parentGroup;
+	
 	private double horizontalScale = 1;
 	private double verticalScale = 1;
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
 
+	private RoundedPolygon shape;
+	private ShapeGroup parentGroup;
 	private ShapeGroup firstChild;
 	private ShapeGroup lastChild;
-
 	private ShapeGroup previousSibling;
 	private ShapeGroup nextSibling;
 
@@ -123,8 +123,6 @@ public class ShapeGroup {
 	/**
 	 * Returns the extent of this shape group, expressed in its outer coordinate
 	 * system.
-	 * 
-	 * @return
 	 */
 	public Extent getExtent() {
 		return ownExtent;
@@ -133,8 +131,6 @@ public class ShapeGroup {
 	/**
 	 * Returns the extent of this shape group, expressed in its inner coordinate
 	 * system.
-	 * 
-	 * @return
 	 */
 	public Extent getOriginalExtent() {
 		return this.originalExtent;
@@ -208,8 +204,6 @@ public class ShapeGroup {
 	/**
 	 * Returns the shape directly contained by this shape group, or null if this is
 	 * a non-leaf shape group.
-	 * 
-	 * @return
 	 */
 	public RoundedPolygon getShape() {
 		return shape;
@@ -218,8 +212,6 @@ public class ShapeGroup {
 	/**
 	 * Returns the shape group that directly contains this shape group, or null if
 	 * no shape group directly contains this shape group.
-	 * 
-	 * @return
 	 */
 	public ShapeGroup getParentgroup() {
 		return this.parentGroup;
@@ -227,8 +219,6 @@ public class ShapeGroup {
 
 	/**
 	 * Returns the number of subgroups of this non-leaf shape group.
-	 * 
-	 * @return
 	 */
 	public int getSubgroupCount() {
 		return this.subgroups.length;
@@ -239,7 +229,6 @@ public class ShapeGroup {
 	 * group's list of subgroups.
 	 * 
 	 * @param index
-	 * @return
 	 */
 	public ShapeGroup getSubgroup(int index) {
 		return this.getSubgroups()[index];
