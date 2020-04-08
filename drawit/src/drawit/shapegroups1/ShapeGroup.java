@@ -140,7 +140,7 @@ public class ShapeGroup {
 	 * coordinates in this shape group's inner coordinate system are the given
 	 * coordinates.
 	 */
-	public IntPoint toGLobalCoordinates(IntPoint innerCoordinates) {
+	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
 		double newX = (((double) this.getOriginalExtent().getLeft()) * (1 - this.horizontalScale)
 				+ this.horizontalScale * innerCoordinates.getX()) + this.horizontalTranslation;
 		double newY = (((double) this.getOriginalExtent().getTop()) * (1 - this.verticalScale)
@@ -148,8 +148,8 @@ public class ShapeGroup {
 
 		IntPoint outerCoordinates = new DoublePoint(newX, newY).round();
 
-		if (this.getParentgroup() != null) {
-			return this.getParentgroup().toGLobalCoordinates(outerCoordinates);
+		if (this.getParentGroup() != null) {
+			return this.getParentGroup().toGlobalCoordinates(outerCoordinates);
 		} else {
 			return outerCoordinates;
 		}
@@ -161,21 +161,26 @@ public class ShapeGroup {
 	 * coordinates.
 	 */
 	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
-		IntPoint newCoords;
-		if (this.getParentgroup() != null) {
-			newCoords = this.getParentgroup().toInnerCoordinates(globalCoordinates);
-		}
-
-		else {
-			newCoords = globalCoordinates;
-		}
-
-		double newX = (((double) this.getExtent().getLeft()) * (1 - (1 / this.horizontalScale))
-				+ (1 / this.horizontalScale) * newCoords.getX()) - this.horizontalTranslation;
-		double newY = (((double) this.getExtent().getTop()) * (1 - (1 / this.verticalScale))
-				+ (1 / this.verticalScale) * newCoords.getY()) - this.verticalTranslation;
-		IntPoint innerCoordinates = new DoublePoint(newX, newY).round();
-		return innerCoordinates;
+//		IntPoint newCoords;
+//		if (this.getParentGroup() != null) {
+//			newCoords = this.getParentGroup().toInnerCoordinates(globalCoordinates);
+//		}
+//
+//		else {
+//			newCoords = globalCoordinates;
+//		}
+//
+//		double newX = (((double) this.getExtent().getLeft()) * (1 - (1 / this.horizontalScale))
+//				+ (1 / this.horizontalScale) * newCoords.getX()) - this.horizontalTranslation;
+//		double newY = (((double) this.getExtent().getTop()) * (1 - (1 / this.verticalScale))
+//				+ (1 / this.verticalScale) * newCoords.getY()) - this.verticalTranslation;
+//		IntPoint innerCoordinates = new DoublePoint(newX, newY).round();
+//		return innerCoordinates;
+		
+		if (globalCoordinates == null)
+			throw new IllegalArgumentException("The global Coordinates equal null");
+		
+	
 
 	}
 
@@ -186,8 +191,8 @@ public class ShapeGroup {
 	 */
 	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
 		IntVector newVector;
-		if (this.getParentgroup() != null) {
-			newVector = this.getParentgroup().toInnerCoordinates(relativeGlobalCoordinates);
+		if (this.getParentGroup() != null) {
+			newVector = this.getParentGroup().toInnerCoordinates(relativeGlobalCoordinates);
 		}
 
 		else {
@@ -212,7 +217,7 @@ public class ShapeGroup {
 	 * Returns the shape group that directly contains this shape group, or null if
 	 * no shape group directly contains this shape group.
 	 */
-	public ShapeGroup getParentgroup() {
+	public ShapeGroup getParentGroup() {
 		return this.parentGroup;
 	}
 
