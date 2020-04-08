@@ -142,12 +142,16 @@ public class ShapeGroup {
 	 * coordinates.
 	 */
 	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
-		double newX = (((double) this.getOriginalExtent().getLeft()) * (1 - this.horizontalScale)
-				+ this.horizontalScale * innerCoordinates.getX()) + this.horizontalTranslation;
-		double newY = (((double) this.getOriginalExtent().getTop()) * (1 - this.verticalScale)
-				+ this.verticalScale * innerCoordinates.getY()) + this.verticalTranslation;
+		IntPoint currentCoord = innerCoordinates;
 
-		IntPoint outerCoordinates = new DoublePoint(newX, newY).round();
+//		double newX = (((double) this.getOriginalExtent().getLeft()) * (1 - this.horizontalScale)
+//				+ this.horizontalScale * innerCoordinates.getX()) + this.horizontalTranslation;
+//		double newY = (((double) this.getOriginalExtent().getTop()) * (1 - this.verticalScale)
+//				+ this.verticalScale * innerCoordinates.getY()) + this.verticalTranslation;
+		double InnerX = currentCoord.getX() + (horizontalTranslation)*horizontalScale;
+		double InnerY = currentCoord.getY() + (verticalTranslation)*verticalScale;
+
+		IntPoint outerCoordinates = new DoublePoint(InnerX, InnerY).round();
 
 		if (this.getParentGroup() != null) {
 			return this.getParentGroup().toGlobalCoordinates(outerCoordinates);
@@ -155,28 +159,24 @@ public class ShapeGroup {
 			return outerCoordinates;
 		}
 	}
-
+		
 	/**
 	 * Returns the coordinates in this shape group's inner coordinate system of the
 	 * point whose coordinates in the global coordinate system are the given
 	 * coordinates.
 	 */
 	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
-		IntPoint newCoords;
-		if (this.getParentGroup() != null) {
-			newCoords = this.getParentGroup().toInnerCoordinates(globalCoordinates);
-		}
+		if (globalCoordinates == null)
+			throw new IllegalArgumentException("The global Coordinates equal null");
 		
-		else {
-			newCoords = globalCoordinates;
+		IntPoint currentCoord = globalCoordinates;
+		if (this.getParentGroup() != null) {
+			currentCoord = this.getParentGroup().toInnerCoordinates(currentCoord);
 		}
-
-		double newX = (((double) this.getExtent().getLeft()) * (1 - (1 / this.horizontalScale))
-				+ (1 / this.horizontalScale) * newCoords.getX()) - this.horizontalTranslation;
-		double newY = (((double) this.getExtent().getTop()) * (1 - (1 / this.verticalScale))
-				+ (1 / this.verticalScale) * newCoords.getY()) - this.verticalTranslation;
-		IntPoint innerCoordinates = new DoublePoint(newX, newY).round();
-		return innerCoordinates;
+		double InnerX = currentCoord.getX() - (horizontalTranslation)/horizontalScale;
+		double InnerY = currentCoord.getY() - (verticalTranslation)/verticalScale;
+		DoublePoint result = new DoublePoint(InnerX, InnerY);
+		return result.round();
 
 	}
 
@@ -301,50 +301,50 @@ public class ShapeGroup {
 	 * expressed in this shape group's outer coordinate system.
 	 */
 	public java.lang.String getDrawingCommands() {
-		StringBuilder commands = new StringBuilder();
-		commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-		commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-		if (getShape() != null)
-			commands.append(getShape().getDrawingCommands());
-		else {
-			for (int i = getSubgroupCount() -1; i<=0;i--) {
-				ShapeGroup currentSubgroup = getSubgroup(i);
-				commands.append(currentSubgroup.getDrawingCommands());
-			}
-		}
-		
-		commands.append("popTransform\n");
-		commands.append("popTransform\n");
-		
-		return commands.toString();
-		
-		
-		
-		
-		
-		
-//
 //		StringBuilder commands = new StringBuilder();
-//
-//		if (this.subgroups == null) {
-//			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-//			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-//			commands.append(this.getShape().getDrawingCommands());
-//			commands.append("popTransform\n");
-//			commands.append("popTransform\n");
-//		}
-//
+//		commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+//		commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+//		if (getShape() != null)
+//			commands.append(getShape().getDrawingCommands());
 //		else {
-//			for (ShapeGroup subgroup : subgroups) {
-//				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-//				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-//				commands.append(subgroup.getDrawingCommands());
-//				commands.append("popTransform\n");
-//				commands.append("popTransform\n");
+//			for (int i = getSubgroupCount() -1; i<=0;i--) {
+//				ShapeGroup currentSubgroup = getSubgroup(i);
+//				commands.append(currentSubgroup.getDrawingCommands());
 //			}
 //		}
+//		
+//		commands.append("popTransform\n");
+//		commands.append("popTransform\n");
+//		
 //		return commands.toString();
-	}
+//		
+//		
+//		
+//		
+//		
+//		
+//
+		StringBuilder commands = new StringBuilder();
+
+		if (this.subgroups == null) {
+			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+			commands.append(this.getShape().getDrawingCommands());
+			commands.append("popTransform\n");
+			commands.append("popTransform\n");
+		}
+
+		else {
+			for (ShapeGroup subgroup : subgroups) {
+				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+				commands.append(subgroup.getDrawingCommands());
+				commands.append("popTransform\n");
+				commands.append("popTransform\n");
+			}
+		}
+		return commands.toString();
+	} 
 }
 
 // Dit is oude code, maar ik hou het bij voor als nieuwe code niet werkt

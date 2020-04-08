@@ -180,8 +180,14 @@ public class ShapeGroup {
 		if (globalCoordinates == null)
 			throw new IllegalArgumentException("The global Coordinates equal null");
 		
-	
-
+		IntPoint currentCoord = globalCoordinates;
+		if (this.getParentGroup() != null) {
+			currentCoord = this.getParentGroup().toInnerCoordinates(currentCoord);
+		}
+		double InnerX = currentCoord.getX() - (horizontalTranslation)/horizontalScale;
+		double InnerY = currentCoord.getY() - (verticalTranslation)/verticalScale;
+		DoublePoint result = new DoublePoint(InnerX, InnerY);
+		return result.round();
 	}
 
 	/**
