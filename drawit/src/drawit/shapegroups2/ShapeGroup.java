@@ -240,7 +240,7 @@ public class ShapeGroup {
 	 * @param index
 	 */
 	public ShapeGroup getSubgroup(int index) {
-		return this.getSubgroups()[index];
+		return (ShapeGroup) this.getSubgroups().toArray()[index];
 	}
 
 	/**
@@ -253,7 +253,7 @@ public class ShapeGroup {
 		if (this.getShape() != null) {
 			throw new IllegalArgumentException("This is a leaf group");
 		}
-		ShapeGroup[] subGroups = this.getSubgroups();
+		ShapeGroup[] subGroups = (ShapeGroup[]) this.getSubgroups().toArray();
 		ShapeGroup result = null;
 		for(int i = 0; i < subGroups.length; i++) {
 			if (subGroups[i].getExtent().contains(innerCoordinates)) {
@@ -278,34 +278,34 @@ public class ShapeGroup {
 	 * Returns the list of subgroups of this shape group, or null if this is a leaf
 	 * shape group.
 	 */
-//	public java.util.List<ShapeGroup> getSubgroups() {
-//		if (firstChild != null) {
-//			ArrayList<ShapeGroup> subgroups = new ArrayList<ShapeGroup>() ;
-//			for (ShapeGroup subgroup = firstChild; subgroup !=null; subgroup=subgroup.nextSibling)
-//				subgroups.add(subgroup);
-//			return subgroups;
-//		}
-//		return null;
-//	}
-	
-	public ShapeGroup[] getSubgroups() {
-
-		ShapeGroup[] subgroupList = new ShapeGroup[1];
-		subgroupList[0] = this.firstChild;
-		if (this.firstChild == null) {
+	public java.util.List<ShapeGroup> getSubgroups() {
+		if (firstChild != null) {
+			ArrayList<ShapeGroup> subgroups = new ArrayList<ShapeGroup>() ;
+			for (ShapeGroup subgroup = firstChild; subgroup !=null; subgroup=subgroup.nextSibling)
+				subgroups.add(subgroup);
+			return subgroups;
 		}
-		for (int i=1; i<this.getSubgroupCount();i++) {
-			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
-			for (int j=0; j<subgroupList.length;j++) {
-				tempSubgroupList[j] = subgroupList[j];
-				if (tempSubgroupList[0] == null) {
-				}
-			}
-			tempSubgroupList[subgroupList.length] = subgroupList[subgroupList.length-1].nextSibling;
-			subgroupList = tempSubgroupList;			
-		}
-		return subgroupList;
+		return null;
 	}
+	
+//	public ShapeGroup[] getSubgroups() {
+//
+//		ShapeGroup[] subgroupList = new ShapeGroup[1];
+//		subgroupList[0] = this.firstChild;
+//		if (this.firstChild == null) {
+//		}
+//		for (int i=1; i<this.getSubgroupCount();i++) {
+//			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
+//			for (int j=0; j<subgroupList.length;j++) {
+//				tempSubgroupList[j] = subgroupList[j];
+//				if (tempSubgroupList[0] == null) {
+//				}
+//			}
+//			tempSubgroupList[subgroupList.length] = subgroupList[subgroupList.length-1].nextSibling;
+//			subgroupList = tempSubgroupList;			
+//		}
+//		return subgroupList;
+//	}
 
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.
