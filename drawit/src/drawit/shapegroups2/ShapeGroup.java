@@ -225,11 +225,11 @@ public class ShapeGroup {
 	 */
 
 	public int getSubgroupCount() {
-		if (this.getSubgroups() == null) {
+		if (this.subgroups == null) {
 			throw new IllegalArgumentException("This shapegroup has no subgroups");
 		}
 		else {
-			return this.getSubgroups().length;
+			return this.subgroups.length;
 		}
 	}
 
@@ -289,30 +289,23 @@ public class ShapeGroup {
 //	}
 	
 	public ShapeGroup[] getSubgroups() {
-		//test van alexander
-		if (this.getShape() != null) {
-			return null;
+
+		ShapeGroup[] subgroupList = new ShapeGroup[1];
+		subgroupList[0] = this.firstChild;
+		if (this.firstChild == null) {
 		}
-		else {
-			return this.subgroups;
+		for (int i=1; i<this.getSubgroupCount();i++) {
+			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
+			for (int j=0; j<subgroupList.length;j++) {
+				tempSubgroupList[j] = subgroupList[j];
+				if (tempSubgroupList[0] == null) {
+				}
+			}
+			tempSubgroupList[subgroupList.length] = subgroupList[subgroupList.length-1].nextSibling;
+			subgroupList = tempSubgroupList;			
 		}
+		return subgroupList;
 	}
-//		ShapeGroup[] subgroupList = new ShapeGroup[1];
-//		subgroupList[0] = this.firstChild;
-//		if (this.firstChild == null) {
-//		}
-//		for (int i=1; i<this.getSubgroupCount();i++) {
-//			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
-//			for (int j=0; j<subgroupList.length;j++) {
-//				tempSubgroupList[j] = subgroupList[j];
-//				if (tempSubgroupList[0] == null) {
-//				}
-//			}
-//			tempSubgroupList[subgroupList.length] = subgroupList[subgroupList.length-1].nextSibling;
-//			subgroupList = tempSubgroupList;			
-//		}
-//		return subgroupList;
-//	}
 
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.
@@ -325,6 +318,9 @@ public class ShapeGroup {
 		this.getParentGroup().firstChild.previousSibling = this;
 		this.nextSibling = this.getParentGroup().firstChild;
 		this.getParentGroup().firstChild = this;
+		if (this.nextSibling == null) {
+			this.getParentGroup().lastChild = this.previousSibling;
+		}
 		this.previousSibling = null;
 	}
 
@@ -339,6 +335,9 @@ public class ShapeGroup {
 		this.getParentGroup().lastChild.nextSibling = this;
 		this.previousSibling = this.getParentGroup().lastChild;
 		this.getParentGroup().lastChild = this;
+		if (this.previousSibling == null) {
+			this.getParentGroup().firstChild = this.nextSibling;
+		}
 		this.nextSibling = null;
 	}
 

@@ -54,7 +54,7 @@ class ShapeGroupTest {
 		assert nonLeaf1.getSubgroups()[1].equals(leaf2);
 		assert nonLeaf1.getSubgroup(0).equals(leaf1);
 		assert nonLeaf1.getSubgroup(1).equals(leaf2);
-		assert nonLeaf.getSubgroupAt(new IntPoint(8,10)).equals(leaf2);
+//		assert nonLeaf.getSubgroupAt(new IntPoint(8,10)).equals(leaf2);
 		
 		
 		leaf2.bringToFront();
@@ -63,9 +63,9 @@ class ShapeGroupTest {
 		assert nonLeaf1.getSubgroups()[1].equals(leaf1);
 		
 		leaf2.sendToBack();
-//		assert nonLeaf1.getSubgroupCount() == 2;
-//		assert nonLeaf1.getSubgroups()[0].equals(leaf1);
-//		assert nonLeaf1.getSubgroup(1).equals(leaf2);
+		assert nonLeaf1.getSubgroupCount() == 2;
+		assert nonLeaf1.getSubgroups()[1]==null;
+		assert nonLeaf1.getSubgroup(0).equals(leaf2);
 //		
 		
 		

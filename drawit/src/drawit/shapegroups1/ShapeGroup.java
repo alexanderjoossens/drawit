@@ -230,14 +230,14 @@ public class ShapeGroup {
 	/**
 	 * Returns the number of subgroups of this non-leaf shape group.
 	 */
-	public int getSubgroupCount() {
-		if (this.getSubgroups() == null) {
-			throw new IllegalArgumentException("This shapegroup has no subgroups");
-		}
-		else {
-			return this.getSubgroups().length;
-		}
-	}
+//	public int getSubgroupCount() {
+//		if (this.getSubgroups() == null) {
+//			throw new IllegalArgumentException("This shapegroup has no subgroups");
+//		}
+//		else {
+//			return this.getSubgroups().length;
+//		}
+//	}
 
 	/**
 	 * Returns the subgroup at the given (zero-based) index in this non-leaf shape
