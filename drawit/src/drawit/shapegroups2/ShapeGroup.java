@@ -316,11 +316,11 @@ public class ShapeGroup {
 		}
 		this.previousSibling.nextSibling = this.nextSibling;
 		this.getParentGroup().firstChild.previousSibling = this;
-		this.nextSibling = this.getParentGroup().firstChild;
-		this.getParentGroup().firstChild = this;
 		if (this.nextSibling == null) {
 			this.getParentGroup().lastChild = this.previousSibling;
 		}
+		this.nextSibling = this.getParentGroup().firstChild;
+		this.getParentGroup().firstChild = this;
 		this.previousSibling = null;
 	}
 
@@ -333,11 +333,11 @@ public class ShapeGroup {
 		}
 		this.nextSibling.previousSibling = this.previousSibling;
 		this.getParentGroup().lastChild.nextSibling = this;
-		this.previousSibling = this.getParentGroup().lastChild;
-		this.getParentGroup().lastChild = this;
 		if (this.previousSibling == null) {
 			this.getParentGroup().firstChild = this.nextSibling;
 		}
+		this.previousSibling = this.getParentGroup().lastChild;
+		this.getParentGroup().lastChild = this;
 		this.nextSibling = null;
 	}
 
