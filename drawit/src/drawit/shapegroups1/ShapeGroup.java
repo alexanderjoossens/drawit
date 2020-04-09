@@ -231,7 +231,12 @@ public class ShapeGroup {
 	 * Returns the number of subgroups of this non-leaf shape group.
 	 */
 	public int getSubgroupCount() {
-		return this.subgroups.length;
+		if (this.getSubgroups() == null) {
+			throw new IllegalArgumentException("This shapegroup has no subgroups");
+		}
+		else {
+			return this.getSubgroups().length;
+		}
 	}
 
 	/**
