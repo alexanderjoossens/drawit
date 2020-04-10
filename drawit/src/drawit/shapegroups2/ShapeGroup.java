@@ -2,6 +2,7 @@ package drawit.shapegroups2;
 import drawit.shapegroups2.Extent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import drawit.DoublePoint;
 import drawit.IntPoint;
@@ -59,6 +60,7 @@ public class ShapeGroup {
 		Extent extent = Extent.ofLeftTopRightBottom(minX, minY, maxX, maxY);
 		this.originalExtent = extent;
 		this.ownExtent = extent;
+		this.shape = shape;
 
 	}
 
@@ -141,70 +143,6 @@ public class ShapeGroup {
 	}
 
 	/**
-	 * Returns the coordinates in the global coordinate system of the point whose
-	 * coordinates in this shape group's inner coordinate system are the given
-	 * coordinates.
-	 */
-	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
-
-//		double newX = (((double) this.getOriginalExtent().getLeft()) * (1 - this.horizontalScale)
-//				+ this.horizontalScale * innerCoordinates.getX()) + this.horizontalTranslation;
-//		double newY = (((double) this.getOriginalExtent().getTop()) * (1 - this.verticalScale)
-//				+ this.verticalScale * innerCoordinates.getY()) + this.verticalTranslation;
-		if (innerCoordinates == null) 
-			throw new IllegalArgumentException("The given innerCoordinates are null");
-		
-		double GlobalX = (innerCoordinates.getX())*horizontalScale +horizontalTranslation;
-		double GlobalY = (innerCoordinates.getY())*verticalScale +verticalTranslation;
-		IntPoint result = new IntPoint((int)GlobalX,(int)GlobalY);
-		if (this.getParentGroup() != null) {
-			 result = this.getParentGroup().toGlobalCoordinates(result);
-		}
-		return result;
-	}
-		
-	/**
-	 * Returns the coordinates in this shape group's inner coordinate system of the
-	 * point whose coordinates in the global coordinate system are the given
-	 * coordinates.
-	 */
-	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
-		if (globalCoordinates == null)
-			throw new IllegalArgumentException("The global Coordinates equal null");
-		
-		IntPoint currentCoord = globalCoordinates;
-		if (this.getParentGroup() != null) {
-			currentCoord = this.getParentGroup().toInnerCoordinates(currentCoord);
-		}
-		double InnerX = currentCoord.getX() - (horizontalTranslation)/horizontalScale;
-		double InnerY = currentCoord.getY() - (verticalTranslation)/verticalScale;
-		DoublePoint result = new DoublePoint(InnerX, InnerY);
-		return result.round();
-
-	}
-
-	/**
-	 * Returns the coordinates in this shape group's inner coordinate system of the
-	 * vector whose coordinates in the global coordinate system are the given
-	 * coordinates.
-	 */
-	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
-		IntVector newVector;
-		if (this.getParentGroup() != null) {
-			newVector = this.getParentGroup().toInnerCoordinates(relativeGlobalCoordinates);
-		}
-
-		else {
-			newVector = relativeGlobalCoordinates;
-		}
-		int newX = (int) ((int) newVector.getX() * (1 / this.horizontalScale));
-		int newY = (int) ((int) newVector.getY() * (1 / this.verticalScale));
-
-		IntVector innerVector = new IntVector(newX, newY);
-		return innerVector;
-	}
-
-	/**
 	 * Returns the shape directly contained by this shape group, or null if this is
 	 * a non-leaf shape group.
 	 */
@@ -253,26 +191,15 @@ public class ShapeGroup {
 		if (this.getShape() != null) {
 			throw new IllegalArgumentException("This is a leaf group");
 		}
-		ShapeGroup[] subGroups = (ShapeGroup[]) this.getSubgroups().toArray();
-		ShapeGroup result = null;
-		for(int i = 0; i < subGroups.length; i++) {
-			if (subGroups[i].getExtent().contains(innerCoordinates)) {
-				result = subGroups[i];
-				break;
+		List<ShapeGroup> subgroups = this.getSubgroups() ;
+		
+		for (int i=0; i<this.getSubgroupCount();i++) {
+			if (subgroups.get(i).getExtent().contains(innerCoordinates)) {
+				return subgroups.get(i);
 			}
 		}
-		return result;
+		return null;
 	}
-//		ShapeGroup[] subgroups = this.getSubgroups();
-//		boolean foundSubgroup = false;
-//		ShapeGroup returnGroup = null;
-//		for (ShapeGroup subgroup : subgroups) {
-//			if (subgroup.getOriginalExtent().contains(innerCoordinates) && !foundSubgroup) {
-//				returnGroup = subgroup;
-//			}
-//		}
-//		return returnGroup;
-//	}
 
 	/**
 	 * Returns the list of subgroups of this shape group, or null if this is a leaf
@@ -285,27 +212,72 @@ public class ShapeGroup {
 				subgroups.add(subgroup);
 			return subgroups;
 		}
-		return null;
+		else {
+			return null;
+		}
 	}
 	
-//	public ShapeGroup[] getSubgroups() {
-//
-//		ShapeGroup[] subgroupList = new ShapeGroup[1];
-//		subgroupList[0] = this.firstChild;
-//		if (this.firstChild == null) {
-//		}
-//		for (int i=1; i<this.getSubgroupCount();i++) {
-//			ShapeGroup[] tempSubgroupList = new ShapeGroup[subgroupList.length+1];
-//			for (int j=0; j<subgroupList.length;j++) {
-//				tempSubgroupList[j] = subgroupList[j];
-//				if (tempSubgroupList[0] == null) {
-//				}
-//			}
-//			tempSubgroupList[subgroupList.length] = subgroupList[subgroupList.length-1].nextSibling;
-//			subgroupList = tempSubgroupList;			
-//		}
-//		return subgroupList;
-//	}
+	
+	
+	/**
+	 * Returns the coordinates in the global coordinate system of the point whose
+	 * coordinates in this shape group's inner coordinate system are the given
+	 * coordinates.
+	 */
+	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
+		double newX = ((double) innerCoordinates.getX())*horizontalScale + horizontalTranslation;
+		double newY = ((double) innerCoordinates.getY())*verticalScale + verticalTranslation;
+
+		IntPoint outerCoordinates = new DoublePoint(newX, newY).round();
+
+		if (this.getParentGroup() != null) {
+			return this.getParentGroup().toGlobalCoordinates(outerCoordinates);
+		} else {
+			return outerCoordinates;
+		}
+	}
+
+	/**
+	 * Returns the coordinates in this shape group's inner coordinate system of the
+	 * point whose coordinates in the global coordinate system are the given
+	 * coordinates.
+	 */
+	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
+		if (this.getParentGroup() != null) {
+			globalCoordinates = this.getParentGroup().toInnerCoordinates(globalCoordinates);
+		}
+
+		double newX = ((double) globalCoordinates.getX() - (double) horizontalTranslation)/horizontalScale;
+		double newY = ((double) globalCoordinates.getY() - (double) verticalTranslation)/verticalScale;
+		IntPoint innerCoordinates = new DoublePoint(newX, newY).round();
+		return innerCoordinates;
+
+	}
+
+	/**
+	 * Returns the coordinates in this shape group's inner coordinate system of the
+	 * vector whose coordinates in the global coordinate system are the given
+	 * coordinates.
+	 */
+	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
+		IntVector newVector;
+		if (this.getParentGroup() != null) {
+			newVector = this.getParentGroup().toInnerCoordinates(relativeGlobalCoordinates);
+		}
+
+		else {
+			newVector = relativeGlobalCoordinates;
+		}
+		int newX = (int) ((int) newVector.getX() * (1 / this.horizontalScale));
+		int newY = (int) ((int) newVector.getY() * (1 / this.verticalScale));
+
+		IntVector innerVector = new IntVector(newX, newY);
+		return innerVector;
+	}
+	
+	
+	
+	
 
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.
@@ -349,7 +321,7 @@ public class ShapeGroup {
 	public java.lang.String getDrawingCommands() {
 		StringBuilder commands = new StringBuilder();
 
-		if (this.subgroups == null && this.shape != null) {
+		if (this.subgroups == null) {
 
 			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
 			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
