@@ -2,6 +2,7 @@ package drawit.shapegroups1;
 import drawit.shapegroups1.Extent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import drawit.DoublePoint;
@@ -330,10 +331,9 @@ public class ShapeGroup {
 		}
 
 		if (subgroups!=null) {
-			for (ShapeGroup subgroup : getSubgroups()) {
-				if (subgroup == null) {
-					System.out.println("lala");
-				}
+			java.util.List<ShapeGroup> subgroups = this.getSubgroups();
+			Collections.reverse(subgroups);
+			for (ShapeGroup subgroup : subgroups) {
 				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
 				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
 				commands.append(subgroup.getDrawingCommands());
