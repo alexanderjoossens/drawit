@@ -7,7 +7,6 @@ import java.util.List;
 import drawit.DoublePoint;
 import drawit.IntPoint;
 import drawit.IntVector;
-import drawit.DoubleVector;
 import drawit.RoundedPolygon;
 
 public class ShapeGroup {
