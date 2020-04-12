@@ -76,15 +76,6 @@ public class ShapeGroup {
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
 		ShapeGroup tempPreviousSibling = null;
-		for (ShapeGroup shapeGroup : subgroups) {
-			shapeGroup.parentGroup = this;
-
-			if (tempPreviousSibling != null) {
-				shapeGroup.previousSibling = tempPreviousSibling;
-				tempPreviousSibling.nextSibling = shapeGroup;
-			}
-			tempPreviousSibling = shapeGroup;
-		}
 
 		this.firstChild = subgroups[0];
 		this.lastChild = subgroups[subgroups.length-1];
@@ -97,6 +88,15 @@ public class ShapeGroup {
 			if (shapeGroup == null) {
 				throw new IllegalArgumentException("One of the subgroups is null");
 			}
+			
+			if (tempPreviousSibling != null) {
+				shapeGroup.previousSibling = tempPreviousSibling;
+				tempPreviousSibling.nextSibling = shapeGroup;
+			}
+			tempPreviousSibling = shapeGroup;
+			
+			shapeGroup.parentGroup = this;
+			
 			Extent extent = shapeGroup.getExtent();
 			if (maxX == 0 && maxY == 0 && minX == 0 && minY == 0) {
 				maxY = extent.getBottom();
