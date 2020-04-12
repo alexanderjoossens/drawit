@@ -33,6 +33,8 @@ public class ShapeGroup {
 	 * contains the given shape.
 	 * 
 	 * @param shape
+	 * The shape of the new ShapeGroup
+	 * @mutates | this
 	 */
 	public ShapeGroup(RoundedPolygon shape) {
 		int maxX = 0;
@@ -69,6 +71,8 @@ public class ShapeGroup {
 	 * contains the given subgroups, in the given order.
 	 * 
 	 * @param subgroups
+	 * The subgroups of the new ShapeGroup
+	 * @mutates | this
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
 		ShapeGroup tempPreviousSibling = null;
@@ -119,6 +123,8 @@ public class ShapeGroup {
 	 * shape group's outer coordinate system.
 	 * 
 	 * @param newExtent
+	 * The new extent of the shapegroup
+	 * @mutates | this
 	 */
 	public void setExtent(Extent newExtent) {
 		this.ownExtent = newExtent;
@@ -132,14 +138,16 @@ public class ShapeGroup {
 	/**
 	 * Returns the extent of this shape group, expressed in its outer coordinate
 	 * system.
+	 * @inspects | this
 	 */
 	public Extent getExtent() {
-		return ownExtent;
+		return this.ownExtent;
 	}
 
 	/**
 	 * Returns the extent of this shape group, expressed in its inner coordinate
 	 * system.
+	 * @inspects | this
 	 */
 	public Extent getOriginalExtent() {
 		return this.originalExtent;
@@ -148,6 +156,7 @@ public class ShapeGroup {
 	/**
 	 * Returns the shape directly contained by this shape group, or null if this is
 	 * a non-leaf shape group.
+	 * @inspects | this
 	 */
 	public RoundedPolygon getShape() {
 		return this.shape;
@@ -156,6 +165,7 @@ public class ShapeGroup {
 	/**
 	 * Returns the shape group that directly contains this shape group, or null if
 	 * no shape group directly contains this shape group.
+	 * @inspects | this
 	 */
 	public ShapeGroup getParentGroup() {
 		return this.parentGroup;
@@ -163,6 +173,7 @@ public class ShapeGroup {
 
 	/**
 	 * Returns the number of subgroups of this non-leaf shape group.
+	 * @inspects | this
 	 */
 
 	public int getSubgroupCount() {
@@ -179,6 +190,8 @@ public class ShapeGroup {
 	 * group's list of subgroups.
 	 * 
 	 * @param index
+	 * The index of the subgroup that you want to get
+	 * @inspects | this
 	 */
 	public ShapeGroup getSubgroup(int index) {
 		return (ShapeGroup) this.getSubgroups().toArray()[index];
@@ -188,6 +201,10 @@ public class ShapeGroup {
 	 * Return the first subgroup in this non-leaf shape group's list of subgroups
 	 * whose extent contains the given point, expressed in this shape group's inner
 	 * coordinate system.
+	 * 
+	 * @param innerCoordinates
+	 * The point that is contained by the extent of the first subgroup of this non-leaf shape
+	 * @inspects | this
 	 */
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
 		if (this.getShape() != null) {
@@ -206,6 +223,7 @@ public class ShapeGroup {
 	/**
 	 * Returns the list of subgroups of this shape group, or null if this is a leaf
 	 * shape group.
+	 * @inspects | this
 	 */
 	public java.util.List<ShapeGroup> getSubgroups() {
 		if (firstChild != null) {
@@ -225,6 +243,9 @@ public class ShapeGroup {
 	 * Returns the coordinates in the global coordinate system of the point whose
 	 * coordinates in this shape group's inner coordinate system are the given
 	 * coordinates.
+	 * @param innerCoordinates
+	 * The point that you want the GlobalCoordinates from
+	 * @inspects | this
 	 */
 	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
 		double newX = ((double) innerCoordinates.getX())*horizontalScale + horizontalTranslation;
@@ -243,6 +264,9 @@ public class ShapeGroup {
 	 * Returns the coordinates in this shape group's inner coordinate system of the
 	 * point whose coordinates in the global coordinate system are the given
 	 * coordinates.
+	 * @param globalCoordinates
+	 * The point that you want to get the InnerCoordinates from
+	 * @inspects | this
 	 */
 	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
 		if (this.getParentGroup() != null) {
@@ -260,6 +284,9 @@ public class ShapeGroup {
 	 * Returns the coordinates in this shape group's inner coordinate system of the
 	 * vector whose coordinates in the global coordinate system are the given
 	 * coordinates.
+	 * @param relativeGlobalCoordinates
+	 * The point that you want to get the InnerCoordinates from
+	 * @inspects | this
 	 */
 	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
 		IntVector newVector;
@@ -283,6 +310,7 @@ public class ShapeGroup {
 
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.
+	 * @inspects | this
 	 */
 	public void bringToFront() {
 		if (this.nextSibling != null) {
@@ -300,6 +328,7 @@ public class ShapeGroup {
 
 	/**
 	 * Moves this shape group to the back of its parent's list of subgroups.
+	 * @inspects | this
 	 */
 	public void sendToBack() {
 		if (this.previousSibling != null) {
