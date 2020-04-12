@@ -145,7 +145,7 @@ public class Extent {
 	 * Returns an object that has the given bottom coordinate and the same left, top, and right coordinate as this object.
 	 * @param newBottom
 	 * @creates | result
-	 * @post | getBottom() == newBottom
+	 * @post | result.getBottom() == newBottom
 	 * @post | result != null
 	 */
 	public Extent withBottom(int newBottom) {
@@ -157,7 +157,7 @@ public class Extent {
 	 * Returns an object that has the given height and the same left, top, and right coordinate as this object.
 	 * @param NewHeight
 	 * @creates | result
-	 * @post | getHeight() == newHeight
+	 * @post | result.getHeight() == newHeight
 	 * @post | result != null
 	 * @throws IllegalArgumentException if the new height is negative | newHeight < 0
 	 */
@@ -170,7 +170,7 @@ public class Extent {
 	 * Returns an object that has the given left coordinate and the same right, top, and bottom coordinate as this object.
 	 * @param newLeft
 	 * @creates | result
-	 * @post | getLeft() == newLeft
+	 * @post | result.getLeft() == newLeft
 	 * @post | result != null
 	 */
 	public Extent withLeft(int newLeft) {
@@ -182,7 +182,7 @@ public class Extent {
 	 * Returns an object that has the given right coordinate and the same left, top, and bottom coordinate as this object.
 	 * @param newRight
 	 * @creates | result
-	 * @post | getRight() == newRight
+	 * @post | result.getRight() == newRight
 	 * @post | result != null
 	 */
 	public Extent withRight(int newRight) {
@@ -194,7 +194,7 @@ public class Extent {
 	 * Returns an object that has the given top coordinate and the same left, right, and bottom coordinate as this object.
 	 * @param newTop
 	 * @creates | result
-	 * @post | getTop() == newTop
+	 * @post | result.getTop() == newTop
 	 * @post | result != null
 	 */
 	public Extent withTop(int newTop) {
@@ -206,7 +206,7 @@ public class Extent {
 	 * Returns an object that has the given width and the same left, top, and bottom coordinate as this object.
 	 * @param newWidth
 	 * @creates | result
-	 * @post | getWidth() == newWidth
+	 * @post | result.getWidth() == newWidth
 	 * @post | result != null
 	 * @throws IllegalArgumentException if the new width is negative | newWidth < 0
 	 */
