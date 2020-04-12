@@ -13,7 +13,7 @@ import drawit.RoundedPolygon;
 public class ShapeGroup {
 
 	private Extent ownExtent;
-	private ArrayList<ShapeGroup> subgroups;
+	private ArrayList<ShapeGroup> subgroups = new ArrayList<ShapeGroup>();
 	private final Extent originalExtent;
 	
 	private double horizontalScale = 1;
@@ -164,7 +164,7 @@ public class ShapeGroup {
 	 * @param index
 	 */
 	public ShapeGroup getSubgroup(int index) {
-		return this.getSubgroups().get(index);
+		return this.subgroups.get(index);
 	}
 
 	/**
@@ -308,11 +308,10 @@ public class ShapeGroup {
 
 		if (subgroups!=null) {
 			java.util.List<ShapeGroup> subgroups = this.getSubgroups();
-			Collections.reverse(subgroups);
-			for (ShapeGroup subgroup : subgroups) {
+			for (int i = getSubgroupCount()-1; i >= 0; i--) {
 				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
 				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-				commands.append(subgroup.getDrawingCommands());
+				commands.append(subgroups.get(i).getDrawingCommands());
 				commands.append("popTransform\n");
 				commands.append("popTransform\n");
 			}
