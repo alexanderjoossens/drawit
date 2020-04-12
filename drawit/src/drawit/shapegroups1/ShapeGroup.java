@@ -23,10 +23,6 @@ public class ShapeGroup {
 
 	private RoundedPolygon shape;
 	private ShapeGroup parentGroup;
-	private ShapeGroup firstChild;
-	private ShapeGroup lastChild;
-	private ShapeGroup previousSibling;
-	private ShapeGroup nextSibling;
 
 	/**
 	 * Initializes this object to represent a leaf shape group that directly
@@ -71,19 +67,9 @@ public class ShapeGroup {
 	 * @param subgroups
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
-		ShapeGroup tempPreviousSibling = null;
 		for (ShapeGroup shapeGroup : subgroups) {
 			shapeGroup.parentGroup = this;
-
-			if (tempPreviousSibling != null) {
-				shapeGroup.previousSibling = tempPreviousSibling;
-				tempPreviousSibling.nextSibling = shapeGroup;
-			}
-			tempPreviousSibling = shapeGroup;
 		}
-
-		this.firstChild = subgroups[0];
-		this.lastChild = subgroups[subgroups.length-1];
 
 		int maxX = 0;
 		int maxY = 0;
@@ -206,10 +192,10 @@ public class ShapeGroup {
 	 * shape group.
 	 */
 	public java.util.List<ShapeGroup> getSubgroups() {
-		if (firstChild != null) {
+		if (this.subgroups != null) {
 			ArrayList<ShapeGroup> subgroups = new ArrayList<ShapeGroup>() ;
-			for (ShapeGroup subgroup = firstChild; subgroup !=null; subgroup=subgroup.nextSibling)
-				subgroups.add(subgroup);
+			for (int i=0; i<this.getSubgroupCount(); i++)
+				subgroups.add(this.subgroups[i]);
 			return subgroups;
 		}
 		else {
