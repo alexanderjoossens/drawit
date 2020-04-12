@@ -2,6 +2,7 @@ package drawit.shapegroups2;
 import drawit.shapegroups2.Extent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,10 +14,20 @@ import drawit.RoundedPolygon;
 public class ShapeGroup {
 
 	private Extent ownExtent;
+	/**
+	 * @representationObject
+	 * @invar | Arrays.stream(subgroups).allMatch(v -> v != null)
+	 */
 	private ShapeGroup[] subgroups;
 	private final Extent originalExtent;
 	
+	/**
+	 * @invar | 0 <= horizontalScale
+	 */
 	private double horizontalScale = 1;
+	/**
+	 * @invar | 0 <= verticalScale
+	 */
 	private double verticalScale = 1;
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
@@ -174,10 +185,12 @@ public class ShapeGroup {
 	/**
 	 * Returns the number of subgroups of this non-leaf shape group.
 	 * @inspects | this
+	 * @throws IllegalArgumentException if the given shape is a leaf group.
+	 *    | this.getShape() != null
 	 */
 
 	public int getSubgroupCount() {
-		if (this.subgroups == null) {
+		if (this.getShape() != null) {
 			throw new IllegalArgumentException("This shapegroup is a leaf group");
 		}
 		else {
@@ -192,8 +205,13 @@ public class ShapeGroup {
 	 * @param index
 	 * The index of the subgroup that you want to get
 	 * @inspects | this
+	 * @throws IllegalArgumentException
+	 *    | !(0 <= index && index < getSubgroupCount())
 	 */
 	public ShapeGroup getSubgroup(int index) {
+		if (!(0 <= index && index < getSubgroupCount()))
+			throw new IllegalArgumentException("index out of range");
+		
 		return (ShapeGroup) this.getSubgroups().toArray()[index];
 	}
 
@@ -205,6 +223,9 @@ public class ShapeGroup {
 	 * @param innerCoordinates
 	 * The point that is contained by the extent of the first subgroup of this non-leaf shape
 	 * @inspects | this
+	 * @creates | result
+	 * @throws IllegalArgumentException if the given shape is a leaf group.
+	 *    | this.getShape() != null
 	 */
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
 		if (this.getShape() != null) {
@@ -224,6 +245,7 @@ public class ShapeGroup {
 	 * Returns the list of subgroups of this shape group, or null if this is a leaf
 	 * shape group.
 	 * @inspects | this
+	 * @creates | result
 	 */
 	public java.util.List<ShapeGroup> getSubgroups() {
 		if (firstChild != null) {
