@@ -335,17 +335,19 @@ public class ShapeGroup {
 	 * @inspects | this
 	 */
 	public void bringToFront() {
-		if (this.nextSibling != null) {
-			this.nextSibling.previousSibling = this.previousSibling;
+		if (this.previousSibling!=null) {
+			if (this.nextSibling != null) {
+				this.nextSibling.previousSibling = this.previousSibling;
+			}
+			this.previousSibling.nextSibling = this.nextSibling;
+			this.getParentGroup().firstChild.previousSibling = this;
+			if (this.nextSibling == null) {
+				this.getParentGroup().lastChild = this.previousSibling;
+			}
+			this.nextSibling = this.getParentGroup().firstChild;
+			this.getParentGroup().firstChild = this;
+			this.previousSibling = null;
 		}
-		this.previousSibling.nextSibling = this.nextSibling;
-		this.getParentGroup().firstChild.previousSibling = this;
-		if (this.nextSibling == null) {
-			this.getParentGroup().lastChild = this.previousSibling;
-		}
-		this.nextSibling = this.getParentGroup().firstChild;
-		this.getParentGroup().firstChild = this;
-		this.previousSibling = null;
 	}
 
 	/**
@@ -353,17 +355,19 @@ public class ShapeGroup {
 	 * @inspects | this
 	 */
 	public void sendToBack() {
-		if (this.previousSibling != null) {
-			this.previousSibling.nextSibling = this.nextSibling;
+		if (this.nextSibling != null) {
+			if (this.previousSibling != null) {
+				this.previousSibling.nextSibling = this.nextSibling;
+			}
+			this.nextSibling.previousSibling = this.previousSibling;
+			this.getParentGroup().lastChild.nextSibling = this;
+			if (this.previousSibling == null) {
+				this.getParentGroup().firstChild = this.nextSibling;
+			}
+			this.previousSibling = this.getParentGroup().lastChild;
+			this.getParentGroup().lastChild = this;
+			this.nextSibling = null;
 		}
-		this.nextSibling.previousSibling = this.previousSibling;
-		this.getParentGroup().lastChild.nextSibling = this;
-		if (this.previousSibling == null) {
-			this.getParentGroup().firstChild = this.nextSibling;
-		}
-		this.previousSibling = this.getParentGroup().lastChild;
-		this.getParentGroup().lastChild = this;
-		this.nextSibling = null;
 	}
 
 	/**
