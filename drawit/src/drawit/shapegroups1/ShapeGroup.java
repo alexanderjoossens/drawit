@@ -308,13 +308,21 @@ public class ShapeGroup {
 
 		if (subgroups!=null) {
 			java.util.List<ShapeGroup> subgroups = this.getSubgroups();
-			for (int i = getSubgroupCount()-1; i >= 0; i--) {
+			Collections.reverse(subgroups);
+			for (ShapeGroup subgroup : subgroups) {
 				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
 				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-				commands.append(subgroups.get(i).getDrawingCommands());
+				commands.append(subgroup.getDrawingCommands());
 				commands.append("popTransform\n");
 				commands.append("popTransform\n");
 			}
+//			for (int i = getSubgroupCount()-1; i >= 0; i--) {
+//				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+//				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+//				commands.append(subgroups.get(i).getDrawingCommands());
+//				commands.append("popTransform\n");
+//				commands.append("popTransform\n");
+//			}
 		}
 		return commands.toString();
 	} 
