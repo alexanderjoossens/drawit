@@ -208,7 +208,7 @@ public class Extent {
 	 * 
 	 * @param NewHeight
 	 * @creates | result
-//	 * @post | getHeight() == newHeight
+	 * @post | result.getHeight() == newHeight
 	 * @post | result != null
 	 * @throws IllegalArgumentException if the new height is negative | newHeight < 0
 	 */
@@ -223,7 +223,7 @@ public class Extent {
 	 * 
 	 * @param newWidth
 	 * @creates | result
-	 * @post | getWidth() == newWidth
+	 * @post | result.getWidth() == newWidth
 	 * @post | result != null
 	 * @throws IllegalArgumentException if the new width is negative | newWidth < 0
 	 */

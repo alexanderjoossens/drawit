@@ -2,8 +2,10 @@ package drawit.shapegroups1.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import drawit.shapegroups1.*;
-import drawit.shapegroups2.Extent;
-import drawit.shapegroups2.ShapeGroup;
+
+import drawit.shapegroups1.Extent;
+import drawit.shapegroups1.ShapeGroup;
+
 import drawit.*;
 
 import org.junit.jupiter.api.Test;
