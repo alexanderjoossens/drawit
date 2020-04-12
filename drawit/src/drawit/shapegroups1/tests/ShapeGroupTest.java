@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import drawit.IntPoint;
 import drawit.RoundedPolygon;
-import drawit.shapegroups1.*;
-import drawit.shapegroups2.Extent;
-import drawit.shapegroups2.ShapeGroup;
+import drawit.shapegroups1.Extent;
+import drawit.shapegroups1.ShapeGroup;
 
 import org.junit.jupiter.api.Test;
 
