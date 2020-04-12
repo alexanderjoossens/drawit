@@ -13,7 +13,7 @@ import drawit.RoundedPolygon;
 public class ShapeGroup {
 
 	private Extent ownExtent;
-	private ShapeGroup[] subgroups;
+	private ArrayList<ShapeGroup> subgroups;
 	private final Extent originalExtent;
 	
 	private double horizontalScale = 1;
@@ -67,15 +67,16 @@ public class ShapeGroup {
 	 * @param subgroups
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
-		for (ShapeGroup shapeGroup : subgroups) {
-			shapeGroup.parentGroup = this;
-		}
-
 		int maxX = 0;
 		int maxY = 0;
 		int minX = 0;
 		int minY = 0;
 		for (ShapeGroup shapeGroup : subgroups) {
+			if (shapeGroup == null) {
+				throw new IllegalArgumentException("One of the subgroups is null");
+			}
+			this.subgroups.add(shapeGroup);
+			shapeGroup.parentGroup = this;
 			Extent extent = shapeGroup.getExtent();
 			if (maxX == 0 && maxY == 0 && minX == 0 && minY == 0) {
 				maxY = extent.getBottom();
@@ -94,7 +95,6 @@ public class ShapeGroup {
 		Extent extent = Extent.ofLeftTopRightBottom(minX, minY, maxX, maxY);
 		this.originalExtent = extent;
 		this.ownExtent = extent;
-		this.subgroups = subgroups;
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class ShapeGroup {
 	 * a non-leaf shape group.
 	 */
 	public RoundedPolygon getShape() {
-		return shape;
+		return this.shape;
 	}
 
 	/**
@@ -150,10 +150,10 @@ public class ShapeGroup {
 
 	public int getSubgroupCount() {
 		if (this.subgroups == null) {
-			throw new IllegalArgumentException("This shapegroup has no subgroups");
+			throw new IllegalArgumentException("This shapegroup is a leaf group");
 		}
 		else {
-			return this.subgroups.length;
+			return this.subgroups.size();
 		}
 	}
 
@@ -164,7 +164,7 @@ public class ShapeGroup {
 	 * @param index
 	 */
 	public ShapeGroup getSubgroup(int index) {
-		return (ShapeGroup) this.getSubgroups().toArray()[index];
+		return this.getSubgroups().get(index);
 	}
 
 	/**
@@ -173,12 +173,12 @@ public class ShapeGroup {
 	 * coordinate system.
 	 */
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
-		//test van alexander
-		if (this.getShape() != null) {
-			throw new IllegalArgumentException("This is a leaf group");
-		}
-		List<ShapeGroup> subgroups = this.getSubgroups() ;
 		
+		if (subgroups.size() == 0) {
+			throw new IllegalArgumentException("This shapegroup is a leaf group");
+		}
+		
+		List<ShapeGroup> subgroups = this.getSubgroups() ;
 		for (int i=0; i<this.getSubgroupCount();i++) {
 			if (subgroups.get(i).getExtent().contains(innerCoordinates)) {
 				return subgroups.get(i);
@@ -192,18 +192,16 @@ public class ShapeGroup {
 	 * shape group.
 	 */
 	public java.util.List<ShapeGroup> getSubgroups() {
-		if (this.subgroups != null) {
+		if (subgroups.size() != 0) {
 			ArrayList<ShapeGroup> subgroups = new ArrayList<ShapeGroup>() ;
 			for (int i=0; i<this.getSubgroupCount(); i++)
-				subgroups.add(this.subgroups[i]);
+				subgroups.add(this.subgroups.get(i));
 			return subgroups;
 		}
 		else {
 			return null;
 		}
 	}
-	
-	
 	
 	/**
 	 * Returns the coordinates in the global coordinate system of the point whose
@@ -269,34 +267,26 @@ public class ShapeGroup {
 	 * Moves this shape group to the front of its parent's list of subgroups.
 	 */
 	public void bringToFront() {
-		if (this.nextSibling != null) {
-			this.nextSibling.previousSibling = this.previousSibling;
+		for (int i = 0; i < parentGroup.subgroups.size(); i++) {
+			if (parentGroup.getSubgroup(i) == this) {
+				parentGroup.subgroups.add(parentGroup.getSubgroup(i));
+				parentGroup.subgroups.remove(i);
+				break;
+			}
 		}
-		this.previousSibling.nextSibling = this.nextSibling;
-		this.getParentGroup().firstChild.previousSibling = this;
-		if (this.nextSibling == null) {
-			this.getParentGroup().lastChild = this.previousSibling;
-		}
-		this.nextSibling = this.getParentGroup().firstChild;
-		this.getParentGroup().firstChild = this;
-		this.previousSibling = null;
 	}
 
 	/**
 	 * Moves this shape group to the back of its parent's list of subgroups.
 	 */
 	public void sendToBack() {
-		if (this.previousSibling != null) {
-			this.previousSibling.nextSibling = this.nextSibling;
+		for (int i=0; i< parentGroup.subgroups.size(); i++) {
+			if (parentGroup.getSubgroup(i) == this) {
+				parentGroup.subgroups.add(parentGroup.getSubgroup(i));
+				parentGroup.subgroups.remove(i);
+				break;
+			}
 		}
-		this.nextSibling.previousSibling = this.previousSibling;
-		this.getParentGroup().lastChild.nextSibling = this;
-		if (this.previousSibling == null) {
-			this.getParentGroup().firstChild = this.nextSibling;
-		}
-		this.previousSibling = this.getParentGroup().lastChild;
-		this.getParentGroup().lastChild = this;
-		this.nextSibling = null;
 	}
 
 	/**

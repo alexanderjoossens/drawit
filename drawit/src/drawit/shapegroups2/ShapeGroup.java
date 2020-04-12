@@ -90,6 +90,9 @@ public class ShapeGroup {
 		int minX = 0;
 		int minY = 0;
 		for (ShapeGroup shapeGroup : subgroups) {
+			if (shapeGroup == null) {
+				throw new IllegalArgumentException("One of the subgroups is null");
+			}
 			Extent extent = shapeGroup.getExtent();
 			if (maxX == 0 && maxY == 0 && minX == 0 && minY == 0) {
 				maxY = extent.getBottom();
@@ -147,7 +150,7 @@ public class ShapeGroup {
 	 * a non-leaf shape group.
 	 */
 	public RoundedPolygon getShape() {
-		return shape;
+		return this.shape;
 	}
 
 	/**
@@ -164,7 +167,7 @@ public class ShapeGroup {
 
 	public int getSubgroupCount() {
 		if (this.subgroups == null) {
-			throw new IllegalArgumentException("This shapegroup has no subgroups");
+			throw new IllegalArgumentException("This shapegroup is a leaf group");
 		}
 		else {
 			return this.subgroups.length;
@@ -187,9 +190,8 @@ public class ShapeGroup {
 	 * coordinate system.
 	 */
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
-		//test van alexander
 		if (this.getShape() != null) {
-			throw new IllegalArgumentException("This is a leaf group");
+			throw new IllegalArgumentException("This shapegroup is a leaf group");
 		}
 		List<ShapeGroup> subgroups = this.getSubgroups() ;
 		
