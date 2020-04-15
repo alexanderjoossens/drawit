@@ -45,9 +45,14 @@ public class ShapeGroup {
 	 * 
 	 * @param shape
 	 * The shape of the new ShapeGroup
+	 * @throws IllegalArgumentException if shape is null.
+	 *   | shape== null
 	 * @mutates | this
 	 */
 	public ShapeGroup(RoundedPolygon shape) {
+		if (shape == null) {
+			throw new IllegalArgumentException("Shape is null");
+		}
 		int maxX = 0;
 		int maxY = 0;
 		int minX = 0;
@@ -83,6 +88,8 @@ public class ShapeGroup {
 	 * 
 	 * @param subgroups
 	 * The subgroups of the new ShapeGroup
+//	 * @throws IllegalArgumentException if one of the subgroups is null.
+//	 *    | hier moet nog een regel, maar weet niet hoe? kan jij dit doen alexander?
 	 * @mutates | this
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
