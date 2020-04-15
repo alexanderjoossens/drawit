@@ -142,9 +142,14 @@ public class ShapeGroup {
 	 * 
 	 * @param newExtent
 	 * The new extent of the shapegroup
+	 * @throws IllegalArgumentException if the extent is null.
+	 *    | newExtent == null
 	 * @mutates | this
 	 */
 	public void setExtent(Extent newExtent) {
+		if (newExtent == null) {
+			throw new IllegalArgumentException("The given extent is null!");
+		}
 		this.ownExtent = newExtent;
 
 		this.horizontalScale = ((double) newExtent.getWidth() / (double) this.getOriginalExtent().getWidth());
@@ -231,10 +236,15 @@ public class ShapeGroup {
 	 * The point that is contained by the extent of the first subgroup of this non-leaf shape
 	 * @inspects | this
 	 * @creates | result
+	 * @throws IllegalArgumentException if the given coordinates are null.
+	 *    | innerCoordinates == null
 	 * @throws IllegalArgumentException if the given shape is a leaf group.
 	 *    | this.getShape() != null
 	 */
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
+		if (innerCoordinates == null) {
+			throw new IllegalArgumentException("Coordinates are null");
+		}
 		if (this.getShape() != null) {
 			throw new IllegalArgumentException("This shapegroup is a leaf group");
 		}
@@ -274,9 +284,15 @@ public class ShapeGroup {
 	 * coordinates.
 	 * @param innerCoordinates
 	 * The point that you want the GlobalCoordinates from
+	 * @throws IllegalArgumentException if the given coordinates are null.
+	 *    | innerCoordinates == null
 	 * @inspects | this
 	 */
 	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
+		if (innerCoordinates == null) {
+			throw new IllegalArgumentException("innerCoordinates are null");
+		}
+		
 		double newX = ((double) innerCoordinates.getX())*horizontalScale + horizontalTranslation;
 		double newY = ((double) innerCoordinates.getY())*verticalScale + verticalTranslation;
 
@@ -295,9 +311,15 @@ public class ShapeGroup {
 	 * coordinates.
 	 * @param globalCoordinates
 	 * The point that you want to get the InnerCoordinates from
+	 * @throws IllegalArgumentException if the given coordinates are null.
+	 *    | globalCoordinates == null
 	 * @inspects | this
 	 */
 	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
+		if (globalCoordinates == null) {
+			throw new IllegalArgumentException("globalCoordinates are null");
+		}
+		
 		if (this.getParentGroup() != null) {
 			globalCoordinates = this.getParentGroup().toInnerCoordinates(globalCoordinates);
 		}
@@ -315,9 +337,15 @@ public class ShapeGroup {
 	 * coordinates.
 	 * @param relativeGlobalCoordinates
 	 * The point that you want to get the InnerCoordinates from
+	 * @throws IllegalArgumentException if the given coordinates are null.
+	 *    | relativeGlobalCoordinates == null
 	 * @inspects | this
 	 */
 	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
+		if (relativeGlobalCoordinates == null) {
+			throw new IllegalArgumentException("relativeGlobalCoordinates are null");
+		}
+		
 		IntVector newVector;
 		if (this.getParentGroup() != null) {
 			newVector = this.getParentGroup().toInnerCoordinates(relativeGlobalCoordinates);
@@ -339,9 +367,14 @@ public class ShapeGroup {
 
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.
+	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
+	 *    | getParentGroup() == null
 	 * @inspects | this
 	 */
 	public void bringToFront() {
+		if (this.getParentGroup() == null) {
+			throw new IllegalArgumentException("This shapegroup does not have a parent!");
+		}
 		if (this.previousSibling!=null) {
 			if (this.nextSibling != null) {
 				this.nextSibling.previousSibling = this.previousSibling;
@@ -359,9 +392,15 @@ public class ShapeGroup {
 
 	/**
 	 * Moves this shape group to the back of its parent's list of subgroups.
+	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
+	 *    | getParentGroup() == null
 	 * @inspects | this
 	 */
 	public void sendToBack() {
+		if (this.getParentGroup() == null) {
+			throw new IllegalArgumentException("This shapegroup does not have a parent!");
+		}
+		
 		if (this.nextSibling != null) {
 			if (this.previousSibling != null) {
 				this.previousSibling.nextSibling = this.nextSibling;

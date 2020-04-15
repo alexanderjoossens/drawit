@@ -229,9 +229,9 @@ public class ShapeGroup {
 	 *    | this.getShape() != null
 	 */
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
-//		if (innerCoordinates == null) {
-//			throw new IllegalArgumentException("Coordinates are null");
-//		}
+		if (innerCoordinates == null) {
+			throw new IllegalArgumentException("Coordinates are null");
+		}
 		if (this.getShape() != null) {
 			throw new IllegalArgumentException("This shapegroup is a leaf group");
 		}
@@ -266,6 +266,7 @@ public class ShapeGroup {
 	 * coordinates in this shape group's inner coordinate system are the given
 	 * coordinates.
 	 * @param innerCoordinates
+	 * The point that you want the GlobalCoordinates from
 	 * @throws IllegalArgumentException if the given coordinates are null.
 	 *    | innerCoordinates == null
 	 * @inspects | this
@@ -328,7 +329,6 @@ public class ShapeGroup {
 		if (relativeGlobalCoordinates == null) {
 			throw new IllegalArgumentException("relativeGlobalCoordinates are null");
 		}
-		
 		
 		IntVector newVector;
 		if (this.getParentGroup() != null) {
