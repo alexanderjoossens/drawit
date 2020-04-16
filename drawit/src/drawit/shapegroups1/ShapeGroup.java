@@ -44,6 +44,8 @@ public class ShapeGroup {
 	 * @throws IllegalArgumentException if shape is null.
 	 *    | shape== null
 	 * @mutates | this
+	 * @post This object's shape equals the given shape.
+     *    | getShape() == shape
 	 */
 	public ShapeGroup(RoundedPolygon shape) {
 		if (shape == null) {
@@ -84,9 +86,12 @@ public class ShapeGroup {
 	 * 
 	 * @param subgroups
 	 * The subgroups of the new ShapeGroup
-//	 * @throws IllegalArgumentException if one of the subgroups is null.
-//	 *    | hier moet nog een regel, maar weet niet hoe? kan jij dit doen alexander?
+	 * @throws IllegalArgumentException if one of the subgroups is null.
+	 *    | Arrays.stream(subgroups).allMatch(p -> p != null)	 
 	 * @mutates | this
+	 * @post This object's subgroups equal the given subgroups
+     *    | getSubgroups().toArray() == subgroups
+	 * @inspects | subgroups
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
 
@@ -132,6 +137,8 @@ public class ShapeGroup {
 	 * @throws IllegalArgumentException if the extent is null.
 	 *    | newExtent == null
 	 * @mutates | this
+	 * @post This object's extent equals the given extent
+     *    | getExtent() == newExtent
 	 */
 	public void setExtent(Extent newExtent) {
 		if (newExtent == null) {
@@ -270,6 +277,7 @@ public class ShapeGroup {
 	 * @throws IllegalArgumentException if the given coordinates are null.
 	 *    | innerCoordinates == null
 	 * @inspects | this
+	 * @post | result != null
 	 */
 	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
 		if (innerCoordinates == null) {
@@ -297,6 +305,7 @@ public class ShapeGroup {
 	 * @throws IllegalArgumentException if the given coordinates are null.
 	 *    | globalCoordinates == null
 	 * @inspects | this
+	 * @post | result != null
 	 */
 	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
 		if (globalCoordinates == null) {
@@ -324,6 +333,7 @@ public class ShapeGroup {
 	 * @throws IllegalArgumentException if the given coordinates are null.
 	 *    | relativeGlobalCoordinates == null
 	 * @inspects | this
+	 * @post | result != null
 	 */
 	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
 		if (relativeGlobalCoordinates == null) {
