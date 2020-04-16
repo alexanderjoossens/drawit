@@ -46,6 +46,7 @@ public class ShapeGroup {
 	 * @mutates | this
 	 * @post This object's shape equals the given shape.
      *    | getShape() == shape
+     * @inspects | shape
 	 */
 	public ShapeGroup(RoundedPolygon shape) {
 		if (shape == null) {
@@ -139,6 +140,7 @@ public class ShapeGroup {
 	 * @mutates | this
 	 * @post This object's extent equals the given extent
      *    | getExtent() == newExtent
+     * @inspects | newExtent
 	 */
 	public void setExtent(Extent newExtent) {
 		if (newExtent == null) {
@@ -278,6 +280,7 @@ public class ShapeGroup {
 	 *    | innerCoordinates == null
 	 * @inspects | this
 	 * @post | result != null
+	 * @inspects | innerCoordinates
 	 */
 	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
 		if (innerCoordinates == null) {
@@ -306,6 +309,7 @@ public class ShapeGroup {
 	 *    | globalCoordinates == null
 	 * @inspects | this
 	 * @post | result != null
+	 * @inspects | globalCoordinates
 	 */
 	public IntPoint toInnerCoordinates(IntPoint globalCoordinates) {
 		if (globalCoordinates == null) {
@@ -334,6 +338,7 @@ public class ShapeGroup {
 	 *    | relativeGlobalCoordinates == null
 	 * @inspects | this
 	 * @post | result != null
+	 * @inspects | relativeGlobalCoordinates
 	 */
 	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
 		if (relativeGlobalCoordinates == null) {
