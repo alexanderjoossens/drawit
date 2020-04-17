@@ -19,8 +19,6 @@ public class Extent {
 	 * (i.e. including its edges and its vertices), contains the given point.
 	 * @param point
 	 * The point to check if it is in the extent.
-	 * @throws IllegalArgumentException if point is null.
-	 *   | point == null
 	 * @inspects | this
 	 * @throws IllegalArgumentException if the point is null. | point == null
 	 */

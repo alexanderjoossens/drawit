@@ -57,7 +57,7 @@ public class ShapeGroup {
 		
 		for (IntPoint vertex : shape.getVertices()) {
 			if (vertex==null) {
-				throw new IllegalArgumentException("Vertex is null");
+				throw new IllegalArgumentException("One of the vertices is null");
 			}
 		}
 		int maxX = 0;
