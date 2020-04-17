@@ -94,8 +94,6 @@ public class ShapeGroup {
 	 * @throws IllegalArgumentException if one of the subgroups is null.
 	 *    | Arrays.stream(subgroups).allMatch(p -> p != null)
 	 * @mutates | this
-	 * @post This object's subgroups equal the given subgroups
-     *    | getSubgroups().toArray() == subgroups
 	 * @inspects | subgroups
 	 */
 	public ShapeGroup(ShapeGroup[] subgroups) {
@@ -384,6 +382,7 @@ public class ShapeGroup {
 	 * Moves this shape group to the front of its parent's list of subgroups.
 	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
 	 *    | getParentGroup() == null
+	 * @post | getParentGroup().getSubgroup(0).equals(this)
 	 * @inspects | this
 	 */
 	public void bringToFront() {
@@ -409,6 +408,7 @@ public class ShapeGroup {
 	 * Moves this shape group to the back of its parent's list of subgroups.
 	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
 	 *    | getParentGroup() == null
+	 * @post | getParentGroup().getSubgroup(getParentGroup().getSubgroups().size()-1).equals(this)
 	 * @inspects | this
 	 */
 	public void sendToBack() {
