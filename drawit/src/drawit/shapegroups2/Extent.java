@@ -147,6 +147,13 @@ public class Extent {
 	 * @throws IllegalArgumentException if the height is negative | height < 0
 	 */
 	public static Extent ofLeftTopWidthHeight(int left, int top, int width, int height) {
+		if (width < 0) {
+			throw new IllegalArgumentException("Width cant be negative");
+		}
+		
+		if (height < 0) {
+			throw new IllegalArgumentException("Height cant be negative");
+		}
 		Extent extent = new Extent();
 		extent.left = left;
 		extent.top = top;
