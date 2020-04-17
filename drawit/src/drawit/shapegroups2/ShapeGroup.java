@@ -58,6 +58,7 @@ public class ShapeGroup {
 		if (shape == null) {
 			throw new IllegalArgumentException("Shape is null");
 		}
+		
 		for (IntPoint vertex : shape.getVertices()) {
 			if (vertex==null) {
 				throw new IllegalArgumentException("One of the vertices is null");
