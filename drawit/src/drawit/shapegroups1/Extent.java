@@ -18,10 +18,15 @@ public class Extent {
 	 * (i.e. including its edges and its vertices), contains the given point.
 	 * @param point
 	 * The point to check if it is in the extent.
+	 * @throws IllegalArgumentException if point is null.
+	 *   | point == null
 	 * @inspects | this
 	 * @throws IllegalArgumentException if the point is null. | point == null
 	 */
 	public boolean contains(IntPoint point) {
+		if (point == null) {
+			throw new IllegalArgumentException("Point is null");
+		}
 		IntPoint bottomleft = new IntPoint(this.getLeft(), this.getBottom());
 		IntPoint topright = new IntPoint(this.getRight(), this.getTop());
 		
@@ -39,6 +44,7 @@ public class Extent {
 	
 	/**
 	 * Returns the Y coordinate of the edge parallel to the X axis with the largest Y coordinate.
+	 * @inspects | this
 	 */
 	public int getBottom() {
 		return this.bottom;
@@ -51,6 +57,7 @@ public class Extent {
 	
 	/**
 	 * Returns the distance between the edges that are parallel to the X axis.
+	 * @inspects | this
 	 */
 	public int getHeight() {
 		return this.getBottom()-this.getTop();
@@ -58,6 +65,7 @@ public class Extent {
 	
 	/**
 	 * Returns the X coordinate of the edge parallel to the Y axis with the smallest X coordinate.
+	 * @inspects | this
 	 */
 	public int getLeft() {
 		return this.left;
@@ -65,6 +73,7 @@ public class Extent {
 	
 	/**
 	 * Returns the X coordinate of the edge parallel to the Y axis with the largest X coordinate.
+	 * @inspects | this
 	 */
 	public int getRight() {
 		return this.right;
@@ -72,6 +81,7 @@ public class Extent {
 	
 	/**
 	 * Returns the Y coordinate of the edge parallel to the X axis with the smallest Y coordinate.
+	 * @inspects | this
 	 */
 	public int getTop() {
 		return this.top;
@@ -84,6 +94,7 @@ public class Extent {
 	
 	/**
 	 * Returns the distance between the edges that are parallel to the Y axis.
+	 * @inspects | this
 	 */
 	public int getWidth() {
 		return this.getRight()-this.getLeft();
@@ -145,6 +156,7 @@ public class Extent {
 	 * Returns an object that has the given bottom coordinate and the same left, top, and right coordinate as this object.
 	 * @param newBottom
 	 * @creates | result
+	 * @inspects | this
 	 * @post | result.getBottom() == newBottom
 	 * @post | result != null
 	 */
@@ -157,11 +169,15 @@ public class Extent {
 	 * Returns an object that has the given height and the same left, top, and right coordinate as this object.
 	 * @param NewHeight
 	 * @creates | result
+	 * @inspects | this
 	 * @post | result.getHeight() == newHeight
 	 * @post | result != null
 	 * @throws IllegalArgumentException if the new height is negative | newHeight < 0
 	 */
 	public Extent withHeight(int newHeight) {
+		if (newHeight < 0) {
+			throw new IllegalArgumentException("The given height is negative");
+		}
 		Extent newExtent = Extent.ofLeftTopWidthHeight(this.getLeft(), this.getTop(), this.getWidth(), newHeight);
 		return newExtent;
 	}
@@ -170,6 +186,7 @@ public class Extent {
 	 * Returns an object that has the given left coordinate and the same right, top, and bottom coordinate as this object.
 	 * @param newLeft
 	 * @creates | result
+	 * @inspects | this
 	 * @post | result.getLeft() == newLeft
 	 * @post | result != null
 	 */
@@ -182,6 +199,7 @@ public class Extent {
 	 * Returns an object that has the given right coordinate and the same left, top, and bottom coordinate as this object.
 	 * @param newRight
 	 * @creates | result
+	 * @inspects | this
 	 * @post | result.getRight() == newRight
 	 * @post | result != null
 	 */
@@ -194,6 +212,7 @@ public class Extent {
 	 * Returns an object that has the given top coordinate and the same left, right, and bottom coordinate as this object.
 	 * @param newTop
 	 * @creates | result
+	 * @inspects | this
 	 * @post | result.getTop() == newTop
 	 * @post | result != null
 	 */
@@ -206,11 +225,15 @@ public class Extent {
 	 * Returns an object that has the given width and the same left, top, and bottom coordinate as this object.
 	 * @param newWidth
 	 * @creates | result
+	 * @inspects | this
 	 * @post | result.getWidth() == newWidth
 	 * @post | result != null
 	 * @throws IllegalArgumentException if the new width is negative | newWidth < 0
 	 */
 	public Extent withWidth(int newWidth) {
+		if (newWidth < 0) {
+			throw new IllegalArgumentException("The given width is negative");
+		}
 		Extent newExtent = Extent.ofLeftTopWidthHeight(this.getLeft(), this.getTop(), newWidth, this.getHeight());
 		return newExtent;
 	}
