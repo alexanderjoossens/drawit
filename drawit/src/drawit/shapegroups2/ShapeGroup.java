@@ -47,6 +47,8 @@ public class ShapeGroup {
 	 * The shape of the new ShapeGroup
 	 * @throws IllegalArgumentException if shape is null.
 	 *   | shape== null
+	 * @throws Vertices are not null
+	 * | Arrays.stream(shape.getVertices()).allMatch(v -> v != null)
 	 * @mutates | this
 	 * @post This object's shape equals the given shape.
      *    | getShape() == shape
@@ -55,6 +57,11 @@ public class ShapeGroup {
 	public ShapeGroup(RoundedPolygon shape) {
 		if (shape == null) {
 			throw new IllegalArgumentException("Shape is null");
+		}
+		for (IntPoint vertex : shape.getVertices()) {
+			if (vertex==null) {
+				throw new IllegalArgumentException("Vertex is null");
+			}
 		}
 		int maxX = 0;
 		int maxY = 0;
