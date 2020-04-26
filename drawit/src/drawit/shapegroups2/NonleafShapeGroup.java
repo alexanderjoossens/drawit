@@ -138,15 +138,6 @@ public class NonleafShapeGroup {
 	}
 
 	/**
-	 * Returns the shape directly contained by this shape group, or null if this is
-	 * a non-leaf shape group.
-	 * @inspects | this
-	 */
-	public RoundedPolygon getShape() {
-		return this.shape;
-	}
-
-	/**
 	 * Returns the shape group that directly contains this shape group, or null if
 	 * no shape group directly contains this shape group.
 	 * @inspects | this
