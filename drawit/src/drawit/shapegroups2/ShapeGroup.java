@@ -229,7 +229,7 @@ public class ShapeGroup {
 
 
 
-public class LeafShapeGroup extends Shapegroup {
+public class LeafShapeGroup extends ShapeGroup {
 
 
 	/**
