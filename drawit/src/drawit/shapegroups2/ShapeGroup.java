@@ -186,60 +186,6 @@ public class ShapeGroup {
 	
 	
 	
-	
-
-	/**
-	 * Moves this shape group to the front of its parent's list of subgroups.
-	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
-	 *    | getParentGroup() == null
-	 * @post | getParentGroup().getSubgroup(0).equals(this)
-	 * @inspects | this
-	 */
-	public void bringToFront() {
-		if (this.getParentGroup() == null) {
-			throw new IllegalArgumentException("This shapegroup does not have a parent!");
-		}
-		if (this.previousSibling!=null) {
-			if (this.nextSibling != null) {
-				this.nextSibling.previousSibling = this.previousSibling;
-			}
-			this.previousSibling.nextSibling = this.nextSibling;
-			this.getParentGroup().firstChild.previousSibling = this;
-			if (this.nextSibling == null) {
-				this.getParentGroup().lastChild = this.previousSibling;
-			}
-			this.nextSibling = this.getParentGroup().firstChild;
-			this.getParentGroup().firstChild = this;
-			this.previousSibling = null;
-		}
-	}
-
-	/**
-	 * Moves this shape group to the back of its parent's list of subgroups.
-	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
-	 *    | getParentGroup() == null
-	 * @post | getParentGroup().getSubgroup(getParentGroup().getSubgroups().size()-1).equals(this)
-	 * @inspects | this
-	 */
-	public void sendToBack() {
-		if (this.getParentGroup() == null) {
-			throw new IllegalArgumentException("This shapegroup does not have a parent!");
-		}
-		
-		if (this.nextSibling != null) {
-			if (this.previousSibling != null) {
-				this.previousSibling.nextSibling = this.nextSibling;
-			}
-			this.nextSibling.previousSibling = this.previousSibling;
-			this.getParentGroup().lastChild.nextSibling = this;
-			if (this.previousSibling == null) {
-				this.getParentGroup().firstChild = this.nextSibling;
-			}
-			this.previousSibling = this.getParentGroup().lastChild;
-			this.getParentGroup().lastChild = this;
-			this.nextSibling = null;
-		}
-	}
 
 	/**
 	 * Returns a textual representation of a sequence of drawing commands for
@@ -523,6 +469,60 @@ public class NonleafShapeGroup extends ShapeGroup{
 	
 	
 	
+
+	/**
+	 * Moves this shape group to the front of its parent's list of subgroups.
+	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
+	 *    | getParentGroup() == null
+	 * @post | getParentGroup().getSubgroup(0).equals(this)
+	 * @inspects | this
+	 */
+	public void bringToFront() {
+		if (this.getParentGroup() == null) {
+			throw new IllegalArgumentException("This shapegroup does not have a parent!");
+		}
+		if (this.previousSibling!=null) {
+			if (this.nextSibling != null) {
+				this.nextSibling.previousSibling = this.previousSibling;
+			}
+			this.previousSibling.nextSibling = this.nextSibling;
+			this.getParentGroup().firstChild.previousSibling = this;
+			if (this.nextSibling == null) {
+				this.getParentGroup().lastChild = this.previousSibling;
+			}
+			this.nextSibling = this.getParentGroup().firstChild;
+			this.getParentGroup().firstChild = this;
+			this.previousSibling = null;
+		}
+	}
+
+	/**
+	 * Moves this shape group to the back of its parent's list of subgroups.
+	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
+	 *    | getParentGroup() == null
+	 * @post | getParentGroup().getSubgroup(getParentGroup().getSubgroups().size()-1).equals(this)
+	 * @inspects | this
+	 */
+	public void sendToBack() {
+		if (this.getParentGroup() == null) {
+			throw new IllegalArgumentException("This shapegroup does not have a parent!");
+		}
+		
+		if (this.nextSibling != null) {
+			if (this.previousSibling != null) {
+				this.previousSibling.nextSibling = this.nextSibling;
+			}
+			this.nextSibling.previousSibling = this.previousSibling;
+			this.getParentGroup().lastChild.nextSibling = this;
+			if (this.previousSibling == null) {
+				this.getParentGroup().firstChild = this.nextSibling;
+			}
+			this.previousSibling = this.getParentGroup().lastChild;
+			this.getParentGroup().lastChild = this;
+			this.nextSibling = null;
+		}
+	}
+
 	
 	
 	
@@ -533,6 +533,6 @@ public class NonleafShapeGroup extends ShapeGroup{
 	
 	
 	
-}
+
 }
 

@@ -203,55 +203,6 @@ public class ShapeGroup {
 	
 
 	/**
-	 * Moves this shape group to the front of its parent's list of subgroups.
-	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
-	 *    | getParentGroup() == null
-	 * @post | getParentGroup().getSubgroup(0).equals(this)
-	 * @inspects | this
-	 */
-	public void bringToFront() {
-		if (this.getParentGroup() == null) {
-			throw new IllegalArgumentException("This shapegroup does not have a parent!");
-		}
-		ShapeGroup[] tempSubgroups = new ShapeGroup[this.getParentGroup().getSubgroupCount()];
-		ShapeGroup[] subgroups = this.getParentGroup().subgroups;
-		tempSubgroups[0] = this;
-		int j = 1;
-		for (int i = 0; i < getParentGroup().getSubgroupCount(); i++) {
-			if (!subgroups[i].equals(this)) {
-				tempSubgroups[j] = subgroups[i];
-				j++;
-			}
-		}
-		this.getParentGroup().subgroups = tempSubgroups;
-	}
-
-	/**
-	 * Moves this shape group to the back of its parent's list of subgroups.
-	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
-	 *    | getParentGroup() == null
-	 * @post | getParentGroup().getSubgroup(getParentGroup().getSubgroups().size()-1).equals(this)
-	 * @inspects | this
-	 */
-	public void sendToBack() {
-		if (this.getParentGroup() == null) {
-		throw new IllegalArgumentException("This shapegroup does not have a parent!");
-	}
-		
-		ShapeGroup[] tempSubgroups = new ShapeGroup[this.getParentGroup().getSubgroupCount()];
-		ShapeGroup[] subgroups = this.getParentGroup().subgroups;
-		tempSubgroups[this.getParentGroup().getSubgroupCount()-1] = this;
-		int j = 0;
-		for (int i = 0; i < getParentGroup().getSubgroupCount(); i++) {
-			if (!subgroups[i].equals(this)) {
-				tempSubgroups[j] = subgroups[i];
-				j++;
-			}
-		}
-		this.getParentGroup().subgroups = tempSubgroups;
-	}
-
-	/**
 	 * Returns a textual representation of a sequence of drawing commands for
 	 * drawing the shapes contained directly or indirectly by this shape group,
 	 * expressed in this shape group's outer coordinate system.
@@ -500,13 +451,56 @@ public class NonleafShapeGroup extends ShapeGroup {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
+	/**
+	 * Moves this shape group to the front of its parent's list of subgroups.
+	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
+	 *    | getParentGroup() == null
+	 * @post | getParentGroup().getSubgroup(0).equals(this)
+	 * @inspects | this
+	 */
+	public void bringToFront() {
+		if (this.getParentGroup() == null) {
+			throw new IllegalArgumentException("This shapegroup does not have a parent!");
+		}
+		ShapeGroup[] tempSubgroups = new ShapeGroup[this.getParentGroup().getSubgroupCount()];
+		ShapeGroup[] subgroups = this.getParentGroup().subgroups;
+		tempSubgroups[0] = this;
+		int j = 1;
+		for (int i = 0; i < getParentGroup().getSubgroupCount(); i++) {
+			if (!subgroups[i].equals(this)) {
+				tempSubgroups[j] = subgroups[i];
+				j++;
+			}
+		}
+		this.getParentGroup().subgroups = tempSubgroups;
+	}
+
+	/**
+	 * Moves this shape group to the back of its parent's list of subgroups.
+	 * @throws IllegalArgumentException if the shapeGroup is not part of a subgroup.
+	 *    | getParentGroup() == null
+	 * @post | getParentGroup().getSubgroup(getParentGroup().getSubgroups().size()-1).equals(this)
+	 * @inspects | this
+	 */
+	public void sendToBack() {
+		if (this.getParentGroup() == null) {
+		throw new IllegalArgumentException("This shapegroup does not have a parent!");
+	}
+		
+		ShapeGroup[] tempSubgroups = new ShapeGroup[this.getParentGroup().getSubgroupCount()];
+		ShapeGroup[] subgroups = this.getParentGroup().subgroups;
+		tempSubgroups[this.getParentGroup().getSubgroupCount()-1] = this;
+		int j = 0;
+		for (int i = 0; i < getParentGroup().getSubgroupCount(); i++) {
+			if (!subgroups[i].equals(this)) {
+				tempSubgroups[j] = subgroups[i];
+				j++;
+			}
+		}
+		this.getParentGroup().subgroups = tempSubgroups;
+	}
+
 	
 	
 	
