@@ -1,4 +1,5 @@
 package drawit.shapegroups2;
+import drawit.shapegroups2.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +8,10 @@ import drawit.IntPoint;
 
 public class NonleafShapeGroup extends ShapeGroup{
 	
-	private ShapeGroup firstChild;
-	private ShapeGroup lastChild;
-	private ShapeGroup previousSibling;
-	private ShapeGroup nextSibling;
+	private NonleafShapeGroup firstChild;
+	private NonleafShapeGroup lastChild;
+	private NonleafShapeGroup previousSibling;
+	private NonleafShapeGroup nextSibling;
 
 	/**
 	 * Initializes this object to represent a non-leaf shape group that directly
@@ -23,7 +24,7 @@ public class NonleafShapeGroup extends ShapeGroup{
 	 * @mutates | this
 	 * @inspects | subgroups
 	 */
-	public ShapeGroup(ShapeGroup[] subgroups) {
+	public NonleafShapeGroup(ShapeGroup[] subgroups) {
 		ShapeGroup tempPreviousSibling = null;
 
 		this.firstChild = subgroups[0];
@@ -33,7 +34,7 @@ public class NonleafShapeGroup extends ShapeGroup{
 		int maxY = 0;
 		int minX = 0;
 		int minY = 0;
-		for (ShapeGroup shapeGroup : subgroups) {
+		for (NonleafShapeGroup shapeGroup : subgroups) {
 			if (shapeGroup == null) {
 				throw new IllegalArgumentException("One of the subgroups is null");
 			}

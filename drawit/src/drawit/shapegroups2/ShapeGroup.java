@@ -1,5 +1,5 @@
 package drawit.shapegroups2;
-import drawit.shapegroups2.Extent;
+import drawit.shapegroups2.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,13 +13,13 @@ import drawit.RoundedPolygon;
 
 public class ShapeGroup {
 
-	private Extent ownExtent;
+	protected Extent ownExtent;
 	/**
 	 * @representationObject
 	 * @invar | Arrays.stream(subgroups).allMatch(v -> v != null)
 	 */
-	private ShapeGroup[] subgroups;
-	private Extent originalExtent;
+	protected ShapeGroup[] subgroups;
+	protected Extent originalExtent;
 	
 	/**
 	 * @invar | 0 <= horizontalScale
@@ -32,7 +32,7 @@ public class ShapeGroup {
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
 
-	private ShapeGroup parentGroup;
+	protected ShapeGroup parentGroup;
 
 
 
