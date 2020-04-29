@@ -1,16 +1,14 @@
-package drawit.shapegroups1;
+package drawit.shapes1;
 
-public class ShapeGroupShape {
+import drawit.shapegroups1.ControlPoint;
 
-	public ShapeGroupShape​(drawit.shapegroups1.ShapeGroup group) {
+public class RoundedPolygonShape {
+
+	public RoundedPolygonShape​(drawit.shapegroups1.ShapeGroup parent, drawit.RoundedPolygon polygon) {
 		return null;
 	}
 	
-	public drawit.shapegroups1.ShapeGroup getShapeGroup() {
-		return null;
-	}
-	
-	public drawit.shapegroups1.ShapeGroup getParent() {
+	public drawit.RoundedPolygon getPolygon() {
 		return null;
 	}
 	
@@ -19,6 +17,10 @@ public class ShapeGroupShape {
 	}
 	
 	public String getDrawingCommands() {
+		return null;
+	}
+	
+	public drawit.shapegroups1.ShapeGroup getParent() {
 		return null;
 	}
 	
