@@ -5,7 +5,8 @@ import drawit.RoundedPolygon;
 
 public class LeafShapeGroup extends ShapeGroup {
 
-
+	private RoundedPolygon shape;
+	
 	/**
 	 * Initializes this object to represent a leaf shape group that directly
 	 * contains the given shape.

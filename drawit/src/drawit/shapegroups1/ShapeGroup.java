@@ -1,7 +1,6 @@
 package drawit.shapegroups1;
 import drawit.shapegroups1.Extent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +31,6 @@ public class ShapeGroup {
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
 
-	private RoundedPolygon shape;
 	private ShapeGroup parentGroup;
 
 
@@ -197,9 +195,6 @@ public class ShapeGroup {
 		IntVector innerVector = new IntVector(newX, newY);
 		return innerVector;
 	}
-	
-	
-	
 	
 
 	/**
