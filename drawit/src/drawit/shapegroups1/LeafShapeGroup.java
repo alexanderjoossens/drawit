@@ -1,5 +1,7 @@
 package drawit.shapegroups1;
 
+import java.util.Arrays;
+
 import drawit.IntPoint;
 import drawit.RoundedPolygon;
 
@@ -22,7 +24,7 @@ public class LeafShapeGroup extends ShapeGroup {
      *    | getShape() == shape
      * @inspects | shape
 	 */
-	public ShapeGroup(RoundedPolygon shape) {
+	public LeafShapeGroup(RoundedPolygon shape) {
 		if (shape == null) {
 			throw new IllegalArgumentException("Shape is null");
 		}

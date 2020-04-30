@@ -17,7 +17,7 @@ public class NonleafShapeGroup extends ShapeGroup {
 	 * @mutates | this
 	 * @inspects | subgroups
 	 */
-	public ShapeGroup(ShapeGroup[] subgroups) {
+	public NonleafShapeGroup(ShapeGroup[] subgroups) {
 
 
 		int maxX = 0;
