@@ -12,13 +12,9 @@ import drawit.RoundedPolygon;
 
 public class ShapeGroup {
 
-	private Extent ownExtent;
-	/**
-	 * @representationObject
-	 * @invar | Arrays.stream(subgroups).allMatch(v -> v != null)
-	 */
-	private ShapeGroup[] subgroups;
-	private Extent originalExtent;
+	protected Extent ownExtent;
+
+	protected Extent originalExtent;
 	
 	/**
 	 * @invar | 0 <= horizontalScale
@@ -31,7 +27,7 @@ public class ShapeGroup {
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
 
-	private ShapeGroup parentGroup;
+	protected NonleafShapeGroup parentGroup;
 
 
 
@@ -84,27 +80,11 @@ public class ShapeGroup {
 	 * no shape group directly contains this shape group.
 	 * @inspects | this
 	 */
-	public ShapeGroup getParentGroup() {
+	public NonleafShapeGroup getParentGroup() {
 		return this.parentGroup;
 	}
 
 
-
-	/**
-	 * Returns the list of subgroups of this shape group, or null if this is a leaf
-	 * shape group.
-	 * @inspects | this
-	 * @creates | result
-	 */
-	public java.util.List<ShapeGroup> getSubgroups() {
-		if (this.subgroups == null) {
-			return null;
-		}
-		java.util.List<ShapeGroup> returnValue = Arrays.asList(this.subgroups);
-		return returnValue;
-	}
-	
-	
 	
 	/**
 	 * Returns the coordinates in the global coordinate system of the point whose
@@ -201,32 +181,34 @@ public class ShapeGroup {
 	 * Returns a textual representation of a sequence of drawing commands for
 	 * drawing the shapes contained directly or indirectly by this shape group,
 	 * expressed in this shape group's outer coordinate system.
+	 * 
+	 * TODO deze functie verplaatsen naar de subclasses
 	 */
-	public java.lang.String getDrawingCommands() {
-		StringBuilder commands = new StringBuilder();
-
-		if (this.subgroups == null) {
-
-			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-			commands.append(this.getShape().getDrawingCommands());
-			commands.append("popTransform\n");
-			commands.append("popTransform\n");
-		}
-
-		if (subgroups!=null) {
-			java.util.List<ShapeGroup> subgroups = this.getSubgroups();
-			Collections.reverse(subgroups);
-			for (ShapeGroup subgroup : subgroups) {
-				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-				commands.append(subgroup.getDrawingCommands());
-				commands.append("popTransform\n");
-				commands.append("popTransform\n");
-			}
-		}
-		return commands.toString();
-	} 
+//	public java.lang.String getDrawingCommands() {
+//		StringBuilder commands = new StringBuilder();
+//
+//		if (this.subgroups == null) {
+//
+//			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+//			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+//			commands.append(this.getShape().getDrawingCommands());
+//			commands.append("popTransform\n");
+//			commands.append("popTransform\n");
+//		}
+//
+//		if (subgroups!=null) {
+//			java.util.List<ShapeGroup> subgroups = this.getSubgroups();
+//			Collections.reverse(subgroups);
+//			for (ShapeGroup subgroup : subgroups) {
+//				commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
+//				commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
+//				commands.append(subgroup.getDrawingCommands());
+//				commands.append("popTransform\n");
+//				commands.append("popTransform\n");
+//			}
+//		}
+//		return commands.toString();
+//	} 
 }
 
 

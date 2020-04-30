@@ -1,10 +1,19 @@
 package drawit.shapegroups1;
 
+import java.util.Arrays;
 import java.util.List;
 
 import drawit.IntPoint;
 
 public class NonleafShapeGroup extends ShapeGroup {
+	
+	/**
+	 * @representationObject
+	 * @invar | Arrays.stream(subgroups).allMatch(v -> v != null)
+	 */
+	private ShapeGroup[] subgroups;
+	
+	
 
 	/**
 	 * Initializes this object to represent a non-leaf shape group that directly
@@ -29,7 +38,7 @@ public class NonleafShapeGroup extends ShapeGroup {
 				throw new IllegalArgumentException("One of the subgroups is null");
 			}
 	
-			shapeGroup.parentGroup = this;
+			super.parentGroup = this;
 			
 			Extent extent = shapeGroup.getExtent();
 			if (maxX == 0 && maxY == 0 && minX == 0 && minY == 0) {
@@ -47,25 +56,39 @@ public class NonleafShapeGroup extends ShapeGroup {
 		}
 
 		Extent extent = Extent.ofLeftTopRightBottom(minX, minY, maxX, maxY);
-		this.originalExtent = extent;
-		this.ownExtent = extent;
+		super.originalExtent = extent;
+		super.ownExtent = extent;
 		this.subgroups = subgroups;
+	}
+	
+	/**
+	 * Returns the list of subgroups of this shape group, or null if this is a leaf
+	 * shape group.
+	 * @inspects | this
+	 * @creates | result
+	 */
+	public java.util.List<ShapeGroup> getSubgroups() {
+		if (this.subgroups == null) {
+			return null;
+		}
+		java.util.List<ShapeGroup> returnValue = Arrays.asList(this.subgroups);
+		return returnValue;
 	}
 	
 	/**
 	 * Returns the number of subgroups of this non-leaf shape group.
 	 * @inspects | this
-	 * @throws IllegalArgumentException if the given shape is a leaf group.
-	 *    | getShape() != null
+//	 * @throws IllegalArgumentException if the given shape is a leaf group.
+//	 *    | getShape() != null
 	 */
 
 	public int getSubgroupCount() {
-		if (this.getShape() != null) {
-			throw new IllegalArgumentException("This shapegroup is a leaf group");
-		}
-		else {
-			return this.subgroups.length;
-		}
+//		if (this.getShape() != null) {
+//			throw new IllegalArgumentException("This shapegroup is a leaf group");
+//		}
+		
+		return this.subgroups.length;
+		
 	}
 
 
@@ -87,7 +110,6 @@ public class NonleafShapeGroup extends ShapeGroup {
 	}
 	
 	
-
 	/**
 	 * Return the first subgroup in this non-leaf shape group's list of subgroups
 	 * whose extent contains the given point, expressed in this shape group's inner
@@ -99,16 +121,16 @@ public class NonleafShapeGroup extends ShapeGroup {
 	 * @creates | result
 	 * @throws IllegalArgumentException if the given coordinates are null.
 	 *    | innerCoordinates == null
-	 * @throws IllegalArgumentException if the given shape is a leaf group.
-	 *    | this.getShape() != null
+//	 * @throws IllegalArgumentException if the given shape is a leaf group.
+//	 *    | this.getShape() != null
 	 */
 	public ShapeGroup getSubgroupAt(IntPoint innerCoordinates) {
 		if (innerCoordinates == null) {
 			throw new IllegalArgumentException("Coordinates are null");
 		}
-		if (this.getShape() != null) {
-			throw new IllegalArgumentException("This shapegroup is a leaf group");
-		}
+//		if (this.getShape() != null) {
+//			throw new IllegalArgumentException("This shapegroup is a leaf group");
+//		}
 		List<ShapeGroup> subgroups = this.getSubgroups() ;
 		
 		for (int i=0; i<this.getSubgroupCount();i++) {
@@ -117,9 +139,7 @@ public class NonleafShapeGroup extends ShapeGroup {
 			}
 		}
 		return null;
-	}
-	
-	
+	}	
 	
 
 	/**
@@ -133,8 +153,8 @@ public class NonleafShapeGroup extends ShapeGroup {
 		if (this.getParentGroup() == null) {
 			throw new IllegalArgumentException("This shapegroup does not have a parent!");
 		}
-		ShapeGroup[] tempSubgroups = new ShapeGroup[this.getParentGroup().getSubgroupCount()];
-		ShapeGroup[] subgroups = this.getParentGroup().subgroups;
+		ShapeGroup[] tempSubgroups = new ShapeGroup[((NonleafShapeGroup) this.getParentGroup()).getSubgroupCount()];
+		ShapeGroup[] subgroups = ((NonleafShapeGroup) this.getParentGroup()).subgroups;
 		tempSubgroups[0] = this;
 		int j = 1;
 		for (int i = 0; i < getParentGroup().getSubgroupCount(); i++) {
