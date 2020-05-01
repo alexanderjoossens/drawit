@@ -27,7 +27,7 @@ public class ShapeGroup {
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
 
-	protected NonleafShapeGroup parentGroup;
+	protected NonleafShapeGroup parent;
 
 
 
