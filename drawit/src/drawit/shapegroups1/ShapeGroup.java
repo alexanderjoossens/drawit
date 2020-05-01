@@ -12,7 +12,7 @@ import drawit.RoundedPolygon;
 
 public class ShapeGroup {
 
-	protected Extent ownExtent;
+	protected Extent currentExtent;
 
 	protected Extent originalExtent;
 	
@@ -33,56 +33,64 @@ public class ShapeGroup {
 
 	/**
 	 * Registers the given extent as this shape group's extent, expressed in this
-	 * shape group's outer coordinate system.
+	 * shape group's outer coordinate system. As a consequence, by definition this shape group's
+	 * inner coordinate system changes so that the new extent's coordinates in the new inner
+	 * coordinate system are equal to the old extent's coordinates in the old inner
+	 * coordinate system. Note: this method does not mutate the coordinates of the vertices
+	 * stored by the shape or the extents stored by the subgroups contained by this shape group.
+	 * However, since these are interpreted in this shape group's inner coordinate system, this
+	 * method effectively defines a transformation of this shape or these subgroups.
 	 * 
-	 * @param newExtent
-	 * The new extent of the shapegroup
-	 * @throws IllegalArgumentException if the extent is null.
+	 * @throws IllegalArgumentException if {@code newExtent} is null
 	 *    | newExtent == null
-	 * @mutates | this
-	 * @post This object's extent equals the given extent
-     *    | getExtent() == newExtent
-     * @inspects | newExtent
+	 * @mutates_properties | getExtent()
+	 * @post | getExtent().equals(newExtent)
 	 */
 	public void setExtent(Extent newExtent) {
-		if (newExtent == null) {
-			throw new IllegalArgumentException("The given extent is null!");
-		}
-		this.ownExtent = newExtent;
-
-		this.horizontalScale = ((double) newExtent.getWidth() / (double) this.getOriginalExtent().getWidth());
-		this.verticalScale = ((double) newExtent.getHeight() / (double) this.getOriginalExtent().getHeight());
-		this.horizontalTranslation = (int)(newExtent.getLeft() - getOriginalExtent().getLeft()*this.horizontalScale);
-		this.verticalTranslation = (int)(newExtent.getTop() - getOriginalExtent().getTop()*this.verticalScale);
+		currentExtent = newExtent;
 	}
 
 	/**
-	 * Returns the extent of this shape group, expressed in its outer coordinate
-	 * system.
-	 * @inspects | this
+	 * Returns the extent of this shape group, expressed in its outer coordinate system.
+	 * The extent of a shape group is the smallest axis-aligned rectangle that contained
+	 * the shape group's shape (if it is a leaf shape group) or its subgroups' extents
+	 * (if it is a non-leaf shape group) when the shape group was created. After the shape
+	 * group is created, subsequent mutations of the shape or subgroups contained by the shape
+	 * group do not affect its extent. As a result, after mutating the shape or subgroups contained
+	 * by this shape group, this shape group's extent might no longer contain its shape or its subgroups
+	 * or might no longer be the smallest axis-aligned rectangle that does so.
+	 *
+	 * @basic
+	 * @post | result != null
 	 */
 	public Extent getExtent() {
-		return this.ownExtent;
+		return currentExtent;
 	}
 
 	/**
-	 * Returns the extent of this shape group, expressed in its inner coordinate
-	 * system.
-	 * @inspects | this
+	 * Returns the extent of this shape group, expressed in its inner coordinate system.
+	 * This coincides with the extent expressed in outer coordinates at the time of
+	 * creation of the shape group. The shape transformation defined by this shape group is the one
+	 * that transforms the original extent to the current extent.
+	 * 
+	 * This method returns an equal result throughout the lifetime of this object.
+	 * 
+	 * @immutable
+	 * @post | result != null
 	 */
 	public Extent getOriginalExtent() {
-		return this.originalExtent;
+		return originalExtent;
 	}
 
 
 	/**
-	 * Returns the shape group that directly contains this shape group, or null if
-	 * no shape group directly contains this shape group.
-	 * @inspects | this
+	 * Returns the shape group that directly contains this shape group, or {@code null}
+	 * if no shape group directly contains this shape group.
+	 * 
+	 * @basic
+	 * @peerObject
 	 */
-	public NonleafShapeGroup getParentGroup() {
-		return this.parentGroup;
-	}
+	public ShapeGroup getParentGroup() { return parent; }
 
 
 	
