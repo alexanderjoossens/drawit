@@ -1,43 +1,31 @@
 package drawit;
 
 public class DoublePoint {
-
+	
 	private final double x;
 	private final double y;
-
+	
 	public DoublePoint(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
-
-	public double getX() {
-		return this.x;
-	}
-
-	public double getY() {
-		return this.y;
-	}
+	
+	public double getX() { return x; }
+	public double getY() { return y; }
 
 	public DoublePoint plus(DoubleVector other) {
-		double xCoord = this.x + other.getX();
-		double yCoord = this.y + other.getY();
-		DoublePoint point = new DoublePoint(xCoord, yCoord);
-		return point;
+		return new DoublePoint(this.x + other.getX(), this.y + other.getY());
 	}
 
 	public DoubleVector minus(DoublePoint other) {
-		double xCoord = this.x - other.getX();
-		double yCoord = this.y - other.getY();
-		DoubleVector vector = new DoubleVector(xCoord, yCoord);
-		return vector;
+		return new DoubleVector(this.x - other.x, this.y - other.y);
 	}
 
+	/**
+	 * Returns an {@code IntPoint} object whose coordinates are obtained by rounding the coordinates of this point to the nearest integer.
+	 */
 	public IntPoint round() {
-		int xCoord = (int) Math.round(this.x);
-		int yCoord = (int) Math.round(this.y);
-		IntPoint point = new IntPoint(xCoord, yCoord);
-		return point;
-
+		return new IntPoint((int)Math.round(this.x), (int)Math.round(this.y));
 	}
-	
+
 }

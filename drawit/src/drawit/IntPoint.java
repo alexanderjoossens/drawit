@@ -1,224 +1,142 @@
 package drawit;
 
 /**
- * An immutable abstraction for a point in the two-dimensional plane with int
- * coordinates.
+ * An immutable abstraction for a point in the two-dimensional plane with {@code int} coordinates.
  * 
- * @author Alexander and Stefan
  * @immutable
  */
 public class IntPoint {
-
-	/**
-	 * @param x The X coordinate of the point.
-	 * @param y The Y coordinate of the point
-	 * @pre Argument {@code x} is not {@code null}. | x != null
-	 * @pre Argument {@code y} is not {@code null}. | y != null
-	 */
+	
 	private final int x;
 	private final int y;
 
+	/** Returns this point's X coordinate. */
+	public int getX() { return x; }
+	/** Returns this point's Y coordinate. */
+	public int getY() { return y; }
+	
+	/** Returns {@code true} if this point has the same coordinates as the given point; returns {@code false} otherwise.
+	 * 
+	 * @pre | other != null
+	 * @post | result == (this.getX() == other.getX() && this.getY() == other.getY()) 
+	 */
+	public boolean equals(IntPoint other) {
+		return other.x == x && other.y == y;
+	}
+	
 	/**
-	 * @param x The X coordinate of the point.
-	 * @param y The Y coordinate of the point
+	 * Returns whether {@code p1} and {@code p2} are either both {@code null} or equal points.
+	 * 
+	 * @post | result == (p1 == p2 || p1 != null && p2 != null && p1.equals(p2)) 
+	 */
+	public static boolean equals(IntPoint p1, IntPoint p2) {
+		return
+				p1 == p2 ||
+				p1 != null && p2 != null &&
+				p1.equals(p2);
+	}
+	
+	/** Initializes this point with the given coordinates.
+	 * 
 	 * @mutates | this
-	 * @post the new X coordinate of the point is equal to the given X coordinate. 
-	 * | getX() == x
-	 * @post the new Y coordinate of the point is equal to the given Y coordinate. 
-	 * | getY() == y
+	 * @post | getX() == x
+	 * @post | getY() == y
 	 */
 	public IntPoint(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-
-	/**
-	 * Returns this point's X coordinate.
+	
+	/** Returns an {@code IntVector} object representing the displacement from {@code other} to {@code this}.
 	 * 
-	 * @return | this.x
-	 * @creates result
-	 * @inspects | this
-	 */
-	public int getX() {
-		return this.x;
-	}
-
-	/**
-	 * Returns this point's Y coordinate.
-	 * 
-	 * @return | this.y
-	 * @creates result
-	 * @inspects | this
-	 */
-	public int getY() {
-		return this.y;
-	}
-
-	/**
-	 * Returns true if this point has the same coordinates as the given point;
-	 * returns false otherwise.
-	 * 
-	 * @param other The other IntPoint.
-	 * @pre Argument {@code other} is not {@code null}. | other != null
-	 * @inspects | other
-	 * @return True if and only if this point has the same coordinates as the given
-	 *         point. result == ( (this.x == other.getX()) && (this.y ==
-	 *         other.getY()) )
-	 * @creates result
-	 */
-	public boolean equals(IntPoint other) {
-		boolean result = ((this.getX() == other.getX()) && (this.getY() == other.getY()));
-		return result;
-	}
-
-	/**
-	 * Returns a DoublePoint object that represents the same 2D point represented by
-	 * this IntPoint object.
-	 * 
-//	 * @post a new object of type DoublePoint was made. | point == DoublePoint  // deze moet met command equals ofzoiets
-	 * @inspects | this
-	 */
-	public DoublePoint asDoublePoint() {
-		DoublePoint point = new DoublePoint(this.getX(), this.getY());
-		return point;
-	}
-
-	/**
-	 * Returns true iff this point is on open line segment bc. An open line segment
-	 * does not include its endpoints. Returns false otherwise.
-	 * 
-	 * @param b The IntPoint b.
-	 * @param c The IntPoint c.
-	 * @pre Argument {@code b} is not {@code null}. | b != null
-	 * @pre Argument {@code c} is not {@code null}. | c != null
-	 * @return True if and only if this point is on the open line segment bc.
-	 * @inspects | b
-	 * @inspects | c
-	 */
-	public boolean isOnLineSegment(IntPoint b, IntPoint c) {
-		IntVector BA = new IntVector(this.getX() - b.getX(), this.getY() - b.getY());
-		IntVector BC = new IntVector(c.getX() - b.getX(), c.getY() - b.getY());
-		
-		if (BA.isCollinearWith(BC)) {
-			long dotproductVectors = BA.dotProduct(BC);
-			if (0 < dotproductVectors && dotproductVectors < BC.dotProduct(BC)) {
-				return true;
-			}
-			
-		}
-		
-		return false;
+	 * @pre | other != null
+	 * @post | result != null
+	 * @post | result.getX() == this.getX() - other.getX()
+	 * @post | result.getY() == this.getY() - other.getY()
+	 */ 
+	public IntVector minus(IntPoint other) {
+		return new IntVector(x - other.x, y - other.y);
 	}
 	
 	/**
-	 * Checks whether the given points follow in a counterclockwise order if we
-	 * connect the points together.
+	 * Returns true iff this point is on open line segment {@code bc}.
+	 * An open line segment does not include its endpoints.
 	 * 
-	 * @param a The IntPoint a.
-	 * @param b The IntPoint b.
-	 * @param c The IntPoint c.
-	 * @pre Argument {@code a} is not {@code null}. | a != null
-	 * @pre Argument {@code b} is not {@code null}. | b != null
-	 * @pre Argument {@code c} is not {@code null}. | c != null
-	 * @post | result == (((c.getY() - a.getY()) * (b.getX() - a.getX())) > ((b.getY() - a.getY()) * (c.getX() - a.getX())))
+	 * <p><b>Implementation hints:</b> Call this point {@code a}. First check if {@code ba} is collinear with {@code bc}. If not, return {@code false}.
+	 * Then check that the dot product of {@code ba} and {@code bc} is between zero and the dot product of {@code bc} and {@code bc}.
+	 * 
+	 * @pre | b != null
+	 * @pre | 0 <= b.getX() && b.getX() <= 10000 && 0 <= b.getY() && b.getY() <= 10000 
+	 * @pre | c != null
+	 * @pre | 0 <= c.getX() && c.getX() <= 10000 && 0 <= c.getY() && c.getY() <= 10000
+	 * @post
+	 *    | result == (
+	 *    |   this.minus(b).isCollinearWith(c.minus(b)) &&
+	 *    |   0 < this.minus(b).dotProduct(c.minus(b)) &&
+	 *    |   this.minus(b).dotProduct(c.minus(b)) < c.minus(b).dotProduct(c.minus(b))
+	 *    | ) 
 	 */
-	private static boolean isCounterClockWise(IntPoint a, IntPoint b, IntPoint c) {
-		return (c.getY() - a.getY()) * (b.getX() - a.getX()) > (b.getY() - a.getY()) * (c.getX() - a.getX());
-
+	public boolean isOnLineSegment(IntPoint b, IntPoint c) {
+		IntPoint a = this;
+		// Is it on the carrier?
+		IntVector bc = c.minus(b);
+		IntVector ba = a.minus(b);
+		if (!ba.isCollinearWith(bc))
+			return false;
+		long dotProduct = ba.dotProduct(bc);
+		return 0 < dotProduct && dotProduct < bc.dotProduct(bc);
+	}
+	
+	/**
+	 * Returns a {@code DoublePoint} object that represents the same 2D point represented by this {@code IntPoint} object.
+	 * 
+	 * @post | result != null
+	 * @post | result.getX() == this.getX()
+	 * @post | result.getY() == this.getY()
+	 */
+	public DoublePoint asDoublePoint() {
+		return new DoublePoint(this.x, this.y);
 	}
 
-	/**
-	 * Returns true if the open line segment ab intersects the open line segment cd.
+	/** Returns an {@code IntPoint} object representing the point obtained by displacing this point by the given vector.
 	 * 
-	 * @param a The IntPoint a.
-	 * @param b The IntPoint b.
-	 * @param c The IntPoint c.
-	 * @param d The IntPoint d.
-	 * @pre Argument {@code a} is not {@code null}. | a != null
-	 * @pre Argument {@code b} is not {@code null}. | b != null
-	 * @pre Argument {@code c} is not {@code null}. | c != null
-	 * @pre Argument {@code d} is not {@code null}. | d != null
+	 * @pre | vector != null
+	 * @post | result != null
+	 * @post | result.getX() == this.getX() + vector.getX()
+	 * @post | result.getY() == this.getY() + vector.getY() 
+	 */
+	public IntPoint plus(IntVector vector) {
+		return new IntPoint(this.x + vector.getX(), this.y + vector.getY());
+	}
+	
+	/**
+	 * Returns true iff the open line segment {@code ab} intersects the open line segment {@code cd}.
+	 * 
+	 * <p><b>Implementation Hints:</b> Assume the precondition holds. Then {@code ab} intersects {@code cd} if and only if {@code ab} straddles the carrier of {@code cd} and
+	 * {@code cd} straddles the carrier of {@code ab}. Two points straddle a line if they are on opposite sides of the line. 
+	 * 
+	 * <p>Specifically, {@code cd} straddles the carrier of {@code ab} iff (the signum of the cross product of {@code ac} and {@code ab}) times
+     * (the signum of the cross product of {@code ad} and {@code ab}) is negative. 
+     * 
+     * <p>The signum of a number {@code x} is -1 if {@code x} is negative, 0 if {@code x} is zero, and {@code 1} otherwise. See {@link Math#signum(double)}.
+	 * 
+	 * @pre | a != null
+	 * @pre | b != null
+	 * @pre | c != null
+	 * @pre | d != null
+	 * @pre The line segments have at most one point in common.
 	 */
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
-		if (a.equals(d) || b.equals(c)) {
+		// Check if cd straddles the carrier of ab and ab straddles the carrier of cd
+		IntVector ab = b.minus(a);
+		if (Math.signum(c.minus(a).crossProduct(ab)) * Math.signum(d.minus(a).crossProduct(ab)) < 0) {
+			// cd straddles the carrier of ab
+			
+			IntVector cd = d.minus(c);
+			return Math.signum(a.minus(c).crossProduct(cd)) * Math.signum(b.minus(c).crossProduct(cd)) < 0;
+			
+		} else
 			return false;
-		}
-		return isCounterClockWise(a, c, d) != isCounterClockWise(b, c, d)
-				&& isCounterClockWise(a, b, c) != isCounterClockWise(a, b, d);
 	}
-
-	/**
-	 * Returns an IntVector object representing the displacement from other to this.
-	 * @pre Argument {@code other} is not {@code null}. 
-	 * 		| other != null
-	 * @post the resulting vector is the difference of the given 2 vectors. 
-	 * 		 | result.getX() == (this.getX() - other.getX()) && result.getY() == (this.getY() - other.getY())
-	 * @inspects | other
-	 * @creates result
-	 * @post The result is not {@code null} | result != null
-	 */
-	public IntVector minus(IntPoint other) {
-
-		int xCoord = this.getX() - other.getX();
-		int yCoord = this.getY() - other.getY();
-		IntVector vector = new IntVector(xCoord, yCoord);
-		return vector;
-	}
-
-	/**
-	 * Returns an IntPoint object representing the point obtained by displacing this
-	 * point by the given vector.
-	 * 
-	 * @pre Argument {@code other} is not {@code null}. 
-	 * 		| other != null
-	 * @inspects | other
-	 * @post the resulting point is the point obtained by displacing this point by
-	 *       the given vector.
-	 *       | result.getX() == this.getX() + other.getX() && result.getY() == this.getY() + other.getY()
-	 * @creates result
-	 * @post The result is not {@code null} | result != null
-	 */
-	public IntPoint plus(IntVector other) {
-		int xCoord = this.getX() + other.getX();
-		int yCoord = this.getY() + other.getY();
-		IntPoint point = new IntPoint(xCoord, yCoord);
-		return point;
-	}
-
-	/**
-	 * Returns true if the exitpath of this point intersects with the open
-	 * linesegment defined by connecting point a and b. The exitpath is defined by
-	 * the line from the given point in the positive X direction. Returns false
-	 * otherwise.
-	 * 
-	 * @param a The IntPoint a.
-	 * @param b The IntPoint b.
-	 * @param d The IntPoint d.
-	 * @pre Argument {@code a} is not {@code null}. | a != null
-	 * @pre Argument {@code b} is not {@code null}. | b != null
-	 * @return True if and only if the exitpath of this point intersects with the
-	 *         open linesegment defined by connecting point a and b.
-	 * @creates result
-	 * @inspects | a
-	 * @inspects | b
-	 */
-	public boolean exitPathIntersect(IntPoint a, IntPoint b) {
-		if (a.getX() == b.getX()) {
-			if (((a.getY() < this.getY() && this.getY() < b.getY())
-					|| (b.getY() < this.getY() && this.getY() < a.getY())) && this.getX() < a.getX()) {
-				return true;
-			}
-			return false;
-
-		}
-		double rico = ((double) (b.getY() - a.getY())) / ((double) (b.getX() - a.getX()));
-		double function = ((double) (this.getY() - b.getY()) / rico) + (double) b.getX();
-
-		if (((a.getX() < function && function < b.getX()) || (b.getX() < function && function < a.getX()))
-				&& this.getY() != a.getY() && this.getY() != b.getY() && this.getX() < function) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	
 }

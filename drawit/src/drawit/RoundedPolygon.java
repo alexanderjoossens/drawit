@@ -1,125 +1,293 @@
 package drawit;
 
-import java.awt.Color;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
- * An instance of this class is a mutable abstraction storing a rounded polygon
- * defined by a set of 2D points with integer coordinates and a nonnegative
- * corner radius.
+ * An instance of this class is a mutable abstraction storing a rounded polygon defined by a set of 2D points with integer coordinates
+ * and a nonnegative corner radius.
  * 
- * @author Alexander and Stefan
- * @invar This object's radius is positive | getRadius() >= 0
+ * @invar | getVertices() != null
+ * @invar | Arrays.stream(getVertices()).allMatch(v -> v != null)
+ * @invar | PointArrays.checkDefinesProperPolygon(getVertices()) == null
+ * @invar | 0 <= getRadius()
  */
 public class RoundedPolygon {
-
-	/**
-	 * @invar | radius >= 0
-	 */
-	private int radius;
-	private IntPoint[] points;
-	private Color color;
 	
-	public RoundedPolygon() {
-		IntPoint point1 = new IntPoint(0, 0);
-		IntPoint point2 = new IntPoint(100, 0);
-		IntPoint point3 = new IntPoint(100, 100);
-		IntPoint point4 = new IntPoint(0, 100);
-		IntPoint[] vertices = { point1, point2, point3, point4 };
-		this.radius = 0;
-		this.points = vertices;
-		this.color = Color.yellow;
+	/**
+	 * @representationObject
+	 * @invar | vertices != null
+	 * @invar | Arrays.stream(vertices).allMatch(v -> v != null)
+	 * @invar | PointArrays.checkDefinesProperPolygon(vertices) == null
+	 * @invar | 0 <= radius
+	 */
+	private IntPoint[] vertices = new IntPoint[0];
+	private int radius;
+	
+	/**
+	 * Returns a new array whose elements are the vertices of this rounded polygon.
+	 * 
+	 * @creates | result
+	 */
+	public IntPoint[] getVertices() {
+		return PointArrays.copy(vertices);
 	}
+	
+	/**
+	 * Returns the radius of the corners of this rounded polygon.
+	 */
+	public int getRadius() { return radius; }
 
 	/**
-	 * Returns true if the given point is contained by the (non-rounded) polygon
-	 * defined by this rounded polygon's vertices. This method does not take into
-	 * account this rounded polygon's corner radius; it assumes a corner radius of
-	 * zero.
+	 * @mutates | this
+	 * @post | getVertices().length == 0
+	 * @post | getRadius() == 0
+	 */
+	public RoundedPolygon() {}
+	
+	/**
+	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
 	 * 
-	 * A point is contained by a polygon if it coincides with one of its vertices,
-	 * or if it is on one of its edges, or if it is in the polygon's interior.
+	 * @throws IllegalArgumentException
+	 *    | newVertices == null
+	 * @throws IllegalArgumentException
+	 *    | Arrays.stream(newVertices).anyMatch(v -> v == null)
+	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon.
+	 *    | PointArrays.checkDefinesProperPolygon(newVertices) != null
+	 * @inspects | newVertices
+	 * @mutates | this
+	 * @post | PointArrays.equals(getVertices(), newVertices)
+	 */
+	public void setVertices(IntPoint[] newVertices) {
+		if (newVertices == null)
+			throw new IllegalArgumentException("newVertices is null");
+		if (Arrays.stream(newVertices).anyMatch(v -> v == null))
+			throw new IllegalArgumentException("An element of newVertices is null");
+		IntPoint[] copy = PointArrays.copy(newVertices);
+		String msg = PointArrays.checkDefinesProperPolygon(copy);
+		if (msg != null)
+			throw new IllegalArgumentException(msg);
+		vertices = copy;
+	}
+	
+	/**
+	 * Sets this rounded polygon's corner radius to the given value. 
 	 * 
-	 * @param point
-	 * The point to check if it is in the polygon.
+	 * @throws IllegalArgumentException if the given radius is negative.
+	 *    | radius < 0
+	 * @mutates | this
+	 * @post | PointArrays.equals(getVertices(), old(getVertices()))
+	 * @post | getRadius() == radius
+	 */
+	public void setRadius(int radius) {
+		if (radius < 0)
+			throw new IllegalArgumentException("The given radius is negative");
+		this.radius = radius;
+	}
+	
+	/**
+	 * @throws IllegalArgumentException
+	 *    | !(0 <= index && index <= getVertices().length)
+	 * @throws IllegalArgumentException
+	 *    | point == null
+	 * @throws IllegalArgumentException
+	 *    | PointArrays.checkDefinesProperPolygon(PointArrays.insert(getVertices(), index, point)) != null
+	 * @mutates | this
+	 * @post | PointArrays.equals(getVertices(), PointArrays.insert(old(getVertices()), index, point))
+	 * @post | getRadius() == old(getRadius())
+	 */
+	public void insert(int index, IntPoint point) {
+		if (!(0 <= index && index <= getVertices().length))
+			throw new IllegalArgumentException("index out of range");
+		if (point == null)
+			throw new IllegalArgumentException("point is null");
+		setVertices(PointArrays.insert(vertices, index, point));
+	}
+	
+	/**
+	 * @throws IllegalArgumentException
+	 *    | !(0 <= index && index < getVertices().length)
+	 * @throws IllegalArgumentException
+	 *    | PointArrays.checkDefinesProperPolygon(PointArrays.remove(getVertices(), index)) != null
+	 * @mutates | this
+	 * @post | PointArrays.equals(getVertices(), PointArrays.remove(old(getVertices()), index))
+	 * @post | getRadius() == old(getRadius())
+	 */
+	public void remove(int index) {
+		if (!(0 <= index && index < getVertices().length))
+			throw new IllegalArgumentException("index out of range");
+		setVertices(PointArrays.remove(vertices, index));
+	}
+	
+	/**
+	 * @throws IllegalArgumentException
+	 *    | !(0 <= index && index < getVertices().length)
+	 * @throws IllegalArgumentExeption
+	 *    | point == null
+	 * @throws IllegalArgumentException
+	 *    | PointArrays.checkDefinesProperPolygon(PointArrays.update(getVertices(), index, point)) != null
+	 * @mutates | this
+	 * @post | PointArrays.equals(getVertices(), PointArrays.update(old(getVertices()), index, point))
+	 * @post | getRadius() == old(getRadius())
+	 */
+	public void update(int index, IntPoint point) {
+		if (!(0 <= index && index < getVertices().length))
+			throw new IllegalArgumentException("index out of range");
+		if (point == null)
+			throw new IllegalArgumentException("point is null");
+		setVertices(PointArrays.update(vertices, index, point));
+	}
+	
+	/**
+	 * Returns {@code true} iff the given point is contained by the (non-rounded) polygon defined by this rounded polygon's vertices.
+	 * This method does not take into account this rounded polygon's corner radius; it assumes a corner radius of zero.
+	 * 
+	 * <p>A point is contained by a polygon if it coincides with one of its vertices, or if it is on one of its edges, or if it is in the polygon's interior.
+	 * 
+	 * <p><b>Implementation hints:</b> A point is in the interior of a polygon if
+	 * a line from that point to infinity in any direction (an "exit path" for the point) intersects with the polygon's perimeter an odd number of times.
+	 * 
+	 * <p>Use the line from the given point in the positive X direction as the exit path.
+	 * 
+	 * <p>First, find the first vertex that is not on the exit path.
+	 * If you don't find such a vertex, return {@code false}.
+	 * 
+	 * <p>Now, starting with this vertex, V, find the next vertex, V', that is not on the exit path.
+	 * If there are no vertices on the exit path between V and V', then check if the edge VV' intersects with the exit path:
+	 * check that VV' straddles the carrier of the exit path and that (the signum of the cross product of VP and VV') times (the signum of the cross
+	 * product of +X and VV') is negative.
+	 * If there are vertices on the exit path between V and V', then count one intersection between the exit path and the polygon's perimeter iff
+	 * VV' straddles the carrier of the exit path.
+	 * 
+	 * <p>Repeat this until you again reach the first vertex that is not on the exit path.
+	 * 
+	 * @pre | point != null
 	 * @inspects | this
-	 * @throws IllegalArgumentException if the point is null. | point == null
+	 * @mutates nothing |
 	 */
 	public boolean contains(IntPoint point) {
-		if (point == null) {
-			throw new IllegalArgumentException("The point equals null");
-		}
-
-		for (int i = 0; i < this.points.length; i++) {
-			if (this.points[i].equals(point)) {
-				return true;
+		// We call the half-line extending from `point` to the right the "exit path"
+		// Find first vertex that is not on the exit path
+		int firstVertex;
+		{
+			int i = 0;
+			for (;;) {
+				if (i == vertices.length) // Zero or one vertices
+					return false;
+				if (vertices[i].equals(point))
+					return true;
+				if (!(vertices[i].getY() == point.getY() && vertices[i].getX() > point.getX()))
+					break;
+				i++;
 			}
+			firstVertex = i;
 		}
-		if (point.isOnLineSegment(this.points[0], this.points[this.points.length - 1])) {
-
-			return true;
-		}
-		for (int i = 0; i < points.length - 1; i++) {
-			if (point.isOnLineSegment(this.points[i], this.points[i + 1])) {
-
-				return true;
+		IntVector exitVector = new IntVector(1, 0);
+		// Count how many times the exit path crosses the polygon
+		int nbEdgeCrossings = 0;
+		for (int index = firstVertex; ; ) {
+			IntPoint a = vertices[index];
+			// Find the next vertex that is not on the exit path
+			boolean onExitPath = false;
+			int nextIndex = index;
+			IntPoint b;
+			for (;;) {
+				int nextNextIndex = (nextIndex + 1) % vertices.length;
+				if (point.isOnLineSegment(vertices[nextIndex], vertices[nextNextIndex]))
+					return true;
+				nextIndex = nextNextIndex;
+				b = vertices[nextIndex];
+				if (b.equals(point))
+					return true;
+				if (b.getY() == point.getY() && b.getX() > point.getX()) {
+					onExitPath = true;
+					continue;
+				}
+				break;
 			}
-		}
-
-		int intersectAmount = 0;
-
-		for (int i = 0; i < this.points.length; i++) {
-			if (this.points[i].getX() > point.getX() && this.points[i].getY() == point.getY()) {
-
-				intersectAmount++;
+			if (onExitPath) {
+				if ((b.getY() < point.getY()) != (a.getY() < point.getY()))
+					nbEdgeCrossings++;
+			} else {
+				// Does `ab` straddle the exit path's carrier?
+				if (Math.signum(a.getY() - point.getY()) * Math.signum(b.getY() - point.getY()) < 0) {
+					// Does the exit path straddle `ab`'s carrier?
+					IntVector ab = b.minus(a);
+					if (Math.signum(point.minus(a).crossProduct(ab)) * Math.signum(exitVector.crossProduct(ab)) < 0)
+						nbEdgeCrossings++;
+				}
 			}
+			if (nextIndex == firstVertex)
+				break;
+			index = nextIndex;
 		}
-		if (point.exitPathIntersect(this.points[0], this.points[points.length - 1])) {
-			intersectAmount++;
-		}
-		for (int i = 0; i < this.points.length - 1; i++) {
-			boolean intersectsExitPath = point.exitPathIntersect(this.points[i], this.points[i + 1]);
-			if (intersectsExitPath) {
-
-				intersectAmount++;
-			}
-		}
-
-		if ((intersectAmount % 2) == 0) {
-			return false;
-		}
-
-		return true;
-
+		return nbEdgeCrossings % 2 == 1;
 	}
-	
-	/** Returns the color of this rounder polygon.
-	 * @inspects	|	this
-	 */
-	public java.awt.Color getColor() {
-		return this.color;
-	}
-	
-	/**	Sets the color of this rounded polygon to the given color.
-	 * @mutates		|	this
-	 */
-	public void setColor(java.awt.Color color) {
-		this.color = color;
-	}
-
+		
 	/**
-	 * Returns a textual representation of a set of drawing commands for drawing
-	 * this rounded polygon.
+	 * Returns a textual representation of a set of drawing commands for drawing this rounded polygon.
+	 * 
+	 * <p>The returned text consists of a sequence of drawing operators and arguments, separated by spaces. The drawing operators are
+	 * {@code line} and {@code arc}. Each argument is a decimal representation
+	 * of a floating-point number.
+	 * 
+	 * <p>Operator {@code line} takes four arguments: X1 Y1 X2 Y2; it draws a line between (X1, Y1) and (X2, Y2).
+	 * {@code arc} takes five: X Y R S E.
+	 * It draws a part of a circle. The circle is defined by its center (X, Y) and its radius R. The part to draw is defined by the start angle A
+	 * and angle extent E, both in radians. Positive X is angle zero; positive Y is angle {@code Math.PI / 2}; negative Y is angle {@code -Math.PI / 2}.
+	 * 
+	 * <p>For example, the following commands draw a rounded square with corner radius 10:
+	 * <pre>
+     * line 110 100 190 100 
+	 * arc 190 110 10 -1.5707963267948966 1.5707963267948966 
+	 * line 200 110 200 190 
+	 * arc 190 190 10 0 1.5707963267948966 
+	 * line 190 200 110 200 
+	 * arc 110 190 10 1.5707963267948966 1.5707963267948966
+	 * line 100 190 100 110
+	 * arc 110 110 10 3.141592653589793 1.5707963267948966
+	 * </pre>
+	 * 
+	 * <p>By rounding a corner, the adjacent edges are cut short by some amount.
+	 * The corner radius to be used for a particular corner is the largest radius that is not greater than this rounded polygon's corner radius
+	 * and that is such that no more than half of each adjacent edge is cut off by it.
+	 * 
+	 * <p><b>Implementation hints:</b>
+	 * First, if this rounded polygon has less than three vertices, return an empty string.
+	 * 
+	 * <p>Then, draw each corner, including half of each adjacent edge. Let B be the vertex for which we are drawing the corner; let A be the preceding
+	 * vertex and C the succeding one. Let BAC be the center of the line segment BA, and BCC be the center of the line segment BC.
+	 * 
+	 * <p>If BA and BC are collinear, just draw the lines BAC-B and B-BCC.
+	 * 
+	 * <p>Otherwise, let BAU be the unit vector from B to A, and BCU the unit vector from B to C.
+	 * Then BAU + BCU points in the direction of the bisector. Let BSU be the unit vector in that direction.
+	 * 
+	 * <p>First, suppose the center of the corner would be at B + BSU. Compute how much is cut off from BA by projecting BSU onto BA:
+	 * BAUcutoff = dot product of BAU and BSU
+	 * (By symmetry, the same amount is cut off from BC.)
+	 * The radius of the corner would then be unitRadius = absolute value of cross product of BSU and BAU.
+	 * Now, determine the scale factor to apply: this is the minimum of the scale factor that would scale unitRadius to this.getRadius() and the scale
+	 * factor that would scale BAUcutoff to half of the minimum of the size of BA and BC.
+	 * From this, we can easily determine the actual center and actual radius of the corner.
+	 * 
+	 * <p>To determine the start angle, use the cutoff length to compute the point on BA where the arc starts,
+	 * and turn the vector from the corner's center to that point into
+	 * an angle. Similarly, compute the end angle. The angle extent is the difference between the two, after adding or subtracting 2PI as necessary
+	 * to obtain a value between -PI and PI.
 	 * 
 	 * @inspects | this
+	 * @mutates nothing |
+	 * @post | result != null
 	 */
 	public String getDrawingCommands() {
-		if (points.length < 3)
+		if (vertices.length < 3)
 			return "";
 		StringBuilder commands = new StringBuilder();
-		for (int index = 0; index < points.length; index++) {
-			IntPoint a = points[(index + points.length - 1) % points.length];
-			IntPoint b = points[index];
-			IntPoint c = points[(index + 1) % points.length];
+		for (int index = 0; index < vertices.length; index++) {
+			IntPoint a = vertices[(index + vertices.length - 1) % vertices.length];
+			IntPoint b = vertices[index];
+			IntPoint c = vertices[(index + 1) % vertices.length];
 			DoubleVector ba = a.minus(b).asDoubleVector();
 			DoubleVector bc = c.minus(b).asDoubleVector();
 			DoublePoint baCenter = b.asDoublePoint().plus(ba.scale(0.5));
@@ -153,176 +321,7 @@ public class RoundedPolygon {
 				commands.append("line " + bcCornerStart.getX() + " " + bcCornerStart.getY() + " " + bcCenter.getX() + " " + bcCenter.getY() + "\n");
 			}
 		}
-		if (color == Color.yellow)
-			commands.append("fill " + "255 " + "255 " + "0  " + "\n");
-		if (color == Color.red)
-			commands.append("fill " + "255 " + "0 " + "0 " + "\n");
-		if (color == Color.green)
-			commands.append("fill " + "0 " + "255 " + "0 " + "\n");
-		if (color == Color.blue)
-			commands.append("fill " + "0 " + "0 " + "255 " + "\n");
 		return commands.toString();
 	}
-
-
-	/**
-	 * Returns the radius of the corners of this rounded polygon.
-	 * 
-	 * @inspects | this
-	 */
-	public int getRadius() {
-		return this.radius;
-	}
-
-	/**
-	 * Returns a new array whose elements are the vertices of this rounded polygon.
-	 * 
-	 * @inspects | this
-	 */
-	public IntPoint[] getVertices() {
-		IntPoint[] newArray = PointArrays.copy(points);
-		return newArray;
-	}
-
-	/**
-	 * This method adds the given point to the points field of this object.
-	 * 
-	 * @mutates this.points
-	 * @post The length of the points is 1 longer than the length of the old points
-	 *       | old(getVertices().length) == getVertices().length -1
-	 * @post The vertex at the given index of points, equals point. 
-	 * | getVertices()[index]== point
-	 * @throws IllegalArgumentException if the index is not in the range of the
-	 *                                  length of the polygon or if negative. | 0 >
-	 *                                  index || index < this.points.length
-	 * @throws IllegalArgumentException if the given point is null. | point == null
-	 * @throws IllegalArgumentException if the resulting polygon is not proper.
-	 * @inspects | this
-	 */
-	public void insert(int index, IntPoint point) {
-		if (point == null) {
-			throw new IllegalArgumentException("Point does not exist!");
-		}
-		if (index < 0 || this.points.length < index) {
-			throw new IllegalArgumentException("Index out of bounds exception!");
-		}
-		
-		IntPoint[] vertices = this.getVertices();
-		IntPoint[] newArray = PointArrays.insert(vertices, index, point);
-		
-		if (PointArrays.checkDefinesProperPolygon(newArray) != null) {
-			throw new IllegalArgumentException("The resulting polygon is not proper!");
-		}
-		
-		this.setVertices(newArray);
-	}
-
-	/**
-	 * This method removes the given point to the points field of this object.
-	 * 
-	 * @param index The index of the point to be removed.
-	 * @mutates | this
-	 * @post The length of the points is 1 shorter than the length of the old points
-	 *       | old(getVertices().length) == getVertices().length + 1
-	 * @post The vertex at the given index of points, equals point. 
-	 * 		| getVertices()[index] == old(getVertices()[index+1])
-	 * @throws IllegalArgumentException if the resulting polygon is not proper.
-	 * @throws IllegalArgumentException if the index is not in the range of the length of the polygon. 
-	 * 	| 0 > index || index >= getVertices().length
-	 */
-	public void remove(int index) {
-		if (index < 0 || this.points.length <= index) {
-			throw new IllegalArgumentException("Index out of bounds exception!");
-		}
-		
-		IntPoint[] vertices = this.getVertices();
-		IntPoint[] newArray = PointArrays.remove(vertices, index);
-		
-		if (PointArrays.checkDefinesProperPolygon(newArray) != null) {
-			throw new IllegalArgumentException("The resulting polygon is not proper!");
-		}
-		
-		this.setVertices(newArray);
-	}
-
-	/**
-	 * Sets this rounded polygon's corner radius to the given value.
-	 * 
-	 * @param radius The new radius.
-	 * @mutates this.radius
-	 * @throws IllegalArgumentException if the radius is smaller than 0. | 0 > radius
-	 * @mutates | this
-	 */
-	public void setRadius(int radius) {
-		if (radius < 0) {
-			throw new IllegalArgumentException("Radius is smaller then 0");
-		}
-		this.radius = radius;
-	}
-
-	/**
-	 * Sets the vertices of this rounded polygon to be equal to the elements of the
-	 * given array.
-	 * 
-	 * @param newVertices The new vertices.
-	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon. | PointArrays.checkDefinesProperPolygon(newVertices) != null
-	 * @mutates | this
-	 */
-	public void setVertices(IntPoint[] newVertices) {
-		if (PointArrays.checkDefinesProperPolygon(newVertices) != null) {
-			throw new IllegalArgumentException(PointArrays.checkDefinesProperPolygon(newVertices));
-		}
-		this.points = newVertices;
-	}
-
-	/**
-	 * This method replaces the vertex at the given index of points, with point.
-	 * 
-	 * @param point The new point that you want to update the old point with.
-	 * @param index The index of the point to be updated.
-	 * @throws IllegalArgumentException if the given point is null | point == null
-	 * @throws IllegalArgumentException if the given index is not in the range of the points. | index < 0 || getVertices().length <= index
-	 * @post The vertex at the given index equals point. | getVertices()[index] == point
-	 * @mutates this.points
-	 * @inspects | this
-	 */
-	public void update(int index, IntPoint point) {
-		if (point == null) {
-			throw new IllegalArgumentException("The given point equals null!");
-		}
-
-		if (index < 0 || this.points.length <= index) {
-			throw new IllegalArgumentException("Index out of bounds exception!");
-		}
-		IntPoint[] vertices = this.getVertices();
-		IntPoint[] newArray = PointArrays.update(vertices, index, point);
-		if (PointArrays.checkDefinesProperPolygon(newArray) != null) {
-			throw new IllegalArgumentException("The resulting polygon is not proper!");
-		}
-		
-		this.setVertices(newArray);
-	}
-
-	/**
-	 * This method returns the normalized vector.
-	 * 
-	 * @param vector The vector to be normalized.
-	 * @throws IllegalArgumentException if the given vector equals null | vector == null
-	 * @post The size of the resulting vector is 1. 
-	 * | result.getSize() < 1.01 && result.getSize() > 0.99
-	 * @inspects | vector
-	 */
-	public static DoubleVector normalize(DoubleVector vector) {
-
-		if (vector == null) {
-			throw new IllegalArgumentException("The given vector equals null!");
-		}
-
-		double powerComponents = vector.getX() * vector.getX() + vector.getY() * vector.getY();
-		double normalizeScale = 1 / Math.sqrt(powerComponents);
-		DoubleVector normalizedVector = vector.scale(normalizeScale);
-		return normalizedVector;
-
-	}
-
+	
 }
