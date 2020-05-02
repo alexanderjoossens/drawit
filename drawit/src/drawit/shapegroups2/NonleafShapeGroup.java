@@ -1,10 +1,12 @@
 package drawit.shapegroups2;
 import drawit.shapegroups2.*;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,11 @@ import logicalcollections.LogicalSet;
 import drawit.IntPoint;
 import drawit.RoundedPolygon;
 
+/**
+ * @invar | getSubgroups() == null || LogicalList.distinct(getSubgroups())
+ * @invar | getSubgroups() == null || getSubgroups().stream().allMatch(g -> g != null && g.getParentGroup() == this)
+
+ */
 public class NonleafShapeGroup extends ShapeGroup{
 	
 	ShapeGroup firstChild;
@@ -208,7 +215,7 @@ public class NonleafShapeGroup extends ShapeGroup{
 	 * Returns the list of all shapes contained directly or indirectly by this shape group, in depth-first order.
 	 */
 	public List<RoundedPolygon> getAllShapes() {
-		return getSubgroups().stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
+		return subgroups.stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
 	}
 	
 	/**

@@ -23,9 +23,6 @@ import logicalcollections.LogicalSet;
  * Besides directly or indirectly grouping one or more shapes, a shape group defines a transformation 
  * (i.e. a displacement and/or a horizontal and/or vertical scaling) of the shapes it contains.
  * 
- * @invar | (getShape() != null) != (getSubgroups() != null)
- * @invar | getSubgroups() == null || LogicalList.distinct(getSubgroups())
- * @invar | getSubgroups() == null || getSubgroups().stream().allMatch(g -> g != null && g.getParentGroup() == this)
  * @invar | getParentGroup() == null ||
  *        | getParentGroup().getSubgroups() != null && getParentGroup().getSubgroups().contains(this)
  * @invar | !getAncestors().contains(this)

@@ -85,9 +85,9 @@ public class NonleafShapeGroup extends ShapeGroup {
 	 * Returns the list of all shapes contained directly or indirectly by this shape group, in depth-first order.
 	 */
 	public List<RoundedPolygon> getAllShapes() {
-		return subgroups.stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
+		return subgroups.stream().flatMap(subgroup -> subgroup.stream().getAllShapes().collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * Returns the list of subgroups of this shape group, or {@code null} if this is a leaf shape group.
 	 * 
@@ -151,9 +151,6 @@ public class NonleafShapeGroup extends ShapeGroup {
 				return group;
 		return null;
 	}
-	
-	
-	
 	
 	
 	/**
