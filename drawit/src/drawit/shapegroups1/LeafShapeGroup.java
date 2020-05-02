@@ -1,13 +1,30 @@
 package drawit.shapegroups1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import drawit.IntPoint;
+import drawit.IntVector;
 import drawit.RoundedPolygon;
+
+import logicalcollections.LogicalList;
+import logicalcollections.LogicalSet;
 
 public class LeafShapeGroup extends ShapeGroup {
 
-	private RoundedPolygon shape;
+	/**
+	 * @invar | (shape != null) != (subgroups != null)
+	 * @invar | subgroups == null || LogicalList.distinct(subgroups)
+	 * @invar | subgroups == null || subgroups.stream().allMatch(g -> g != null && g.parent == this)
+	 * @invar | parent == null || parent.subgroups != null && parent.subgroups.contains(this)
+	 * @invar | !getAncestors().contains(this)
+	 */
+	RoundedPolygon shape;
 	
 	/**
 	 * Initializes this object to represent a leaf shape group that directly contains the given shape.
@@ -48,16 +65,16 @@ public class LeafShapeGroup extends ShapeGroup {
 		originalExtent = Extent.ofLeftTopRightBottom(left, top, right, bottom);
 		currentExtent = originalExtent;
 	}
-
-
+	
+	
 	/**
-	 * Returns the shape directly contained by this shape group, or null if this is
-	 * a non-leaf shape group.
-	 * @inspects | this
+	 * Returns the shape directly contained by this shape group, or {@code null} if this
+	 * is a non-leaf shape group.
+	 * 
+	 * @immutable
 	 */
-	public RoundedPolygon getShape() {
-		return this.shape;
-	}
+	public RoundedPolygon getShape() { return shape; }
+	
 	
 	/**
 	 * Returns a textual representation of a sequence of drawing commands for drawing
@@ -77,11 +94,12 @@ public class LeafShapeGroup extends ShapeGroup {
 		builder.append("pushScale " + xscale + " " + yscale + "\n");
 		builder.append("pushTranslate " + -originalExtent.getLeft() + " " + -originalExtent.getTop() + "\n");
 		
-		if (shape != null)
-			builder.append(shape.getDrawingCommands());
-		
+
+		builder.append(shape.getDrawingCommands());
+
 		builder.append("popTransform popTransform popTransform\n");
 		return builder.toString();
 	}
+	
 }
 	

@@ -18,13 +18,6 @@ import logicalcollections.LogicalSet;
 public class NonleafShapeGroup extends ShapeGroup {
 	
 	/**
-	 * @representationObject
-	 * @invar | Arrays.stream(subgroups).allMatch(v -> v != null)
-	 */
-	private ShapeGroup[] subgroups;
-	
-	
-	/**
 	 * Initializes this object to represent a non-leaf shape group that directly contains the given
 	 * subgroups, in the given order.
 	 * 
@@ -92,10 +85,7 @@ public class NonleafShapeGroup extends ShapeGroup {
 	 * Returns the list of all shapes contained directly or indirectly by this shape group, in depth-first order.
 	 */
 	public List<RoundedPolygon> getAllShapes() {
-		if (shape != null)
-			return List.of(shape);
-		else
-			return subgroups.stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
+		return subgroups.stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
 	}
 	
 	/**
@@ -108,25 +98,17 @@ public class NonleafShapeGroup extends ShapeGroup {
 	
 	/**
 	 * Returns the number of subgroups of this non-leaf shape group.
-	 * @inspects | this
-//	 * @throws IllegalArgumentException if the given shape is a leaf group.
-//	 *    | getShape() != null
-	 */
-
-	/**
-	 * Returns the number of subgroups of this non-leaf shape group.
 	 * 
 	 * @throws UnsupportedOperationException if this is a leaf shape group
 	 *    | getSubgroups() == null
 	 * @post | result == getSubgroups().size()
 	 */
 	public int getSubgroupCount() {
-//		if (subgroups == null)
-//			throw new UnsupportedOperationException();
+		if (subgroups == null)
+			throw new UnsupportedOperationException();
 		
 		return subgroups.size();
 	}
-
 
 	/**
 	 * Returns the subgroup at the given (zero-based) index in this non-leaf shape group's list of subgroups.
@@ -144,7 +126,6 @@ public class NonleafShapeGroup extends ShapeGroup {
 			throw new IllegalArgumentException("index out of bounds");
 		return subgroups.get(index);
 	}
-	
 	
 	/**
 	 * Return the first subgroup in this non-leaf shape group's list of subgroups whose
@@ -171,7 +152,10 @@ public class NonleafShapeGroup extends ShapeGroup {
 		return null;
 	}
 	
-
+	
+	
+	
+	
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.
 	 * 
@@ -188,7 +172,7 @@ public class NonleafShapeGroup extends ShapeGroup {
 		parent.subgroups.remove(this);
 		parent.subgroups.add(0, this);
 	}
-
+	
 	/**
 	 * Moves this shape group to the back of its parent's list of subgroups.
 	 * 
@@ -225,12 +209,11 @@ public class NonleafShapeGroup extends ShapeGroup {
 		builder.append("pushScale " + xscale + " " + yscale + "\n");
 		builder.append("pushTranslate " + -originalExtent.getLeft() + " " + -originalExtent.getTop() + "\n");
 		
-
 		for (int i = subgroups.size() - 1; 0 <= i; i--)
 			builder.append(subgroups.get(i).getDrawingCommands());
-		
-		
+
 		builder.append("popTransform popTransform popTransform\n");
 		return builder.toString();
-		}
+	}
+	
 }
