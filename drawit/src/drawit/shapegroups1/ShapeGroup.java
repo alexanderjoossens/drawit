@@ -180,6 +180,41 @@ public abstract class ShapeGroup {
 	}
 
 	/**
+	 * @throws IllegalArgumentException if {@code outerCoordinates} is null
+	 *    | outerCoordinates == null
+	 * @inspects | this
+	 * @post | result != null
+	 * @post | result.equals(getOriginalExtent().getTopLeft().plus(
+	 *       |     outerToInnerCoordinates(outerCoordinates.minus(getExtent().getTopLeft()))))
+	 */
+	public IntPoint outerToInnerCoordinates(IntPoint outerCoordinates) {
+		if (outerCoordinates == null)
+			throw new IllegalArgumentException("outerCoordinates is null");
+		
+		return originalExtent.getTopLeft().plus(
+				outerToInnerCoordinates(outerCoordinates.minus(currentExtent.getTopLeft())));
+	}
+	
+	/**
+	 * @throws IllegalArgumentException if {@code globalCoordinates} is null
+	 *    | globalCoordinates == null
+	 * @inspects | this
+	 * @post | result != null
+	 * @post | result.equals(
+	 *       |     getParentGroup() == null ?
+	 *       |         globalCoordinates
+	 *       |     :
+	 *       |         getParentGroup().toInnerCoordinates(globalCoordinates)
+	 *       | )
+	 */
+	public IntPoint globalToOuterCoordinates(IntPoint globalCoordinates) {
+		if (globalCoordinates == null)
+			throw new IllegalArgumentException("globalCoordinates is null");
+		
+		return parent == null ? globalCoordinates : parent.toInnerCoordinates(globalCoordinates);
+	}
+	
+	/**
 	 * Returns the coordinates in this shape group's inner coordinate system of the
 	 * vector whose coordinates in the global coordinate system are the given
 	 * coordinates.
