@@ -59,5 +59,32 @@ public class LeafShapeGroup extends ShapeGroup {
 		return this.shape;
 	}
 	
+	/**
+	 * Returns a textual representation of a sequence of drawing commands for drawing
+	 * the shapes contained directly or indirectly by this shape group, expressed in this
+	 * shape group's outer coordinate system.
+	 * 
+	 * For the syntax of the drawing commands, see {@code RoundedPolygon.getDrawingCommands()}.
+	 * 
+	 * @inspects | this, ...getAllShapes()
+	 * @post | result != null
+	 */
+	public String getDrawingCommands() {
+		StringBuilder builder = new StringBuilder();
+		
+		double xscale = currentExtent.getWidth() * 1.0 / originalExtent.getWidth();
+		double yscale = currentExtent.getHeight() * 1.0 / originalExtent.getHeight();
+		builder.append("pushTranslate " + currentExtent.getLeft() + " " + currentExtent.getTop() + "\n");
+		builder.append("pushScale " + xscale + " " + yscale + "\n");
+		builder.append("pushTranslate " + -originalExtent.getLeft() + " " + -originalExtent.getTop() + "\n");
+		
+		if (shape != null)
+			builder.append(shape.getDrawingCommands());
+		
+		builder.append("popTransform popTransform popTransform\n");
+		return builder.toString();
+	}
+}
+	
 	
 }

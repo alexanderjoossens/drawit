@@ -101,6 +101,16 @@ public class NonleafShapeGroup extends ShapeGroup {
 	}
 	
 	/**
+	 * Returns the list of all shapes contained directly or indirectly by this shape group, in depth-first order.
+	 */
+	public List<RoundedPolygon> getAllShapes() {
+		if (shape != null)
+			return List.of(shape);
+		else
+			return subgroups.stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
+	}
+	
+	/**
 	 * Returns the list of subgroups of this shape group, or {@code null} if this is a leaf shape group.
 	 * 
 	 * @basic
@@ -207,6 +217,35 @@ public class NonleafShapeGroup extends ShapeGroup {
 		parent.subgroups.remove(this);
 		parent.subgroups.add(this);
 	}
+	
+	/**
+	 * Returns a textual representation of a sequence of drawing commands for drawing
+	 * the shapes contained directly or indirectly by this shape group, expressed in this
+	 * shape group's outer coordinate system.
+	 * 
+	 * For the syntax of the drawing commands, see {@code RoundedPolygon.getDrawingCommands()}.
+	 * 
+	 * @inspects | this, ...getAllShapes()
+	 * @post | result != null
+	 */
+	public String getDrawingCommands() {
+		StringBuilder builder = new StringBuilder();
+		
+		double xscale = currentExtent.getWidth() * 1.0 / originalExtent.getWidth();
+		double yscale = currentExtent.getHeight() * 1.0 / originalExtent.getHeight();
+		builder.append("pushTranslate " + currentExtent.getLeft() + " " + currentExtent.getTop() + "\n");
+		builder.append("pushScale " + xscale + " " + yscale + "\n");
+		builder.append("pushTranslate " + -originalExtent.getLeft() + " " + -originalExtent.getTop() + "\n");
+		
+
+		for (int i = subgroups.size() - 1; 0 <= i; i--)
+			builder.append(subgroups.get(i).getDrawingCommands());
+		
+		
+		builder.append("popTransform popTransform popTransform\n");
+		return builder.toString();
+		}
+}
 
 	
 	
