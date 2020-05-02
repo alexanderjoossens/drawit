@@ -16,9 +16,8 @@ import logicalcollections.LogicalSet;
 
 public abstract class ShapeGroup {
 
-	protected Extent currentExtent;
-
-	protected Extent originalExtent;
+	Extent currentExtent;
+	Extent originalExtent;
 	
 	/**
 	 * @invar | 0 <= horizontalScale
@@ -31,7 +30,7 @@ public abstract class ShapeGroup {
 	private int horizontalTranslation = 0;
 	private int verticalTranslation = 0;
 
-	protected NonleafShapeGroup parent;
+	NonleafShapeGroup parent;
 
 
 

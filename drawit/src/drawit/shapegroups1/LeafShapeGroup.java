@@ -66,7 +66,6 @@ public class LeafShapeGroup extends ShapeGroup {
 	 * 
 	 * For the syntax of the drawing commands, see {@code RoundedPolygon.getDrawingCommands()}.
 	 * 
-	 * @inspects | this, ...getAllShapes()
 	 * @post | result != null
 	 */
 	public String getDrawingCommands() {
@@ -86,5 +85,3 @@ public class LeafShapeGroup extends ShapeGroup {
 	}
 }
 	
-	
-}

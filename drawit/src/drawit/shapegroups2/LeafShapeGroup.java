@@ -17,15 +17,13 @@ public class LeafShapeGroup extends ShapeGroup{
 
 	/**
 	 * @invar | (shape != null) != (firstChild != null)
-	 * @invar | firstChild == null || firstChild.parent == this
 	 * @invar | (parent == null) == (nextSibling == null)
 	 * @invar A non-leaf shape group has at least two subgroups
 	 *    | nextSibling != this
 	 * @invar | (parent == null) == (previousSibling == null)
 	 * @invar | parent == null || nextSibling.parent == parent && nextSibling.previousSibling == this
 	 * @invar | parent == null || previousSibling.parent == parent && previousSibling.nextSibling == this
-	 * @invar | parent == null || parent.getSubgroupsPrivate().contains(this)
-	 * @invar | !getAncestorsPrivate().contains(this)
+	 * @invar | parent == null || parent.getSubgroups().contains(this)
 	 */
 	private RoundedPolygon shape;
 	
@@ -85,7 +83,6 @@ public class LeafShapeGroup extends ShapeGroup{
 	 * 
 	 * For the syntax of the drawing commands, see {@code RoundedPolygon.getDrawingCommands()}.
 	 * 
-	 * @inspects | this, ...getAllShapes()
 	 * @post | result != null
 	 */
 	public String getDrawingCommands() {

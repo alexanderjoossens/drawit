@@ -20,12 +20,14 @@ public abstract class ShapeGroup {
 	
 
 	/** @peerObject */
-	private ShapeGroup parent;
+	NonleafShapeGroup parent;
 	/** @peerObject */
-
-	private Extent originalExtent;
-	private Extent currentExtent;
-	
+	Extent originalExtent;
+	Extent currentExtent;
+	/** @peerObject */
+	ShapeGroup previousSibling;
+	/** @peerObject */
+	ShapeGroup nextSibling;
 
 	
 	/**
@@ -67,7 +69,7 @@ public abstract class ShapeGroup {
 	 * @basic
 	 * @peerObject
 	 */
-	public ShapeGroup getParentGroup() { return parent; }
+	public NonleafShapeGroup getParentGroup() { return parent; }
 
 
 	/**
@@ -260,9 +262,6 @@ public abstract class ShapeGroup {
 	}
 	
 	
-
-	
-	
 	/**
 	 * Registers the given extent as this shape group's extent, expressed in this
 	 * shape group's outer coordinate system. As a consequence, by definition this shape group's
@@ -285,10 +284,6 @@ public abstract class ShapeGroup {
 		currentExtent = newExtent;
 	}
 	
-
-	
-
-	
 	/**
 	 * Returns a textual representation of a sequence of drawing commands for drawing
 	 * the shapes contained directly or indirectly by this shape group, expressed in this
@@ -296,7 +291,6 @@ public abstract class ShapeGroup {
 	 * 
 	 * For the syntax of the drawing commands, see {@code RoundedPolygon.getDrawingCommands()}.
 	 * 
-	 * @inspects | this, ...getAllShapes()
 	 * @post | result != null
 	 */
 	public abstract String getDrawingCommands();

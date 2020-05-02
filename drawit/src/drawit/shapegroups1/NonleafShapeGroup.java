@@ -24,18 +24,6 @@ public class NonleafShapeGroup extends ShapeGroup {
 	private ShapeGroup[] subgroups;
 	
 	
-
-	/**
-	 * Initializes this object to represent a non-leaf shape group that directly
-	 * contains the given subgroups, in the given order.
-	 * 
-	 * @param subgroups
-	 * The subgroups of the new ShapeGroup
-	 * @throws IllegalArgumentException if one of the subgroups is null.
-	 *    | Arrays.stream(subgroups).allMatch(p -> p != null)	 
-	 * @mutates | this
-	 * @inspects | subgroups
-	 */
 	/**
 	 * Initializes this object to represent a non-leaf shape group that directly contains the given
 	 * subgroups, in the given order.
@@ -245,8 +233,4 @@ public class NonleafShapeGroup extends ShapeGroup {
 		builder.append("popTransform popTransform popTransform\n");
 		return builder.toString();
 		}
-}
-
-	
-	
 }

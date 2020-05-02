@@ -16,11 +16,7 @@ import drawit.RoundedPolygon;
 
 public class NonleafShapeGroup extends ShapeGroup{
 	
-	private ShapeGroup firstChild;
-	/** @peerObject */
-	private ShapeGroup previousSibling;
-	/** @peerObject */
-	private ShapeGroup nextSibling;
+	ShapeGroup firstChild;
 	
 	/**
 	 * Initializes this object to represent a non-leaf shape group that directly contains the given
@@ -212,10 +208,7 @@ public class NonleafShapeGroup extends ShapeGroup{
 	 * Returns the list of all shapes contained directly or indirectly by this shape group, in depth-first order.
 	 */
 	public List<RoundedPolygon> getAllShapes() {
-		if (shape != null)
-			return List.of(shape);
-		else
-			return getSubgroups().stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
+		return getSubgroups().stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
 	}
 	
 	/**
