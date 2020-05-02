@@ -16,7 +16,6 @@ import drawit.RoundedPolygon;
 public class LeafShapeGroup extends ShapeGroup{
 
 	/**
-	 * @invar | (shape != null) != (firstChild != null)
 	 * @invar | (parent == null) == (nextSibling == null)
 	 * @invar A non-leaf shape group has at least two subgroups
 	 *    | nextSibling != this
