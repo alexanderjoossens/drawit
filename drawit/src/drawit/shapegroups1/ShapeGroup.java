@@ -117,34 +117,39 @@ public abstract class ShapeGroup {
 	}
 	
 	/**
-	 * Returns the coordinates in the global coordinate system of the point whose
-	 * coordinates in this shape group's inner coordinate system are the given
-	 * coordinates.
-	 * @param innerCoordinates
-	 * The point that you want the GlobalCoordinates from
-	 * @throws IllegalArgumentException if the given coordinates are null.
-	 *    | innerCoordinates == null
+	 * Returns the coordinates in the global coordinate system of the point whose coordinates
+	 * in this shape group's inner coordinate system are the given coordinates.
+	 * 
+	 * @throws IllegalArgumentException if {@code innerCoordinates} is null
 	 * @inspects | this
 	 * @post | result != null
-	 * @inspects | innerCoordinates
+	 * @post | result.equals(outerToGlobalCoordinates(innerToOuterCoordinates(innerCoordinates)))
 	 */
 	public IntPoint toGlobalCoordinates(IntPoint innerCoordinates) {
-		if (innerCoordinates == null) {
-			throw new IllegalArgumentException("innerCoordinates are null");
-		}
+		if (innerCoordinates == null)
+			throw new IllegalArgumentException("innerCoordinates is null");
 		
-		double newX = ((double) innerCoordinates.getX())*horizontalScale + horizontalTranslation;
-		double newY = ((double) innerCoordinates.getY())*verticalScale + verticalTranslation;
-
-		IntPoint outerCoordinates = new DoublePoint(newX, newY).round();
-
-		if (this.getParentGroup() != null) {
-			return this.getParentGroup().toGlobalCoordinates(outerCoordinates);
-		} else {
-			return outerCoordinates;
-		}
+		return outerToGlobalCoordinates(innerToOuterCoordinates(innerCoordinates));
 	}
 
+	/**
+	 * @throws IllegalArgumentException if {@code outerCoordinates} is null
+	 * @inspects | this
+	 * @post | result != null
+	 * @post | result.equals(
+	 *       |     getParentGroup() == null ?
+	 *       |         outerCoordinates
+	 *       |     :
+	 *       |         getParentGroup().toGlobalCoordinates(outerCoordinates)
+	 *       | )
+	 */
+	public IntPoint outerToGlobalCoordinates(IntPoint outerCoordinates) {
+		if (outerCoordinates == null)
+			throw new IllegalArgumentException("outerCoordinates is null");
+		
+		return parent == null ? outerCoordinates : parent.toGlobalCoordinates(outerCoordinates);
+	}
+	
 	/**
 	 * Returns the coordinates in this shape group's inner coordinate system of the point
 	 * whose coordinates in the global coordinate system are the given coordinates.
@@ -196,6 +201,40 @@ public abstract class ShapeGroup {
 	}
 	
 	/**
+	 * @throws IllegalArgumentException if {@code relativeOuterCoordinates} is null
+	 * @inspects | this
+	 * @post | result != null
+	 * @post | result.equals(new IntVector(
+	 *       |     (int)((long)relativeOuterCoordinates.getX() * getOriginalExtent().getWidth() / getExtent().getWidth()),
+	 *       |     (int)((long)relativeOuterCoordinates.getY() * getOriginalExtent().getHeight() / getExtent().getHeight())))
+	 */
+	public IntVector outerToInnerCoordinates(IntVector relativeOuterCoordinates) {
+		if (relativeOuterCoordinates == null)
+			throw new IllegalArgumentException("relativeOuterCoordinates is null");
+		
+		return new IntVector(
+				(int)((long)relativeOuterCoordinates.getX() * originalExtent.getWidth() / currentExtent.getWidth()),
+				(int)((long)relativeOuterCoordinates.getY() * originalExtent.getHeight() / currentExtent.getHeight()));
+	}
+	
+	/**
+	 * @inspects | this
+	 * @post | result != null
+	 * @post | result.equals(
+	 *       |     getParentGroup() == null ?
+	 *       |         relativeGlobalCoordinates
+	 *       |     :
+	 *       |         getParentGroup().toInnerCoordinates(relativeGlobalCoordinates)
+	 *       | )
+	 */
+	public IntVector globalToOuterCoordinates(IntVector relativeGlobalCoordinates) {
+		if (relativeGlobalCoordinates == null)
+			throw new IllegalArgumentException("relativeGlobalCoordinates is null");
+		
+		return parent == null ? relativeGlobalCoordinates : parent.toInnerCoordinates(relativeGlobalCoordinates);
+	}
+
+	/**
 	 * @throws IllegalArgumentException if {@code globalCoordinates} is null
 	 *    | globalCoordinates == null
 	 * @inspects | this
@@ -215,37 +254,56 @@ public abstract class ShapeGroup {
 	}
 	
 	/**
-	 * Returns the coordinates in this shape group's inner coordinate system of the
-	 * vector whose coordinates in the global coordinate system are the given
-	 * coordinates.
-	 * @param relativeGlobalCoordinates
-	 * The point that you want to get the InnerCoordinates from
-	 * @throws IllegalArgumentException if the given coordinates are null.
-	 *    | relativeGlobalCoordinates == null
+	 * Returns the coordinates in this shape group's inner coordinate system of the vector
+	 * whose coordinates in the global coordinate system are the given coordinates.
+	 * 
+	 * This transformation is affected only by mutations of the width or height of this shape group's
+	 * extent, not by mutations of this shape group's extent that preserve its width and height.
+	 * 
 	 * @inspects | this
 	 * @post | result != null
-	 * @inspects | relativeGlobalCoordinates
+	 * @post | result.equals(outerToInnerCoordinates(globalToOuterCoordinates(relativeGlobalCoordinates)))
 	 */
 	public IntVector toInnerCoordinates(IntVector relativeGlobalCoordinates) {
-		if (relativeGlobalCoordinates == null) {
-			throw new IllegalArgumentException("relativeGlobalCoordinates are null");
-		}
-		
-		IntVector newVector;
-		if (this.getParentGroup() != null) {
-			newVector = this.getParentGroup().toInnerCoordinates(relativeGlobalCoordinates);
-		}
+		if (relativeGlobalCoordinates == null)
+			throw new IllegalArgumentException("relativeGlobalCoordinates is null");
 
-		else {
-			newVector = relativeGlobalCoordinates;
-		}
-		int newX = (int) ((int) newVector.getX() * (1 / this.horizontalScale));
-		int newY = (int) ((int) newVector.getY() * (1 / this.verticalScale));
-
-		IntVector innerVector = new IntVector(newX, newY);
-		return innerVector;
+		return outerToInnerCoordinates(globalToOuterCoordinates(relativeGlobalCoordinates));
 	}
 	
+	/**
+	 * @throws IllegalArgumentException if {@code relativeInnerCoordinates} is null
+	 *    | relativeInnerCoordinates == null
+	 * @inspects | this
+	 * @post | result != null
+	 * @post | result.equals(new IntVector(
+	 *       |     (int)((long)relativeInnerCoordinates.getX() * getExtent().getWidth() / getOriginalExtent().getWidth()),
+	 *       |     (int)((long)relativeInnerCoordinates.getY() * getExtent().getHeight() / getOriginalExtent().getHeight())))
+	 */
+	public IntVector innerToOuterCoordinates(IntVector relativeInnerCoordinates) {
+		if (relativeInnerCoordinates == null)
+			throw new IllegalArgumentException("relativeInnerCoordinates is null");
+		
+		return new IntVector(
+				(int)((long)relativeInnerCoordinates.getX() * currentExtent.getWidth() / originalExtent.getWidth()),
+				(int)((long)relativeInnerCoordinates.getY() * currentExtent.getHeight() / originalExtent.getHeight()));
+	}
+	
+	/**
+	 * @throws IllegalArgumentException if {@code innerCoordinates} is null
+	 *    | innerCoordinates == null
+	 * @inspects | this
+	 * @post | result != null
+	 * @post | result.equals(getExtent().getTopLeft().plus(
+	 *       |     innerToOuterCoordinates(innerCoordinates.minus(getOriginalExtent().getTopLeft()))))
+	 */
+	public IntPoint innerToOuterCoordinates(IntPoint innerCoordinates) {
+		if (innerCoordinates == null)
+			throw new IllegalArgumentException("innerCoordinates is null");
+		
+		return getExtent().getTopLeft().plus(
+				innerToOuterCoordinates(innerCoordinates.minus(getOriginalExtent().getTopLeft())));
+	}
 
 	/**
 	 * Returns a textual representation of a sequence of drawing commands for
@@ -256,29 +314,6 @@ public abstract class ShapeGroup {
 	 */
 
 	public abstract java.lang.String getDrawingCommands();
-//	StringBuilder commands = new StringBuilder();
-//
-//	if (this.subgroups == null) {
-//
-//		commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-//		commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-//		commands.append(this.getShape().getDrawingCommands());
-//		commands.append("popTransform\n");
-//		commands.append("popTransform\n");
-//	}
-//
-//	if (subgroups!=null) {
-//		java.util.List<ShapeGroup> subgroups = this.getSubgroups();
-//		Collections.reverse(subgroups);
-//		for (ShapeGroup subgroup : subgroups) {
-//			commands.append("pushTranslate "+horizontalTranslation+" "+verticalTranslation+"\n");
-//			commands.append("pushScale "+horizontalScale+" "+verticalScale+"\n");
-//			commands.append(subgroup.getDrawingCommands());
-//			commands.append("popTransform\n");
-//			commands.append("popTransform\n");
-//		}
-//	}
-//	return commands.toString();
 }
 
 
