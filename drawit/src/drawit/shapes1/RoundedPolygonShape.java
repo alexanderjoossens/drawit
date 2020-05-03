@@ -1,18 +1,18 @@
 package drawit.shapes1;
 
-import drawit.shapegroups1.ControlPoint;
+import drawit.shapes1.ControlPoint;
 
-public class RoundedPolygonShape {
+public class RoundedPolygonShape{
 
-	public RoundedPolygonShape​(drawit.shapegroups1.ShapeGroup parent, drawit.RoundedPolygon polygon) {
-		return null;
+	public RoundedPolygonShape(drawit.shapegroups1.ShapeGroup parent, drawit.RoundedPolygon polygon) {
+		return;
 	}
 	
 	public drawit.RoundedPolygon getPolygon() {
 		return null;
 	}
 	
-	public boolean contains​(drawit.IntPoint p) {
+	public boolean contains(drawit.IntPoint p) {
 		return true;
 	}
 	
@@ -28,11 +28,11 @@ public class RoundedPolygonShape {
 		return null;
 	}
 	
-	public drawit.IntPoint toShapeCoordinates​(drawit.IntPoint p) {
+	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {
 		return null;
 	}
 	
-	public drawit.IntPoint toGlobalCoordinates​(drawit.IntPoint p) {
+	public drawit.IntPoint toGlobalCoordinates(drawit.IntPoint p) {
 		return null;
 	}
 }
