@@ -1,11 +1,11 @@
 package drawit.shapes1;
 
-import drawit.shapegroups1.ControlPoint;
+import drawit.shapes1.ControlPoint;
 
-public class ShapeGroupShape {
+public class ShapeGroupShape implements Shape {
 
-	public ShapeGroupShape​(drawit.shapegroups1.ShapeGroup group) {
-		return null;
+	public ShapeGroupShape(drawit.shapegroups1.ShapeGroup group) {
+		return;
 	}
 	
 	public drawit.shapegroups1.ShapeGroup getShapeGroup() {
@@ -16,7 +16,7 @@ public class ShapeGroupShape {
 		return null;
 	}
 	
-	public boolean contains​(drawit.IntPoint p) {
+	public boolean contains(drawit.IntPoint p) {
 		return true;
 	}
 	
@@ -28,11 +28,11 @@ public class ShapeGroupShape {
 		return null;
 	}
 	
-	public drawit.IntPoint toShapeCoordinates​(drawit.IntPoint p) {
+	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {
 		return null;
 	}
 	
-	public drawit.IntPoint toGlobalCoordinates​(drawit.IntPoint p) {
+	public drawit.IntPoint toGlobalCoordinates(drawit.IntPoint p) {
 		return null;
 	}
 }

@@ -1,6 +1,6 @@
 package drawit.shapes1;
 
-public interface Shape extends RoundedPolygonShape{
+public interface Shape {
 
 	boolean contains(drawit.IntPoint p);
 		

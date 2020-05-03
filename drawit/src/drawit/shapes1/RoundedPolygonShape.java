@@ -1,27 +1,32 @@
 package drawit.shapes1;
 
+import drawit.RoundedPolygon;
+import drawit.shapegroups1.ShapeGroup;
 import drawit.shapes1.ControlPoint;
 
-public class RoundedPolygonShape{
+public class RoundedPolygonShape implements Shape {
+	private RoundedPolygon polygon;
+	private ShapeGroup parent;
 
 	public RoundedPolygonShape(drawit.shapegroups1.ShapeGroup parent, drawit.RoundedPolygon polygon) {
-		return;
+		this.parent = parent;
+		this.polygon = polygon;
 	}
 	
 	public drawit.RoundedPolygon getPolygon() {
-		return null;
+		return polygon;
 	}
 	
 	public boolean contains(drawit.IntPoint p) {
-		return true;
+		return this.getPolygon().contains(p);
 	}
 	
 	public String getDrawingCommands() {
-		return null;
+		return this.getPolygon().getDrawingCommands();
 	}
 	
 	public drawit.shapegroups1.ShapeGroup getParent() {
-		return null;
+		return parent;
 	}
 	
 	public ControlPoint[] createControlPoints() {
