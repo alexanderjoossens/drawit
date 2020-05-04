@@ -1,27 +1,29 @@
 package drawit.shapes1;
 
 import drawit.shapes1.ControlPoint;
+import drawit.shapegroups1.*;
 
 public class ShapeGroupShape implements Shape {
-
+	private ShapeGroup shapegroup;
+	
 	public ShapeGroupShape(drawit.shapegroups1.ShapeGroup group) {
-		return;
+		this.shapegroup = group;
 	}
 	
 	public drawit.shapegroups1.ShapeGroup getShapeGroup() {
-		return null;
+		return this.shapegroup;
 	}
 	
 	public drawit.shapegroups1.ShapeGroup getParent() {
-		return null;
+		return getShapeGroup().getParentGroup();
 	}
 	
 	public boolean contains(drawit.IntPoint p) {
-		return true;
+		return getShapeGroup().getExtent().contains(p);
 	}
 	
 	public String getDrawingCommands() {
-		return null;
+		return getShapeGroup().getDrawingCommands();
 	}
 	
 	public ControlPoint[] createControlPoints() {
@@ -29,10 +31,10 @@ public class ShapeGroupShape implements Shape {
 	}
 	
 	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {
-		return null;
+		return getShapeGroup().toInnerCoordinates(p);
 	}
 	
 	public drawit.IntPoint toGlobalCoordinates(drawit.IntPoint p) {
-		return null;
+		return getShapeGroup().toGlobalCoordinates(p);
 	}
 }
