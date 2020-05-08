@@ -30,6 +30,7 @@ public class RoundedPolygonShape implements Shape {
 	}
 	
 	public ControlPoint[] createControlPoints() {
+		for (controlPoints)
 		return null;
 	}
 	
