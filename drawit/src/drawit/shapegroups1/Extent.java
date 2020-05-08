@@ -6,12 +6,35 @@ import drawit.RoundedPolygon;
 /**
  * @immutable
  */
-public class Extent {
+public class Extent extends Object {
 	
 	private int left;
 	private int top;
 	private int right;
 	private int bottom;
+	
+	// Extend class drawit.shapegroups1.Extent with methods that override methods equals, hashCode, and toString from class java.lang.Object.
+	
+	@Override
+	public boolean equals(Extent other) {
+		return other instanceof Extent &&
+				other.getLeft() == left &&
+				other.getRight() == right &&
+				other.getBottom() == bottom &&
+				other.getTop() == top;
+	}
+	
+	@Override
+	public boolean hashCode(Extent other) {
+		return ;
+	}
+	
+	@Override
+	public boolean toString(Extent other) {
+		return ;
+	}
+	
+	
 
 	/**
 	 * Returns whether this extent, considered as a closed set of points 
