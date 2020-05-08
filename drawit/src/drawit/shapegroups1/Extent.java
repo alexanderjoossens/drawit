@@ -25,7 +25,7 @@ public class Extent extends Object {
 	}
 	
 	@Override
-	public boolean hashCode(Extent other) {
+	public int hashCode(Extent other) {
 		return ;
 	}
 	
