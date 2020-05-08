@@ -13,27 +13,41 @@ public class Extent extends Object {
 	private int right;
 	private int bottom;
 	
-	// Extend class drawit.shapegroups1.Extent with methods that override methods equals, hashCode, and toString from class java.lang.Object.
-	
 	@Override
-	public boolean equals(Extent other) {
-		return other instanceof Extent &&
-				other.getLeft() == left &&
-				other.getRight() == right &&
-				other.getBottom() == bottom &&
-				other.getTop() == top;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + bottom;
+		result = prime * result + left;
+		result = prime * result + right;
+		result = prime * result + top;
+		return result;
 	}
-	
+
 	@Override
-	public int hashCode(Extent other) {
-		return ;
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Extent other = (Extent) obj;
+		if (bottom != other.bottom)
+			return false;
+		if (left != other.left)
+			return false;
+		if (right != other.right)
+			return false;
+		if (top != other.top)
+			return false;
+		return true;
 	}
-	
+
 	@Override
-	public boolean toString(Extent other) {
-		return ;
+	public String toString() {
+		return "this.getLeft() " + "this.getTop() " + "this.getRight() " + "this.getBottom()";
 	}
-	
 	
 
 	/**
