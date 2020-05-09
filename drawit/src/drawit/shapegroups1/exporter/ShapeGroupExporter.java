@@ -1,5 +1,6 @@
 package drawit.shapegroups1.exporter;
 
+import java.util.List;
 import java.util.Map;
 import drawit.shapegroups1.*;
 
@@ -7,6 +8,7 @@ import drawit.shapegroups1.ShapeGroup;
 
 public class ShapeGroupExporter {
 
+	// recursieve functie, moet van alle extents van leafgroups de coordinaten printen
 	public static Object toPlainData(ShapeGroup shapeGroup) {
 		
 		// base case: leaf group
@@ -21,6 +23,7 @@ public class ShapeGroupExporter {
 				
 		}
 		
+		//recursieve oproep voor 1 verder in de boom
 		return Map.of(
 				"originalExtent", Map.of(
 						"left", shapeGroup.getOriginalExtent().getLeft(), 
@@ -31,7 +34,7 @@ public class ShapeGroupExporter {
 									"top", shapeGroup.getOriginalExtent().getTop(),
 									"right", shapeGroup.getOriginalExtent().getRight(),
 									"bottom", shapeGroup.getOriginalExtent().getBottom())
-				, "subgroups", List.of(shapeGroup.getParentGroup().toPlainData)
+				, "subgroups", List.of(shapeGroup.getParentGroup().toPlainData());
 				
 	}
 	
