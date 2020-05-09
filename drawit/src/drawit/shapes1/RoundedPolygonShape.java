@@ -30,8 +30,8 @@ public class RoundedPolygonShape implements Shape {
 	}
 	
 	public ControlPoint[] createControlPoints() {
-		for (int i = 0; this.getPolygon().getVertices()[i] != null; i++)
-		List controlpoints = new 
+		//for (int i = 0; this.getPolygon().getVertices()[i] != null; i++)
+		return this
 	}
 	
 	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {
