@@ -1,5 +1,6 @@
 package drawit.shapes1;
 
+import drawit.PointArrays;
 import drawit.shapes1.ControlPoint;
 import drawit.shapegroups1.*;
 
@@ -27,6 +28,7 @@ public class ShapeGroupShape implements Shape {
 	}
 	
 	public ControlPoint[] createControlPoints() {
+		PointArray[] controlpoints = new PointArray[];
 		return null;
 	}
 	
