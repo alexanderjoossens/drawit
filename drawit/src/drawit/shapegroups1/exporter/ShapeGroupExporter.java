@@ -1,20 +1,20 @@
 package drawit.shapegroups1.exporter;
 
+import java.util.Map;
+
 import drawit.shapegroups1.ShapeGroup;
 
 public class ShapeGroupExporter {
 
 	public static Object toPlainData(ShapeGroup shapeGroup) {
 		
-		// eerst checken of het een leaf of nonleaf is
-		for (int i = 0; shapeGroup != null; i++)
-			if (shapeGroup.getParentGroup() != null) {
-				//...
-			}
+		return Map.of(
+				"originalExtent", Map.of(
+						"left", shapeGroup.getOriginalExtent().getLeft(), 
+						"top", shapeGroup.getOriginalExtent().getTop(),
+						"right", shapeGroup.getOriginalExtent().getRight(),
+						"bottom", shapeGroup.getOriginalExtent().getBottom()));
 		
-			else {
-				//...
-			}
 	}
 	
 }

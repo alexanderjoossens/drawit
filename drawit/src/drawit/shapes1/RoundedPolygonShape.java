@@ -3,6 +3,7 @@ package drawit.shapes1;
 import drawit.RoundedPolygon;
 import drawit.shapegroups1.ShapeGroup;
 import drawit.shapes1.ControlPoint;
+import drawit.shapegroups1.*;
 
 public class RoundedPolygonShape implements Shape {
 	private RoundedPolygon polygon;
@@ -31,14 +32,14 @@ public class RoundedPolygonShape implements Shape {
 	
 	public ControlPoint[] createControlPoints() {
 		//for (int i = 0; this.getPolygon().getVertices()[i] != null; i++)
-		return this
+		return null;
 	}
 	
 	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {
-		return null;
+		return parent.toInnerCoordinates(p);
 	}
 	
 	public drawit.IntPoint toGlobalCoordinates(drawit.IntPoint p) {
-		return null;
+		return parent.toGlobalCoordinates(p);
 	}
 }
