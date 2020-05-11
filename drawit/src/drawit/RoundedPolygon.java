@@ -1,7 +1,7 @@
 package drawit;
 
+import java.awt.Color;
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * An instance of this class is a mutable abstraction storing a rounded polygon defined by a set of 2D points with integer coordinates
@@ -23,6 +23,7 @@ public class RoundedPolygon {
 	 */
 	private IntPoint[] vertices = new IntPoint[0];
 	private int radius;
+	private Color color = Color.yellow;
 	
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
@@ -37,6 +38,8 @@ public class RoundedPolygon {
 	 * Returns the radius of the corners of this rounded polygon.
 	 */
 	public int getRadius() { return radius; }
+	
+	public Color getColor() { return color; }
 
 	/**
 	 * @mutates | this
@@ -48,15 +51,14 @@ public class RoundedPolygon {
 	/**
 	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
 	 * 
-	 * @throws IllegalArgumentException
-	 *    | newVertices == null
-	 * @throws IllegalArgumentException
-	 *    | Arrays.stream(newVertices).anyMatch(v -> v == null)
-	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon.
-	 *    | PointArrays.checkDefinesProperPolygon(newVertices) != null
 	 * @inspects | newVertices
 	 * @mutates | this
-	 * @post | PointArrays.equals(getVertices(), newVertices)
+	 * @post | Arrays.equals(getVertices(), newVertices)
+	 * @post | getRadius() == old(getRadius())
+	 * @throws IllegalArgumentException | newVertices == null
+	 * @throws IllegalArgumentException | Arrays.stream(newVertices).anyMatch(v -> v == null)
+	 * @throws IllegalArgumentException if the given vertices do not define a proper polygon.
+	 *     | PointArrays.checkDefinesProperPolygon(newVertices) != null
 	 */
 	public void setVertices(IntPoint[] newVertices) {
 		if (newVertices == null)
@@ -76,7 +78,7 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if the given radius is negative.
 	 *    | radius < 0
 	 * @mutates | this
-	 * @post | PointArrays.equals(getVertices(), old(getVertices()))
+	 * @post | Arrays.equals(getVertices(), old(getVertices()))
 	 * @post | getRadius() == radius
 	 */
 	public void setRadius(int radius) {
@@ -85,15 +87,16 @@ public class RoundedPolygon {
 		this.radius = radius;
 	}
 	
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
 	/**
-	 * @throws IllegalArgumentException
-	 *    | !(0 <= index && index <= getVertices().length)
-	 * @throws IllegalArgumentException
-	 *    | point == null
-	 * @throws IllegalArgumentException
-	 *    | PointArrays.checkDefinesProperPolygon(PointArrays.insert(getVertices(), index, point)) != null
+	 * @throws IllegalArgumentException | !(0 <= index && index <= getVertices().length)
+	 * @throws IllegalArgumentException | point == null
+	 * @throws IllegalArgumentException | PointArrays.checkDefinesProperPolygon(PointArrays.insert(getVertices(), index, point)) != null
 	 * @mutates | this
-	 * @post | PointArrays.equals(getVertices(), PointArrays.insert(old(getVertices()), index, point))
+	 * @post | Arrays.equals(getVertices(), PointArrays.insert(old(getVertices()), index, point))
 	 * @post | getRadius() == old(getRadius())
 	 */
 	public void insert(int index, IntPoint point) {
@@ -105,12 +108,10 @@ public class RoundedPolygon {
 	}
 	
 	/**
-	 * @throws IllegalArgumentException
-	 *    | !(0 <= index && index < getVertices().length)
-	 * @throws IllegalArgumentException
-	 *    | PointArrays.checkDefinesProperPolygon(PointArrays.remove(getVertices(), index)) != null
+	 * @throws IllegalArgumentException | !(0 <= index && index < getVertices().length)
+	 * @throws IllegalArgumentException | PointArrays.checkDefinesProperPolygon(PointArrays.remove(getVertices(), index)) != null
 	 * @mutates | this
-	 * @post | PointArrays.equals(getVertices(), PointArrays.remove(old(getVertices()), index))
+	 * @post | Arrays.equals(getVertices(), PointArrays.remove(old(getVertices()), index))
 	 * @post | getRadius() == old(getRadius())
 	 */
 	public void remove(int index) {
@@ -120,14 +121,11 @@ public class RoundedPolygon {
 	}
 	
 	/**
-	 * @throws IllegalArgumentException
-	 *    | !(0 <= index && index < getVertices().length)
-	 * @throws IllegalArgumentExeption
-	 *    | point == null
-	 * @throws IllegalArgumentException
-	 *    | PointArrays.checkDefinesProperPolygon(PointArrays.update(getVertices(), index, point)) != null
+	 * @throws IllegalArgumentException | !(0 <= index && index < getVertices().length)
+	 * @throws IllegalArgumentExeption | point == null
+	 * @throws IllegalArgumentException | PointArrays.checkDefinesProperPolygon(PointArrays.update(getVertices(), index, point)) != null
 	 * @mutates | this
-	 * @post | PointArrays.equals(getVertices(), PointArrays.update(old(getVertices()), index, point))
+	 * @post | Arrays.equals(getVertices(), PointArrays.update(old(getVertices()), index, point))
 	 * @post | getRadius() == old(getRadius())
 	 */
 	public void update(int index, IntPoint point) {
@@ -321,6 +319,7 @@ public class RoundedPolygon {
 				commands.append("line " + bcCornerStart.getX() + " " + bcCornerStart.getY() + " " + bcCenter.getX() + " " + bcCenter.getY() + "\n");
 			}
 		}
+		commands.append("fill " + color.getRed() + " " + color.getGreen() + " " + color.getBlue() + "\n");
 		return commands.toString();
 	}
 	
