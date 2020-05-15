@@ -8,7 +8,7 @@ public class ControlPointRoundedPolygon implements ControlPoint {
 	private RoundedPolygonShape polygon;
 	private IntPoint point;
 	
-	public ControlPointRoundedPolygon(RoundedPolygonShape polygon, IntPoint point) {
+	public ControlPointRoundedPolygon(RoundedPolygonShape polygon, IntPoint point, int index) {
 		this.polygon = polygon;
 		this.point = point;
 		

@@ -39,7 +39,7 @@ public class RoundedPolygonShape implements Shape {
 		ControlPoint[] controlpoints = new ControlPoint[vertices.length];
 		
 		for (int i=0; i<vertices.length; i++) {
-			controlpoints[i] = new ControlPointRoundedPolygon(this.getPolygon(), vertices[i]);
+			controlpoints[i] = new ControlPointRoundedPolygon(this, vertices[i], i);
 		}
 		return controlpoints;
 	}
