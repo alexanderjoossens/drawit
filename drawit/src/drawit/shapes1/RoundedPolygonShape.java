@@ -12,10 +12,6 @@ public class RoundedPolygonShape implements Shape {
 	private RoundedPolygon polygon;
 	private ShapeGroup parent;
 	
-	// moet dit wel een geneste class zijn?
-	private class ControlPoint {
-		public ControlPoint(IntPoint point) {}
-	}
 
 	public RoundedPolygonShape(drawit.shapegroups1.ShapeGroup parent, drawit.RoundedPolygon polygon) {
 		this.parent = parent;
@@ -39,14 +35,16 @@ public class RoundedPolygonShape implements Shape {
 	}
 	
 	public ControlPoint[] createControlPoints() {
+		IntPoint[] vertices = this.getPolygon().getVertices();
+		ControlPoint[] controlpoints = new ControlPoint[vertices.length];
 		
-		//hoe maak ik een array van controlpoints?
-		ControlPoint[] controlpoints = new ControlPoint();
-		
-		for (int i = 0; this.getPolygon().getVertices()[i] != null; i++)
-			controlpoints.add(ControlPoint(getPolygon().getVertices()[i]));
+		for (int i=0; i<vertices.length; i++) {
+			controlpoints[i] = new ControlPointRoundedPolygon(this.getPolygon(), vertices[i]);
+		}
 		return controlpoints;
 	}
+	
+
 	
 	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {
 		return parent.toInnerCoordinates(p);

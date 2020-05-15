@@ -1,4 +1,6 @@
 package drawit.shapes1;
+import drawit.shapes1.ControlPoint;
+
 
 public interface Shape {
 
