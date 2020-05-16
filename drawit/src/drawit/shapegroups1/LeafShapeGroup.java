@@ -16,11 +16,11 @@ import logicalcollections.LogicalList;
 import logicalcollections.LogicalSet;
 
 public class LeafShapeGroup extends ShapeGroup {
+//	 * @invar | subgroups == null || subgroups.stream().allMatch(g -> g != null && g.parent == this)
 
 	/**
 	 * @invar | (shape != null) != (subgroups != null)
 	 * @invar | subgroups == null || LogicalList.distinct(subgroups)
-	 * @invar | subgroups == null || subgroups.stream().allMatch(g -> g != null && g.parent == this)
 	 * @invar | parent == null || parent.subgroups != null && parent.subgroups.contains(this)
 	 * @invar | !getAncestors().contains(this)
 	 */
@@ -58,8 +58,8 @@ public class LeafShapeGroup extends ShapeGroup {
 		for (int i = 0; i < vertices.length; i++) {
 			IntPoint vertex = vertices[i];
 			left = Math.min(left, vertex.getX());
-			right = Math.max(right, vertex.getX());
 			top = Math.min(top, vertex.getY());
+			right = Math.max(right, vertex.getX());
 			bottom = Math.max(bottom, vertex.getY());
 		}
 		originalExtent = Extent.ofLeftTopRightBottom(left, top, right, bottom);
