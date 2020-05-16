@@ -14,9 +14,7 @@ public class ShapeGroupExporter {
 	public static Object toPlainData(ShapeGroup shapeGroup) {
 		
 		// base case: leaf group
-		System.out.print("Leaf gedeelte ");
 		if (shapeGroup instanceof LeafShapeGroup) {
-			
 			Map<String,Object> result = new HashMap<String,Object>();
 			
 			result.put("originalExtent",Map.of(
@@ -32,7 +30,7 @@ public class ShapeGroupExporter {
 			Map<String,Object> tussenresultaat = new HashMap<String,Object>();
 			List<Map<String, Object>> vertices= new ArrayList<>();
 			
-			for (int i=0; i >= ((LeafShapeGroup)shapeGroup).getShape().getVertices().length; i++)
+			for (int i=0; i < ((LeafShapeGroup)shapeGroup).getShape().getVertices().length; i++)
 					vertices.add(Map.of("x", ((LeafShapeGroup)shapeGroup).getShape().getVertices()[i].getX(),
 									 	"y", ((LeafShapeGroup)shapeGroup).getShape().getVertices()[i].getY()));
 			
@@ -57,15 +55,13 @@ public class ShapeGroupExporter {
 		  		"top", shapeGroup.getOriginalExtent().getTop(),
 		  		"right", shapeGroup.getOriginalExtent().getRight(),
 		  		"bottom", shapeGroup.getOriginalExtent().getBottom()));
-		System.out.print("hier");
-		System.out.print(shapeGroup.getOriginalExtent().getLeft());
 		result.put("extent" ,Map.of("left", shapeGroup.getExtent().getLeft(), 
         		 					"top", shapeGroup.getExtent().getTop(),
         		 					"right", shapeGroup.getExtent().getRight(),
         		 					"bottom", shapeGroup.getExtent().getBottom()));
 		
 		List<Object> children= new ArrayList<>();
-		for (int i=0; i >= ((NonleafShapeGroup)shapeGroup).getSubgroupCount(); i++)
+		for (int i=0; i < ((NonleafShapeGroup)shapeGroup).getSubgroupCount(); i++)
 				children.add(toPlainData(((NonleafShapeGroup)shapeGroup).getSubgroup(i)));
 		
 		result.put("subgroups", children);
