@@ -1,6 +1,6 @@
 package drawit.shapes1;
 
-import drawit.PointArrays;
+
 import drawit.shapes1.ControlPoint;
 import drawit.shapegroups1.*;
 
@@ -28,8 +28,13 @@ public class ShapeGroupShape implements Shape {
 	}
 	
 	public ControlPoint[] createControlPoints() {
-		PointArray[] controlpoints = new PointArray[];
-		return null;
+		Extent extent = this.getShapeGroup().getExtent();
+		ControlPoint[] controlpoints = new ControlPoint[2];
+		
+		controlpoints[0] = new ControlPointShapeGroup(this, extent.getTopLeft());
+		controlpoints[1] = new ControlPointShapeGroup(this, extent.getBottomRight());
+
+		return controlpoints;
 	}
 	
 	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {

@@ -7,10 +7,12 @@ import drawit.RoundedPolygon;
 public class ControlPointRoundedPolygon implements ControlPoint {
 	private RoundedPolygonShape polygon;
 	private IntPoint point;
+	int index;
 	
 	public ControlPointRoundedPolygon(RoundedPolygonShape polygon, IntPoint point, int index) {
 		this.polygon = polygon;
 		this.point = point;
+		this.index = index;
 		
 		
 	}
@@ -24,6 +26,9 @@ public class ControlPointRoundedPolygon implements ControlPoint {
 	public void move(IntVector delta) {
 		IntPoint globalCP = this.polygon.toGlobalCoordinates(point);
 		IntPoint movedCP = globalCP.plus(delta);
+		IntPoint shapeCP = this.polygon.toShapeCoordinates(movedCP);
+		this.point = shapeCP;
+		this.polygon.getPolygon().update(index, shapeCP);
 		
 		
 	}
