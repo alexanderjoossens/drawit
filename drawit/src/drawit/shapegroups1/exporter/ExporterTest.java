@@ -44,7 +44,7 @@ class ExporterTest {
 			    "extent", Map.of("left", 5, "top", 7, "right", 99, "bottom", 88),
 			    "subgroups", List.of(
 			        Map.of(
-			            "originalExtent", Map.of("left", 50, "top", 50, "right", 40, "bottom", 40),
+				        "originalExtent", Map.of("left", 40, "top", 40, "right", 50, "bottom", 50),
 			            "extent", Map.of("left", 40, "top", 50, "right", 60, "bottom", 70),
 			            "shape", Map.of(
 			                "vertices", List.of(
@@ -54,7 +54,7 @@ class ExporterTest {
 			                "radius", 0,
 			                "color", Map.of("red", 255, "green", 255, "blue", 0))),
 			        Map.of(
-			            "originalExtent", Map.of("left", 40, "top", 40, "right", 50, "bottom", 50),
+				        "originalExtent", Map.of("left", 45, "top", 45, "right", 55, "bottom", 55),
 			            "extent", Map.of("left", 45, "top", 55, "right", 65, "bottom", 75),
 			            "shape", Map.of(
 			                "vertices", List.of(
