@@ -14,9 +14,6 @@ public class RoundedPolygonShape implements Shape {
 	
 
 	public RoundedPolygonShape(drawit.shapegroups1.ShapeGroup parent, drawit.RoundedPolygon polygon) {
-		if (parent==null) {
-			System.out.println("hmmm");
-		}
 		this.parent = parent;
 		this.polygon = polygon;
 	}

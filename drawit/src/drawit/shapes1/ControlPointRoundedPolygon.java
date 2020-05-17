@@ -27,7 +27,6 @@ public class ControlPointRoundedPolygon implements ControlPoint {
 		IntPoint globalCP = this.polygon.toGlobalCoordinates(point);
 		IntPoint movedCP = globalCP.plus(delta);
 		IntPoint shapeCP = this.polygon.toShapeCoordinates(movedCP);
-//		this.point = shapeCP;
 		this.polygon.getPolygon().update(index, shapeCP);
 		
 		

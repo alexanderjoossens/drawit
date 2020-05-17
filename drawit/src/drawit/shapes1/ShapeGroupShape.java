@@ -31,17 +31,23 @@ public class ShapeGroupShape implements Shape {
 		Extent extent = this.getShapeGroup().getExtent();
 		ControlPoint[] controlpoints = new ControlPoint[2];
 		
-		controlpoints[0] = new ControlPointShapeGroup(this, extent.getTopLeft());
-		controlpoints[1] = new ControlPointShapeGroup(this, extent.getBottomRight());
+		controlpoints[0] = new ControlPointShapeGroup(this, extent.getTopLeft(), true);
+		controlpoints[1] = new ControlPointShapeGroup(this, extent.getBottomRight(), false);
 
 		return controlpoints;
 	}
 	
 	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {
+		if (this.getParent()==null) {
+			return p;
+		}
 		return getShapeGroup().toInnerCoordinates(p);
 	}
 	
 	public drawit.IntPoint toGlobalCoordinates(drawit.IntPoint p) {
+		if (this.getParent()==null) {
+			return p;
+		}
 		return getShapeGroup().toGlobalCoordinates(p);
 	}
 }
