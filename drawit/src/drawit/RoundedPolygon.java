@@ -3,6 +3,9 @@ package drawit;
 import java.awt.Color;
 import java.util.Arrays;
 
+import drawit.shapegroups1.Extent;
+import drawit.shapegroups1.LeafShapeGroup;
+
 /**
  * An instance of this class is a mutable abstraction storing a rounded polygon defined by a set of 2D points with integer coordinates
  * and a nonnegative corner radius.
@@ -24,6 +27,7 @@ public class RoundedPolygon {
 	private IntPoint[] vertices = new IntPoint[0];
 	private int radius;
 	private Color color = Color.yellow;
+	private Extent extent;
 	
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
@@ -70,6 +74,14 @@ public class RoundedPolygon {
 		if (msg != null)
 			throw new IllegalArgumentException(msg);
 		vertices = copy;
+		setPolygonExtent();
+	}
+	
+	private void setPolygonExtent() {
+		LeafShapeGroup leaf = new LeafShapeGroup(this);
+		Extent newExtent = leaf.getExtent();
+		this.extent = newExtent;
+
 	}
 	
 	/**
@@ -105,6 +117,8 @@ public class RoundedPolygon {
 		if (point == null)
 			throw new IllegalArgumentException("point is null");
 		setVertices(PointArrays.insert(vertices, index, point));
+		setPolygonExtent();
+
 	}
 	
 	/**
@@ -118,6 +132,8 @@ public class RoundedPolygon {
 		if (!(0 <= index && index < getVertices().length))
 			throw new IllegalArgumentException("index out of range");
 		setVertices(PointArrays.remove(vertices, index));
+		setPolygonExtent();
+
 	}
 	
 	/**
@@ -134,6 +150,7 @@ public class RoundedPolygon {
 		if (point == null)
 			throw new IllegalArgumentException("point is null");
 		setVertices(PointArrays.update(vertices, index, point));
+		setPolygonExtent();
 	}
 	
 	/**
