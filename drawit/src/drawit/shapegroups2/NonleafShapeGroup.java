@@ -211,12 +211,6 @@ public class NonleafShapeGroup extends ShapeGroup{
 		return child;
 	}
 	
-	/**
-	 * Returns the list of all shapes contained directly or indirectly by this shape group, in depth-first order.
-	 */
-	public List<RoundedPolygon> getAllShapes() {
-		return subgroups.stream().flatMap(subgroup -> subgroup.getAllShapes().stream()).collect(Collectors.toList());
-	}
 	
 	/**
 	 * Moves this shape group to the front of its parent's list of subgroups.
@@ -274,7 +268,6 @@ public class NonleafShapeGroup extends ShapeGroup{
 	 * 
 	 * For the syntax of the drawing commands, see {@code RoundedPolygon.getDrawingCommands()}.
 	 * 
-	 * @inspects | this, ...getAllShapes()
 	 * @post | result != null
 	 */
 	public String getDrawingCommands() {

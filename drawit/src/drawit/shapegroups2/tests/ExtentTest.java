@@ -1,13 +1,15 @@
 package drawit.shapegroups2.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
+import drawit.shapegroups2.*;
 
-import org.junit.jupiter.api.Test;
-
-import drawit.IntPoint;
-import drawit.RoundedPolygon;
 import drawit.shapegroups2.Extent;
 import drawit.shapegroups2.ShapeGroup;
+
+import drawit.*;
+import drawit.shapegroups2.LeafShapeGroup;
+
+import org.junit.jupiter.api.Test;
 
 class ExtentTest {
 
@@ -17,12 +19,16 @@ class ExtentTest {
 		RoundedPolygon triangle = new RoundedPolygon();
 		triangle.setVertices(new IntPoint[] {new IntPoint(10, 10), new IntPoint(30, 10), new IntPoint(20, 20)});
 
-		ShapeGroup leaf = new ShapeGroup(triangle);
+		ShapeGroup leaf = new LeafShapeGroup(triangle);
 		assert leaf.getExtent().getTopLeft().equals(new IntPoint(10, 10)) && leaf.getExtent().getBottomRight().equals(new IntPoint(30, 20));
 		leaf.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 20, 10));
+		
+		ShapeGroup leaf29 = new LeafShapeGroup(triangle);
+		assert leaf29.getExtent().getTopLeft().equals(new IntPoint(10, 10)) && leaf29.getExtent().getBottomRight().equals(new IntPoint(30, 20));
+		leaf29.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 20, 10));
 
 		// For simplicity, we here ignore the constraint that a non-leaf ShapeGroup shall have at least two subgroups.
-		ShapeGroup nonLeaf = new ShapeGroup(new ShapeGroup[] {leaf});
+		ShapeGroup nonLeaf = new NonleafShapeGroup(new ShapeGroup[] {leaf, leaf29});
 		assert nonLeaf.getExtent().getTopLeft().equals(new IntPoint(0, 0));
 		assert nonLeaf.getExtent().getBottomRight().equals(new IntPoint(20, 10));
 		nonLeaf.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 10, 5));
@@ -33,15 +39,15 @@ class ExtentTest {
 		RoundedPolygon rectangle = new RoundedPolygon();
 		rectangle.setVertices(new IntPoint[] {new IntPoint(10, 20), new IntPoint(30, 20), new IntPoint(30, 10), new IntPoint(10, 10)});
 		
-		ShapeGroup leaf2 = new ShapeGroup(square);
+		ShapeGroup leaf2 = new LeafShapeGroup(square);
 		assert leaf2.getExtent().getTopLeft().equals(new IntPoint(10, 10)) && leaf2.getExtent().getBottomRight().equals(new IntPoint(20, 20));
 		leaf2.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 50, 50));
-		ShapeGroup leaf3 = new ShapeGroup(rectangle);
+		ShapeGroup leaf3 = new LeafShapeGroup(rectangle);
 		assert leaf3.getExtent().getTopLeft().equals(new IntPoint(10, 10));
 		assert leaf3.getExtent().getBottomRight().equals(new IntPoint(30, 20));
 		leaf3.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 60, 60));
 		
-		ShapeGroup nonLeaf2 = new ShapeGroup(new ShapeGroup[] {leaf2, leaf3});
+		ShapeGroup nonLeaf2 = new NonleafShapeGroup(new ShapeGroup[] {leaf2, leaf3});
 		assert nonLeaf.getExtent().getTopLeft().equals(new IntPoint(0, 0));
 		assert nonLeaf2.getExtent().getBottomRight().equals(new IntPoint(60, 60));
 		nonLeaf2.setExtent(Extent.ofLeftTopRightBottom(0, 0, 70, 70));

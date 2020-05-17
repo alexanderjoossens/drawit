@@ -2,6 +2,8 @@ package drawit.shapegroups1.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 import drawit.IntPoint;
 import drawit.RoundedPolygon;
 import drawit.shapegroups1.Extent;
@@ -9,7 +11,6 @@ import drawit.shapegroups1.LeafShapeGroup;
 import drawit.shapegroups1.NonleafShapeGroup;
 import drawit.shapegroups1.ShapeGroup;
 
-import org.junit.jupiter.api.Test;
 
 class ShapeGroupTest {
 
@@ -22,8 +23,12 @@ class ShapeGroupTest {
 		assert leaf.getExtent().getTopLeft().equals(new IntPoint(8, 8))
 				&& leaf.getExtent().getBottomRight().equals(new IntPoint(10, 10));
 		leaf.setExtent(Extent.ofLeftTopWidthHeight(2, 2, 3, 3));
+		
+		ShapeGroup leaf29 = new LeafShapeGroup(triangle);
+		assert leaf29.getExtent().getTopLeft().equals(new IntPoint(10, 10)) && leaf29.getExtent().getBottomRight().equals(new IntPoint(30, 20));
+		leaf29.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 20, 10));
 
-		ShapeGroup nonLeaf = new NonleafShapeGroup(new ShapeGroup[] { leaf });
+		ShapeGroup nonLeaf = new NonleafShapeGroup(new ShapeGroup[] { leaf, leaf29 });
 		assert nonLeaf.getExtent().getTopLeft().equals(new IntPoint(2, 2));
 		assert nonLeaf.getExtent().getBottomRight().equals(new IntPoint(5, 5));
 		nonLeaf.setExtent(Extent.ofLeftTopWidthHeight(0, 9, 3, 1));
@@ -54,15 +59,15 @@ class ShapeGroupTest {
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(0).equals(leaf1);
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(1).equals(leaf2);
 
-//		((LeafShapeGroup)leaf2).bringToFront();
-//		assert nonLeaf1.getSubgroupCount() == 2;
-//		assert nonLeaf1.getSubgroup(0).equals(leaf2);
-//		assert nonLeaf1.getSubgroup(1).equals(leaf1);
-//
-//		leaf2.sendToBack();
-//		assert nonLeaf1.getSubgroupCount() == 2;
-//		assert nonLeaf1.getSubgroup(1).equals(leaf2);
-//		assert nonLeaf1.getSubgroup(0).equals(leaf1);
+		((LeafShapeGroup)leaf2).bringToFront();
+		assert ((NonleafShapeGroup)nonLeaf1).getSubgroupCount() == 2;
+		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(0).equals(leaf2);
+		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(1).equals(leaf1);
+
+		((LeafShapeGroup)leaf2).sendToBack();
+		assert ((NonleafShapeGroup)nonLeaf1).getSubgroupCount() == 2;
+		assert ((NonleafShapeGroup)nonLeaf1).equals(leaf2);
+		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(0).equals(leaf1);
 
 		RoundedPolygon polygon3 = new RoundedPolygon();
 		polygon1.setVertices(
@@ -83,27 +88,27 @@ class ShapeGroupTest {
 		
 		
 		ShapeGroup[] tempArray2 = new ShapeGroup[] { leaf3, leaf4, leaf5 };
-		ShapeGroup nonLeaf2 = new ShapeGroup(tempArray2);
+		ShapeGroup nonLeaf2 = new NonleafShapeGroup(tempArray2);
 		
-		assert nonLeaf2.getSubgroupCount() == 3;
-		assert nonLeaf2.getSubgroup(0).equals(leaf3);
-		assert nonLeaf2.getSubgroup(1).equals(leaf4);
-		assert nonLeaf2.getSubgroup(2).equals(leaf5);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroupCount() == 3;
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(0).equals(leaf3);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(1).equals(leaf4);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(2).equals(leaf5);
 
-		leaf4.bringToFront();
-		assert nonLeaf2.getSubgroup(0).equals(leaf4);
-		assert nonLeaf2.getSubgroup(1).equals(leaf3);
-		assert nonLeaf2.getSubgroup(2).equals(leaf5);
+		((LeafShapeGroup)leaf4).bringToFront();
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(0).equals(leaf4);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(1).equals(leaf3);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(2).equals(leaf5);
 		
-		leaf5.bringToFront();
-		assert nonLeaf2.getSubgroup(0).equals(leaf5);
-		assert nonLeaf2.getSubgroup(1).equals(leaf4);
-		assert nonLeaf2.getSubgroup(2).equals(leaf3);
+		((LeafShapeGroup)leaf5).bringToFront();
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(0).equals(leaf5);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(1).equals(leaf4);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(2).equals(leaf3);
 		
-		leaf4.sendToBack();
-		assert nonLeaf2.getSubgroup(0).equals(leaf5);
-		assert nonLeaf2.getSubgroup(1).equals(leaf3);
-		assert nonLeaf2.getSubgroup(2).equals(leaf4);
+		((LeafShapeGroup)leaf4).sendToBack();
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(0).equals(leaf5);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(1).equals(leaf3);
+		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(2).equals(leaf4);
 		
 		
 	}
