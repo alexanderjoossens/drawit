@@ -27,7 +27,7 @@ public class RoundedPolygon {
 	private IntPoint[] vertices = new IntPoint[0];
 	private int radius;
 	private Color color = Color.yellow;
-	private Extent extent;
+	private Extent boundingBox;
 	
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
@@ -80,8 +80,12 @@ public class RoundedPolygon {
 	private void setPolygonExtent() {
 		LeafShapeGroup leaf = new LeafShapeGroup(this);
 		Extent newExtent = leaf.getExtent();
-		this.extent = newExtent;
+		this.boundingBox = newExtent;
 
+	}
+	
+	public Extent getBoundingBox() {
+		return this.boundingBox;
 	}
 	
 	/**
