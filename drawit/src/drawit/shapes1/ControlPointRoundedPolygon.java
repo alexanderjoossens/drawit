@@ -40,6 +40,7 @@ public class ControlPointRoundedPolygon implements ControlPoint {
 		for (int i = 0; i < vertices.length; i++) {
 			IntPoint vertex = vertices[i];
 			if (vertex.getX() == cp.getX() & vertex.getY() == cp.getY() & duplicateFound == false) {
+				duplicateFound = true;
 				this.polygon.getPolygon().remove(i);
 				
 			}
