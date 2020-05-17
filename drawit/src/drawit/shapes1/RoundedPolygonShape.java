@@ -14,6 +14,9 @@ public class RoundedPolygonShape implements Shape {
 	
 
 	public RoundedPolygonShape(drawit.shapegroups1.ShapeGroup parent, drawit.RoundedPolygon polygon) {
+		if (parent==null) {
+			System.out.println("hmmm");
+		}
 		this.parent = parent;
 		this.polygon = polygon;
 	}
@@ -47,10 +50,16 @@ public class RoundedPolygonShape implements Shape {
 
 	
 	public drawit.IntPoint toShapeCoordinates(drawit.IntPoint p) {
+		if (this.getParent()==null) {
+			return p;
+		}
 		return parent.toInnerCoordinates(p);
 	}
 	
 	public drawit.IntPoint toGlobalCoordinates(drawit.IntPoint p) {
+		if (this.getParent()==null) {
+			return p;
+		}
 		return parent.toGlobalCoordinates(p);
 	}
 }
