@@ -24,12 +24,12 @@ class ShapeGroupTest {
 		leaf.setExtent(Extent.ofLeftTopWidthHeight(2, 2, 3, 3));
 		
 		ShapeGroup leaf29 = new LeafShapeGroup(triangle);
-		assert leaf29.getExtent().getTopLeft().equals(new IntPoint(10, 10)) && leaf29.getExtent().getBottomRight().equals(new IntPoint(30, 20));
+		assert leaf29.getExtent().getTopLeft().equals(new IntPoint(8, 8)) && leaf29.getExtent().getBottomRight().equals(new IntPoint(10, 10));
 		leaf29.setExtent(Extent.ofLeftTopWidthHeight(0, 0, 20, 10));
 
-		ShapeGroup nonLeaf = new NonleafShapeGroup(new ShapeGroup[] { leaf , leaf29});
-		assert nonLeaf.getExtent().getTopLeft().equals(new IntPoint(2, 2));
-		assert nonLeaf.getExtent().getBottomRight().equals(new IntPoint(5, 5));
+		ShapeGroup nonLeaf = new NonleafShapeGroup(new ShapeGroup[] { leaf, leaf29 });
+		assert nonLeaf.getExtent().getTopLeft().equals(new IntPoint(0, 0));
+		assert nonLeaf.getExtent().getBottomRight().equals(new IntPoint(20, 10));
 		nonLeaf.setExtent(Extent.ofLeftTopWidthHeight(0, 9, 3, 1));
 		assert nonLeaf.getExtent().getTopLeft().equals(new IntPoint(0, 9));
 		assert nonLeaf.getExtent().getBottomRight().equals(new IntPoint(3, 10));
@@ -58,33 +58,31 @@ class ShapeGroupTest {
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(0).equals(leaf1);
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(1).equals(leaf2);
 
-		(leaf2).bringToFront();
+		((LeafShapeGroup)leaf2).bringToFront();
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroupCount() == 2;
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(0).equals(leaf2);
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(1).equals(leaf1);
 
 		((LeafShapeGroup)leaf2).sendToBack();
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroupCount() == 2;
-		assert ((NonleafShapeGroup)nonLeaf1).equals(leaf2);
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(0).equals(leaf1);
-		
+		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(1).equals(leaf2) ;
+
 		RoundedPolygon polygon3 = new RoundedPolygon();
-		polygon1.setVertices(
+		polygon3.setVertices(
 				new IntPoint[] { new IntPoint(10, 10), new IntPoint(10, 8), new IntPoint(9, 8)});
 
 		RoundedPolygon polygon4 = new RoundedPolygon();
-		polygon2.setVertices(
+		polygon4.setVertices(
 				new IntPoint[] { new IntPoint(8, 10), new IntPoint(10, 10), new IntPoint(10, 9)});
 		
 		RoundedPolygon polygon5 = new RoundedPolygon();
-		polygon1.setVertices(
+		polygon5.setVertices(
 				new IntPoint[] { new IntPoint(0, 10), new IntPoint(0, 8), new IntPoint(9, 8)});
 
 		ShapeGroup leaf3 = new LeafShapeGroup(polygon3);
 		ShapeGroup leaf4 = new LeafShapeGroup(polygon4);
 		ShapeGroup leaf5 = new LeafShapeGroup(polygon5);
-
-		
 		
 		ShapeGroup[] tempArray2 = new ShapeGroup[] { leaf3, leaf4, leaf5 };
 		ShapeGroup nonLeaf2 = new NonleafShapeGroup(tempArray2);
@@ -110,7 +108,6 @@ class ShapeGroupTest {
 		assert ((NonleafShapeGroup)nonLeaf2).getSubgroup(2).equals(leaf4);
 		
 		
-
 	}
 
 }
