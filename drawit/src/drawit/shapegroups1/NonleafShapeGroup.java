@@ -146,39 +146,39 @@ public class NonleafShapeGroup extends ShapeGroup {
 	}
 	
 	
-	/**
-	 * Moves this shape group to the front of its parent's list of subgroups.
-	 * 
-	 * @throws UnsupportedOperationException if this shape group has no parent
-	 *    | getParentGroup() == null
-	 * @mutates_properties | getParentGroup().getSubgroups()
-	 * @post | getParentGroup().getSubgroups().equals(
-	 *       |     LogicalList.plusAt(LogicalList.minus(old(getParentGroup().getSubgroups()), this), 0, this))
-	 */
-	public void bringToFront() {
-		if (parent == null)
-			throw new UnsupportedOperationException("no parent");
-		
-		parent.subgroups.remove(this);
-		parent.subgroups.add(0, this);
-	}
-	
-	/**
-	 * Moves this shape group to the back of its parent's list of subgroups.
-	 * 
-	 * @throws UnsupportedOperationException if this shape group has no parent
-	 *    | getParentGroup() == null
-	 * @mutates_properties | getParentGroup().getSubgroups()
-	 * @post | getParentGroup().getSubgroups().equals(
-	 *       |     LogicalList.plus(LogicalList.minus(old(getParentGroup().getSubgroups()), this), this))
-	 */
-	public void sendToBack() {
-		if (parent == null)
-			throw new UnsupportedOperationException("no parent");
-		
-		parent.subgroups.remove(this);
-		parent.subgroups.add(this);
-	}
+//	/**
+//	 * Moves this shape group to the front of its parent's list of subgroups.
+//	 * 
+//	 * @throws UnsupportedOperationException if this shape group has no parent
+//	 *    | getParentGroup() == null
+//	 * @mutates_properties | getParentGroup().getSubgroups()
+//	 * @post | getParentGroup().getSubgroups().equals(
+//	 *       |     LogicalList.plusAt(LogicalList.minus(old(getParentGroup().getSubgroups()), this), 0, this))
+//	 */
+//	public void bringToFront() {
+//		if (parent == null)
+//			throw new UnsupportedOperationException("no parent");
+//		
+//		parent.subgroups.remove(this);
+//		parent.subgroups.add(0, this);
+//	}
+//	
+//	/**
+//	 * Moves this shape group to the back of its parent's list of subgroups.
+//	 * 
+//	 * @throws UnsupportedOperationException if this shape group has no parent
+//	 *    | getParentGroup() == null
+//	 * @mutates_properties | getParentGroup().getSubgroups()
+//	 * @post | getParentGroup().getSubgroups().equals(
+//	 *       |     LogicalList.plus(LogicalList.minus(old(getParentGroup().getSubgroups()), this), this))
+//	 */
+//	public void sendToBack() {
+//		if (parent == null)
+//			throw new UnsupportedOperationException("no parent");
+//		
+//		parent.subgroups.remove(this);
+//		parent.subgroups.add(this);
+//	}
 	
 	/**
 	 * Returns a textual representation of a sequence of drawing commands for drawing

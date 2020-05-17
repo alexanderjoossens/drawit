@@ -44,18 +44,6 @@ public class IntPointTest {
 		vector1 = point1.minus(point6);
 		assert vector1.getX() == 10 && vector1.getY() == 10;
 
-		// exitPathIntersect_Test
-		IntPoint point7 = new IntPoint(1, 0);
-		IntPoint point8 = new IntPoint(1, 2);
-		IntPoint point9 = new IntPoint(0, 1);
-		IntPoint point10 = new IntPoint(0, 2);
-		IntPoint point11 = new IntPoint(0, 0);
-		IntPoint point12 = new IntPoint(2, 1);
-
-		assert point9.exitPathIntersect(point7, point8) == true;
-		assert point10.exitPathIntersect(point7, point8) == false;
-		assert point11.exitPathIntersect(point7, point8) == false;
-		assert point12.exitPathIntersect(point7, point8) == false;
 
 	}
 

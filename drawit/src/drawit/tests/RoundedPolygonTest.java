@@ -106,13 +106,6 @@ public class RoundedPolygonTest {
 		assert poly1.getVertices().length == 4;
 		assert poly1.getVertices()[3] == point16;
 		
-		// normalize_Test
-		DoubleVector vector1 = new DoubleVector(2,0);
-		DoubleVector vector2 = RoundedPolygon.normalize(vector1);
-		
-		assert (vector2.getSize() < 1.01 && vector2.getSize() > 0.99);
-				
-		
 		// getDrawingCommands_Test
 		RoundedPolygon poly2 = new RoundedPolygon();
 		IntPoint point12 = new IntPoint(0, 0);

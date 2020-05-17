@@ -58,7 +58,7 @@ class ShapeGroupTest {
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(0).equals(leaf1);
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(1).equals(leaf2);
 
-		((LeafShapeGroup)leaf2).bringToFront();
+		(leaf2).bringToFront();
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroupCount() == 2;
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(0).equals(leaf2);
 		assert ((NonleafShapeGroup)nonLeaf1).getSubgroup(1).equals(leaf1);
