@@ -46,10 +46,7 @@ public class Extent extends Object {
 
 	@Override
 	public String toString() {
-// deze is fout denk ik want alles moet een string zijn? ofniet?
-//		return "left " + this.getLeft() + "top " + this.getTop()
-//		+ "right " + this.getRight() + "bottom " + this.getBottom();
-		return "this.getLeft() " + "this.getTop() " + "this.getRight() " + "this.getBottom()";
+		return "Extent [left=" + left + ", top=" + top + ", right=" + right + ", bottom=" + bottom + "]";
 	}
 	
 
