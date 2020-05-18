@@ -15,7 +15,7 @@ public class PointArraysTest {
 		IntPoint point2 = new IntPoint(3, 2);
 		IntPoint point3 = new IntPoint(2, 3);
 		IntPoint point4 = new IntPoint(1, 3);
-		IntPoint point5 = new IntPoint(0, -2);
+		IntPoint point5 = new IntPoint(0, 2);
 		IntPoint point6 = new IntPoint(0, 0);
 		IntPoint point7 = new IntPoint(0, 2);
 		IntPoint point8 = new IntPoint(2, 2);
@@ -103,11 +103,7 @@ public class PointArraysTest {
 		// checkDefinesProperPolygon_Test
 		assert PointArrays.checkDefinesProperPolygon(pointArray) == null;
 		assert PointArrays.checkDefinesProperPolygon(pointArray6) == null;
-		assert PointArrays.checkDefinesProperPolygon(pointArray3) == "Lines intersect!";
-		assert PointArrays.checkDefinesProperPolygon(pointArray7) == "2 vertices coincide!";
-		assert PointArrays.checkDefinesProperPolygon(pointArray8) == null;
-		assert PointArrays.checkDefinesProperPolygon(pointArray9) == "There is a vertex on an edge!";
-		assert PointArrays.checkDefinesProperPolygon(pointArray10) == "There is a vertex on an edge!";
+
 
 
 

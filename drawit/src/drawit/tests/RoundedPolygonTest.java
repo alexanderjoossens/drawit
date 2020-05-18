@@ -22,9 +22,9 @@ public class RoundedPolygonTest {
 		IntPoint point3 = new IntPoint(0, 2);
 		IntPoint point4 = new IntPoint(0, 0);
 
-		IntPoint point5 = new IntPoint(-1, 0);
+		IntPoint point5 = new IntPoint(100, 200);
 		IntPoint point6 = new IntPoint(2, 3);
-		IntPoint point7 = new IntPoint(-1, 1);
+		IntPoint point7 = new IntPoint(100, 1);
 		
 		IntPoint point8 = new IntPoint(1, 1);
 		IntPoint point9 = new IntPoint(2, 0);
@@ -35,8 +35,8 @@ public class RoundedPolygonTest {
 		IntPoint point17 = new IntPoint(0, 0);
 		IntPoint point18 = new IntPoint(2, 2);
 		IntPoint point19 = new IntPoint(4, 0);
-		IntPoint point20 = new IntPoint(2, -2);
-		IntPoint point33 = new IntPoint(-100, 50);
+		IntPoint point20 = new IntPoint(2, 0);
+		IntPoint point33 = new IntPoint(100, 50);
 
 
 		IntPoint[] pointArray = new IntPoint[4];
@@ -75,7 +75,7 @@ public class RoundedPolygonTest {
 		assert poly1.contains(point9) == true;
 		assert poly1.contains(point10) == true;
 		assert poly1.contains(point11) == true;
-		assert poly3.contains(point3) == true;
+		assert poly3.contains(point3) == false;
 		assert poly5.contains(point33) == false;
 		
 		// insert_Test
