@@ -38,7 +38,7 @@ class Part5Test {
 		ShapeGroup leaf2 = new LeafShapeGroup(triangle);
 		leaf2.setExtent(Extent.ofLeftTopWidthHeight(10, 10, 30, 30));
 
-		//assertEquals("Extent[left=10, top=10, right=40, bottom=40]", leaf1.getExtent().toString());
+		assertEquals("Extent [left=10, top=10, right=40, bottom=40]", leaf1.getExtent().toString());
 		assertEquals(leaf2.getExtent().toString(), leaf1.getExtent().toString());
 		
 	}
