@@ -49,6 +49,7 @@ public class ShapeGroupShape implements Shape {
 
 		@Override
 		public void remove() {
+			throw new UnsupportedOperationException("Can't use this method on object ShapeGroupShape");
 			
 			
 		}
