@@ -14,6 +14,42 @@ public class Extent {
 	private int width;
 	private int height;
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + height;
+		result = prime * result + left;
+		result = prime * result + top;
+		result = prime * result + width;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Extent other = (Extent) obj;
+		if (height != other.height)
+			return false;
+		if (left != other.left)
+			return false;
+		if (top != other.top)
+			return false;
+		if (width != other.width)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Extent [left=" + left + ", top=" + top + ", width=" + width + ", height=" + height + "]";
+	}
+
 	/**
 	 * Returns whether this extent, considered as a closed set of points 
 	 * (i.e. including its edges and its vertices), contains the given point.
