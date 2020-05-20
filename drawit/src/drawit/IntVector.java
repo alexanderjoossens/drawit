@@ -23,14 +23,22 @@ public class IntVector {
 		this.y = y;
 	}
 	
-	/** Returns {@code true} if this vector has the same coordinates as the given vector; returns {@code false} otherwise.
-	 * 
+	/**
 	 * @pre | other != null
-	 * @post | result == (this.getX() == other.getX() && this.getY() == other.getY()) 
+	 * @post | result == (getX() == other.getX() && getY() == other.getY())
 	 */
 	public boolean equals(IntVector other) {
-		return other.x == x && other.y == y;
+		return x == other.x && y == other.y;
 	}
+	
+	/**
+	 * @post | result == (other instanceof IntVector && equals((IntVector)other))
+	 */
+	@Override
+	public boolean equals(Object other) {
+		return other instanceof IntVector && equals((IntVector)other);
+	}
+	
 
 	/**
 	 * Returns the cross product of this vector and the given vector.
