@@ -23,7 +23,7 @@ public class IntVector {
 		this.y = y;
 	}
 	
-	/**
+	/** Returns {@code true} if this vector equals the given vector; returns {@code false} otherwise.
 	 * @pre | other != null
 	 * @post | result == (getX() == other.getX() && getY() == other.getY())
 	 */
@@ -39,6 +39,14 @@ public class IntVector {
 		return other instanceof IntVector && equals((IntVector)other);
 	}
 	
+	/**
+	 * Returns whether {@code v1} and {@code v2} are either both {@code null} or equal vectors.
+	 * 
+	 * @post | result == (v1 == v2 || v1 != null && v2 != null && v1.equals(v2))
+	 */
+	public static boolean equals(IntVector v1, IntVector v2) {
+		return v1 == v2 || v1 != null && v2 != null && v1.equals(v2);
+	}
 
 	/**
 	 * Returns the cross product of this vector and the given vector.
