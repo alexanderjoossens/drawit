@@ -22,6 +22,15 @@ public class IntVector {
 		this.x = x;
 		this.y = y;
 	}
+	
+	/** Returns {@code true} if this vector has the same coordinates as the given vector; returns {@code false} otherwise.
+	 * 
+	 * @pre | other != null
+	 * @post | result == (this.getX() == other.getX() && this.getY() == other.getY()) 
+	 */
+	public boolean equals(IntVector other) {
+		return other.x == x && other.y == y;
+	}
 
 	/**
 	 * Returns the cross product of this vector and the given vector.
