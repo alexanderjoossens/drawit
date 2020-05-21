@@ -103,6 +103,6 @@ public class ShapeGroupShape implements Shape {
 		if (this.getParent()==null) {
 			return p;
 		}
-		return getShapeGroup().toGlobalCoordinates(p);
+		return this.getParent().toGlobalCoordinates(p);
 	}
 }
