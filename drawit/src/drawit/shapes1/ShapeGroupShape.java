@@ -39,12 +39,12 @@ public class ShapeGroupShape implements Shape {
 			Extent newExtent;
 			if (isTopLeftExtent) {
 				newExtent = Extent.ofLeftTopRightBottom(shapeCP.getX(), shapeCP.getY(), usedExtent.getRight(), usedExtent.getBottom());
+				this.shape.getShapeGroup().setExtent(newExtent);
 			}
 			else {
 				newExtent = Extent.ofLeftTopRightBottom( usedExtent.getLeft(), usedExtent.getTop(), shapeCP.getX(), shapeCP.getY());
-
+				this.shape.getShapeGroup().setExtent(newExtent);
 			}
-			this.shape.getShapeGroup().setExtent(newExtent);
 		}
 
 		@Override
