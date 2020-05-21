@@ -96,7 +96,7 @@ public class ShapeGroupShape implements Shape {
 		if (this.getParent()==null) {
 			return p;
 		}
-		return getShapeGroup().toInnerCoordinates(p);
+		return this.getParent().toInnerCoordinates(p);
 	}
 	
 	public drawit.IntPoint toGlobalCoordinates(drawit.IntPoint p) {
